@@ -19,21 +19,9 @@ const Button = styled.button`
   }
 `;
 
-const PrincipalBox = styled.div`
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Opcional: hace que el contenedor ocupe toda la altura de la pantalla */
-  background-color: #eef;
-`;
-
-const FormContainer = styled.div`
-  background-color: #fff;
+const FormDiv = styled.div`
   padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Agregar sombreado */
-  width: 300px; /* Ajustar el ancho del formulario */
+
 `;
 
 const Title = styled.h1`
@@ -83,21 +71,34 @@ function Login() {
   };
 
   return (
-    <PrincipalBox>
-      <FormContainer>
+    <div>
+      <FormDiv>
         <form onSubmit={handleSubmit}>
-          <Title>Ingresar</Title>
+          <Title>Bienvenido a INFINIT!</Title>
+          <h3>Ingrese sus datos para loguearse</h3>
+
           <Label>Usuario</Label>
-          <Input type="text" name="usuario" value={formData.usuario} onChange={handleChange} />
-
+          <Input
+            type="text"
+            name="usuario"
+            placeholder="usuario"
+            value={formData.usuario}
+            onChange={handleChange} 
+          />
           <Label>Contraseña</Label>
-          <Input type="password" name="password" value={formData.password} onChange={handleChange} />
+          <Input
+            type="password"
+            name="password"
+            placeholder="contraseña"
+            value={formData.password}
+            onChange={handleChange}
+          />
 
-          <Button type="submit">Login</Button>
+          <Button type="submit">Iniciar Sesión</Button>
         </form>
         <Register></Register>
-      </FormContainer>
-    </PrincipalBox>
+      </FormDiv>
+    </div>
   );
 }
 

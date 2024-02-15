@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const Button = styled.button`
+  margin-top: 10px;
   width: 100%;
   padding: 10px 20px;
   background-color: #339966;
@@ -45,6 +46,9 @@ function Register() {
     email: '',
   });
 
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [enviandoPeticion, setEnviandoPeticion] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -55,6 +59,8 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setEnviandoPeticion(true);
+
     axios.post("http://localhost:8080/usuario/registro", formData)
         .then(response => {
             console.log('¡Datos enviados con éxito!', response.data);
@@ -62,29 +68,72 @@ function Register() {
         })
         .catch(error => {
             console.error('Error al enviar los datos:', error);
+        })
+        .finally(() => {
+            setEnviandoPeticion(false);
         });
   };
 
+  const toggleFormulario = () => {
+    setMostrarFormulario(prevState => !prevState);
+  };
+
   return (
+    <div>
+      <Button onClick={toggleFormulario}>{mostrarFormulario ? 'Registro' : 'Registrarse'}</Button>
+      {mostrarFormulario && (
         <form onSubmit={handleSubmit}>
           <Title>Registro</Title>
+
           <Label>Usuario</Label>
-          <Input type="text" name="usuario" value={formData.usuario} onChange={handleChange} />
+          <Input
+            type="text"
+            name="usuario"
+            placeholder="usuario"
+            value={formData.usuario}
+            onChange={handleChange}
+          />
 
           <Label>Contraseña</Label>
-          <Input type="password" name="password" value={formData.password} onChange={handleChange} />
+          <Input
+            type="password"
+            name="password"
+            placeholder="contraseña"
+            value={formData.password}
+            onChange={handleChange}
+          />
 
           <Label>Nombre</Label>
-          <Input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
+          <Input
+            type="text"
+            name="nombre"
+            placeholder="nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+          />
 
           <Label>Apellido</Label>
-          <Input type="text" name="apellido" value={formData.apellido} onChange={handleChange} />
+          <Input
+            type="text"
+            name="apellido"
+            placeholder="apellido"
+            value={formData.apellido}
+            onChange={handleChange}
+          />
 
           <Label>Email</Label>
-          <Input type="email" name="email" value={formData.email} onChange={handleChange} />
+          <Input
+            type="email"
+            name="email"
+            placeholder="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
 
-          <Button type="submit">Registro</Button>
+          <Button type="submit" disabled={enviandoPeticion}>Enviar</Button>
         </form>
+      )}
+    </div>
   );
 }
 
