@@ -30,11 +30,16 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  width: 100%;
+  width: 95%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 20px;
+`;
+
+const SuccessMessage = styled.div`
+  color: green;
+  text-align: center;
 `;
 
 function Register() {
@@ -48,6 +53,7 @@ function Register() {
 
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [enviandoPeticion, setEnviandoPeticion] = useState(false);
+  const [registroExitoso, setRegistroExitoso] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,7 +70,14 @@ function Register() {
     axios.post("http://localhost:8080/usuario/registro", formData)
         .then(response => {
             console.log('¡Datos enviados con éxito!', response.data);
-            // Puedes realizar otras acciones después de enviar los datos, como redireccionar a otra página
+            setRegistroExitoso(true); // Mostrar mensaje de éxito
+            setFormData({ // Limpiar el formulario
+              usuario: '',
+              password: '',
+              nombre: '',
+              apellido: '',
+              email: '',
+            });
         })
         .catch(error => {
             console.error('Error al enviar los datos:', error);
@@ -131,6 +144,7 @@ function Register() {
           />
 
           <Button type="submit" disabled={enviandoPeticion}>Enviar</Button>
+          {registroExitoso && <SuccessMessage>¡Registrado correctamente!</SuccessMessage>}
         </form>
       )}
     </div>

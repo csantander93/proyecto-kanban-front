@@ -21,7 +21,6 @@ const Button = styled.button`
 
 const FormDiv = styled.div`
   padding: 40px;
-
 `;
 
 const Title = styled.h1`
@@ -35,7 +34,7 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  width: 100%;
+  width: 95%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
