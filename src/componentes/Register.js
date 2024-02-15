@@ -1,0 +1,91 @@
+import styled from "styled-components";
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const Button = styled.button`
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #339966;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #3BB377;
+  }
+  &:active {
+    background-color: #48C084;
+  }
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 10px;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+`;
+
+function Register() {
+  const [formData, setFormData] = useState({
+    usuario: '',
+    password: '',
+    nombre: '',
+    apellido: '',
+    email: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+        ...prevState,
+        [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post("http://localhost:8080/usuario/registro", formData)
+        .then(response => {
+            console.log('¡Datos enviados con éxito!', response.data);
+            // Puedes realizar otras acciones después de enviar los datos, como redireccionar a otra página
+        })
+        .catch(error => {
+            console.error('Error al enviar los datos:', error);
+        });
+  };
+
+  return (
+        <form onSubmit={handleSubmit}>
+          <Title>Registro</Title>
+          <Label>Usuario</Label>
+          <Input type="text" name="usuario" value={formData.usuario} onChange={handleChange} />
+
+          <Label>Contraseña</Label>
+          <Input type="password" name="password" value={formData.password} onChange={handleChange} />
+
+          <Label>Nombre</Label>
+          <Input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
+
+          <Label>Apellido</Label>
+          <Input type="text" name="apellido" value={formData.apellido} onChange={handleChange} />
+
+          <Label>Email</Label>
+          <Input type="email" name="email" value={formData.email} onChange={handleChange} />
+
+          <Button type="submit">Registro</Button>
+        </form>
+  );
+}
+
+export default Register;
