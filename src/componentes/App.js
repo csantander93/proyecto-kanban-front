@@ -1,5 +1,6 @@
 import Login from "./Login";
 import styled from "styled-components";
+import { BrowserRouter as Router, Routes, Route, Navigate  } from "react-router-dom";
 
 const PrincipalBox = styled.div`
   position: fixed;
@@ -16,9 +17,12 @@ const PrincipalBox = styled.div`
 
 function App () {
   return (
-    <PrincipalBox>
-      <Login />
-    </PrincipalBox>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<PrincipalBox><Login /></PrincipalBox>} />
+        <Route path='*' element={<Navigate to='/login' replace />} />
+      </Routes>
+    </Router>
   )
 }
 
