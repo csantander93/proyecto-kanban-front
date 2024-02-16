@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
+import Body from "./BodyPrincipal";
 
 const Button = styled.button`
   margin-top: 10px;
@@ -77,36 +78,39 @@ function Login() {
   };
 
   return (
-    <PrincipalBox>
-      <FormDiv>
-        <form onSubmit={handleSubmit}>
-          <Title>Bienvenido a INFINIT!</Title>
-          <H4>Inicia Sesión para continuar</H4>
+    <Body>
+      <PrincipalBox>
+        <FormDiv>
+          <form onSubmit={handleSubmit}>
+            <Title>Bienvenido a INFINIT!</Title>
+            <H4>Inicia Sesión para continuar</H4>
 
-          <Label>Usuario</Label>
-          <Input
-            type="text"
-            name="usuario"
-            placeholder="usuario"
-            value={formData.usuario}
-            onChange={handleChange} 
-          />
-          <Label>Contraseña</Label>
-          <Input
-            type="password"
-            name="password"
-            placeholder="contraseña"
-            value={formData.password}
-            onChange={handleChange}
-          />
-
-          <Button type="submit">Iniciar Sesión</Button>
-        </form>
-        <Link to="/register">
-          <Button>Crear Cuenta</Button>
-        </Link>
-      </FormDiv>
-    </PrincipalBox>
+            <Label>Usuario</Label>
+            <Input
+              type="text"
+              name="usuario"
+              placeholder="usuario"
+              value={formData.usuario}
+              onChange={handleChange} 
+            />
+            <Label>Contraseña</Label>
+            <Input
+              type="password"
+              name="password"
+              placeholder="contraseña"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <Link to="/home">
+              <Button type="submit">Iniciar Sesión</Button>
+            </Link>
+          </form>
+          <Link to="/register">
+            <Button>Crear Cuenta</Button>
+          </Link>
+        </FormDiv>
+      </PrincipalBox>
+    </Body>
   );
 }
 

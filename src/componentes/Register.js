@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
+import Body from "./BodyPrincipal";
 
 const Button = styled.button`
   margin-top: 10px;
@@ -57,7 +58,6 @@ function Register() {
     email: '',
   });
 
-  const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [enviandoPeticion, setEnviandoPeticion] = useState(false);
   const [registroExitoso, setRegistroExitoso] = useState(false);
 
@@ -93,69 +93,67 @@ function Register() {
         });
   };
 
-  const toggleFormulario = () => {
-    setMostrarFormulario(prevState => !prevState);
-  };
-
   return (
-    <PrincipalBox>
-            <FormDiv>
-          <form onSubmit={handleSubmit}>
-            <Title>Crear Cuenta</Title>
+    <Body>
+      <PrincipalBox>
+        <FormDiv>
+            <form onSubmit={handleSubmit}>
+              <Title>Crear Cuenta</Title>
 
-            <Label>Usuario</Label>
-            <Input
-              type="text"
-              name="usuario"
-              placeholder="usuario"
-              value={formData.usuario}
-              onChange={handleChange}
-            />
+              <Label>Usuario</Label>
+              <Input
+                type="text"
+                name="usuario"
+                placeholder="usuario"
+                value={formData.usuario}
+                onChange={handleChange}
+              />
 
-            <Label>Contraseña</Label>
-            <Input
-              type="password"
-              name="password"
-              placeholder="contraseña"
-              value={formData.password}
-              onChange={handleChange}
-            />
+              <Label>Contraseña</Label>
+              <Input
+                type="password"
+                name="password"
+                placeholder="contraseña"
+                value={formData.password}
+                onChange={handleChange}
+              />
 
-            <Label>Nombre</Label>
-            <Input
-              type="text"
-              name="nombre"
-              placeholder="nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-            />
+              <Label>Nombre</Label>
+              <Input
+                type="text"
+                name="nombre"
+                placeholder="nombre"
+                value={formData.nombre}
+                onChange={handleChange}
+              />
 
-            <Label>Apellido</Label>
-            <Input
-              type="text"
-              name="apellido"
-              placeholder="apellido"
-              value={formData.apellido}
-              onChange={handleChange}
-            />
+              <Label>Apellido</Label>
+              <Input
+                type="text"
+                name="apellido"
+                placeholder="apellido"
+                value={formData.apellido}
+                onChange={handleChange}
+              />
 
-            <Label>Email</Label>
-            <Input
-              type="email"
-              name="email"
-              placeholder="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
+              <Label>Email</Label>
+              <Input
+                type="email"
+                name="email"
+                placeholder="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
 
-            <Button type="submit" disabled={enviandoPeticion}>Enviar</Button>
-            {registroExitoso && <SuccessMessage>¡Registrado correctamente!</SuccessMessage>}
-          </form>
-          <Link to="/login">
-            <Button>Volver</Button>
-          </Link>
-      </FormDiv>
-    </PrincipalBox>
+              <Button type="submit" disabled={enviandoPeticion}>Enviar</Button>
+              {registroExitoso && <SuccessMessage>¡Registrado correctamente!</SuccessMessage>}
+            </form>
+            <Link to="/login">
+              <Button>Volver</Button>
+            </Link>
+        </FormDiv>
+      </PrincipalBox>
+    </Body>
   );
 }
 
