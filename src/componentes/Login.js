@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import React, { useState } from 'react';
 import axios from 'axios';
-import Register from "./Register";
+import { Link } from "react-router-dom";
+import PrincipalBox from "./PrincipalBox";
 
 const Button = styled.button`
+  margin-top: 10px;
   width: 100%;
   padding: 10px 20px;
   background-color: #339966;
@@ -26,6 +28,7 @@ const FormDiv = styled.div`
 const Title = styled.h1`
   text-align: center;
   margin-bottom: 20px; /* Añadir margen inferior para separar del resto del contenido */
+  color: #2E931F;
 `;
 
 const Label = styled.label`
@@ -39,6 +42,10 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 20px; /* Añadir margen inferior para separar del siguiente campo */
+`;
+
+const H4 = styled.h4`
+  text-align: center;
 `;
 
 function Login() {
@@ -70,11 +77,11 @@ function Login() {
   };
 
   return (
-    <div>
+    <PrincipalBox>
       <FormDiv>
         <form onSubmit={handleSubmit}>
           <Title>Bienvenido a INFINIT!</Title>
-          <h3>Ingrese sus datos para loguearse</h3>
+          <H4>Inicia Sesión para continuar</H4>
 
           <Label>Usuario</Label>
           <Input
@@ -95,9 +102,11 @@ function Login() {
 
           <Button type="submit">Iniciar Sesión</Button>
         </form>
-        <Register></Register>
+        <Link to="/register">
+          <Button>Crear Cuenta</Button>
+        </Link>
       </FormDiv>
-    </div>
+    </PrincipalBox>
   );
 }
 
