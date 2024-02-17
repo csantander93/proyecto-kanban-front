@@ -3,17 +3,20 @@ import { BrowserRouter as Router, Routes, Route, Navigate  } from "react-router-
 import Register from "./Register";
 import Home from "./Home";
 import Body from "./BodyPrincipal";
+import { UserProvider } from "./UserContext";
 
 function App () {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Body><Login /></Body>} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Home />} />
-        <Route path='*' element={<Navigate to='/login' replace />} />
-      </Routes>
-    </Router>
+    <UserProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Body><Login /></Body>} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/home" element={<Home />} />
+          <Route path='*' element={<Navigate to='/login' replace />} />
+        </Routes>
+      </Router>
+    </UserProvider>
   )
 }
 

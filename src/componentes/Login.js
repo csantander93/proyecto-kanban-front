@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter as Router, Routes, Route, useNavigate  } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
 import Body from "./BodyPrincipal";
+import Home from "./Home";
+import { UserContext } from './UserContext';
 
 const Button = styled.button`
   margin-top: 10px;
@@ -56,6 +58,10 @@ function Login() {
     password: '',
   });
 
+  const navigate = useNavigate();
+
+  const { setUser } = useContext(UserContext);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -69,13 +75,17 @@ function Login() {
     axios.post("http://localhost:8080/login", formData)
         .then(response => {
             console.log('¡Datos enviados con éxito!', response.data);
-            alert("logueado correctamente")
-            // Puedes realizar otras acciones después de enviar los datos, como redireccionar a otra página
+            setUser(response.data)
+            navigate('/home');
         })
         .catch(error => {
             console.error('Error al enviar los datos:', error);
+            alert("usuario/contrasenia incorrecta")
         });
   };
+
+  
+
 
   return (
     <Body>
@@ -101,15 +111,17 @@ function Login() {
               value={formData.password}
               onChange={handleChange}
             />
-            <Link to="/home">
-              <Button type="submit">Iniciar Sesión</Button>
-            </Link>
+          
+            <Button type="submit">Iniciar Sesión</Button>
+
           </form>
           <Link to="/register">
             <Button>Crear Cuenta</Button>
           </Link>
         </FormDiv>
       </PrincipalBox>
+
+    
     </Body>
   );
 }
