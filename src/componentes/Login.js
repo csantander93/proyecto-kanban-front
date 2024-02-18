@@ -58,8 +58,13 @@ function Login() {
     password: '',
   });
 
+  //para poder ver la contrasenia se crea un useState que controle el estado del tipo de input 
+  const [verPassword, setVerPassword] = useState(false);
+
+  //para navegar entre rutas
   const navigate = useNavigate();
 
+  //para tener acceso de setear el usuario en contexto
   const { setUser } = useContext(UserContext);
 
   const handleChange = (e) => {
@@ -75,6 +80,8 @@ function Login() {
     axios.post("http://localhost:8080/login", formData)
         .then(response => {
             console.log('¡Datos enviados con éxito!', response.data);
+            //se setea el usuario en contexto por el usuario obtenido en el login correcto
+            //el usuario nuevo queda guardado en una "constante" en todo el proyecto
             setUser(response.data)
             navigate('/home');
         })
@@ -83,6 +90,11 @@ function Login() {
             alert("usuario/contrasenia incorrecta")
         });
   };
+
+  const mostrarPassword = (e) =>{
+    e.preventDefault();
+    setVerPassword(!verPassword);
+  }
 
   
 
@@ -105,12 +117,16 @@ function Login() {
             />
             <Label>Contraseña</Label>
             <Input
-              type="password"
+              type={verPassword ? "text" : "password"}
               name="password"
               placeholder="contraseña"
               value={formData.password}
               onChange={handleChange}
             />
+
+            <button onClick={mostrarPassword}>
+              {verPassword ? "Ocultar" : "Mostrar"}
+            </button>
           
             <Button type="submit">Iniciar Sesión</Button>
 

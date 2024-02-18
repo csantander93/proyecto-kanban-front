@@ -94,7 +94,6 @@ function Register() {
   };
 
   return (
-    <Body>
       <PrincipalBox>
         <FormDiv>
             <form onSubmit={handleSubmit}>
@@ -153,7 +152,6 @@ function Register() {
             </Link>
         </FormDiv>
       </PrincipalBox>
-    </Body>
   );
 }
 
