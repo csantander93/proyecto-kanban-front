@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Link, BrowserRouter as Router, Routes, Route, useNavigate  } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
 import Body from "./BodyPrincipal";
-import Home from "./Home";
 import { UserContext } from './UserContext';
 
 const Button = styled.button`
