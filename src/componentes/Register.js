@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
-import Body from "./BodyPrincipal";
 
 const Button = styled.button`
   margin-top: 10px;

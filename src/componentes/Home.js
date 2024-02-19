@@ -3,9 +3,27 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import ListadoProyectos from "./ListadoProyectos";
 import styled from "styled-components";
- 
-const Body = styled.body`
-  background-color: red;
+import ButtonAddProject from "./ButtonAddProject";
+
+const H1 = styled.h1 `
+  font-family: sans-serif;
+  text-align: center;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: #faacac;
+`;
+
+const Header = styled.header `
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  z-index: 9997;
+  transition: all 0.5s;
+  padding: 0 15px;
+  background-color: #040b14;
+  overflow: auto;
 `;
 
 function Home () {
@@ -26,12 +44,11 @@ function Home () {
 
   
   return (
-    <Body>
-      <div>
-          <h1>{user.usuario}</h1>
+    <Header>
+        <H1>{user.usuario}</H1>
+        <ButtonAddProject/>
           <ListadoProyectos listaProyectos={proyectos}/>
-      </div>
-    </Body>
+    </Header>
   )
 }
 
