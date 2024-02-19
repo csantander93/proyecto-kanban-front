@@ -21,17 +21,17 @@ const Button = styled.button`
   }
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   text-align: center;
   margin-bottom: 20px;
 `;
 
-const Label = styled.label`
+export const Label = styled.label`
   display: block;
   margin-bottom: 10px;
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   width: 95%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -44,7 +44,7 @@ const SuccessMessage = styled.div`
   text-align: center;
 `;
 
-const FormDiv = styled.div`
+export const FormDiv = styled.div`
   padding: 40px;
 `;
 
