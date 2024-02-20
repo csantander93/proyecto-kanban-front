@@ -3,14 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import ListadoProyectos from "./ListadoProyectos";
 import styled from "styled-components";
-import ButtonAddProject from "./ButtonAddProject";
+import FormProject from "./ButtonAddProject";
 
 const H1 = styled.h1 `
   font-family: sans-serif;
   text-align: center;
   border: 1px solid white;
   border-radius: 10px;
-  background-color: #faacac;
+  background-color: #22D9EE;
 `;
 
 const Header = styled.header `
@@ -46,9 +46,9 @@ function Home () {
   return (
     <Header>
         <H1>{user.usuario}</H1>
-        <ButtonAddProject/>
+        <FormProject/>
           <ListadoProyectos listaProyectos={proyectos}/>
-    </Header>
+     </Header>
   )
 }
 
