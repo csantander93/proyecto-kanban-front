@@ -4,6 +4,7 @@ import Register from "./Register";
 import Home from "./Home";
 import Body from "./BodyPrincipal";
 import { UserProvider } from "./UserContext";
+import BodyHome from "./BodyHome";
 
 function App () {
   return (
@@ -12,7 +13,7 @@ function App () {
         <Routes>
           <Route path="/login" element={<Body><Login /></Body>} />
           <Route path="/register" element={<Body><Register /> </Body>} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<BodyHome><Home /></BodyHome>} />
           <Route path='*' element={<Navigate to='/login' replace />} />
         </Routes>
       </Router>
