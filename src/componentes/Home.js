@@ -1,9 +1,9 @@
 import { UserContext } from "./UserContext";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import ListadoProyectos from "./ListadoProyectos";
+import ProjectList from "./ProjectList";
 import styled from "styled-components";
-import FormProject from "./ButtonAddProject";
+import FormProject from "./FormProject";
 
 const H1 = styled.h1 `
   font-family: sans-serif;
@@ -47,7 +47,7 @@ function Home () {
     <Header>
         <H1>{user.usuario}</H1>
         <FormProject/>
-          <ListadoProyectos listaProyectos={proyectos}/>
+        <ProjectList listaProyectos={proyectos}/>
      </Header>
   )
 }

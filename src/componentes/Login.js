@@ -124,10 +124,6 @@ function Login() {
         });
   };
 
-  const mostrarPassword = (e) =>{
-    e.preventDefault();
-    setVerPassword(!verPassword);
-  }
 
   return (
     <Body>

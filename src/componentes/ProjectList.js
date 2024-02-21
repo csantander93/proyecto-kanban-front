@@ -26,7 +26,7 @@ const Ul = styled.ul`
 `;
 
 
-function ListadoProyectos({ listaProyectos }) {
+function ProjectList({ listaProyectos }) {
 
   return (
     <Ul>
@@ -37,4 +37,4 @@ function ListadoProyectos({ listaProyectos }) {
   );
 }
 
-export default ListadoProyectos;
+export default ProjectList;
