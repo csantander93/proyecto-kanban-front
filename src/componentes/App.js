@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate  } from "react-router-
 import Register from "./Register";
 import Home from "./Home";
 import Body from "./BodyPrincipal";
-import { UserProvider } from "./UserContext";
+import { UserProvider } from "./contexts/UserContext.js";
 import BodyHome from "./BodyHome";
 
 function App () {

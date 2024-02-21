@@ -1,9 +1,10 @@
-import { UserContext } from "./UserContext";
+import { UserContext } from "./contexts/UserContext";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import ProjectList from "./ProjectList";
 import styled from "styled-components";
 import FormProject from "./FormProject";
+
 
 const H1 = styled.h1 `
   font-family: sans-serif;
@@ -42,12 +43,16 @@ function Home () {
     fetchData();
   }, [])
 
-  
+  const actualizarProyectos = ()=>{
+    fetchData();
+  }
   return (
     <Header>
         <H1>{user.usuario}</H1>
-        <FormProject/>
+        <FormProject actualizarProyectos = {actualizarProyectos}/>
+       
         <ProjectList listaProyectos={proyectos}/>
+        
      </Header>
   )
 }

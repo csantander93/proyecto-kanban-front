@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link, useNavigate  } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
 import Body from "./BodyPrincipal";
-import { UserContext } from './UserContext';
+import { UserContext } from './contexts/UserContext';
 import { FaRegUser, FaLock, FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 const Button = styled.button`

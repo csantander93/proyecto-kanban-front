@@ -1,6 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { MdOutlineLibraryAdd } from 'react-icons/md';
+import { UserContext } from './contexts/UserContext';
+import axios from 'axios';
+
 
 const ButtonAddProject = styled(MdOutlineLibraryAdd)`
   margin-left: 42%;
@@ -13,24 +16,36 @@ const ButtonAddProject = styled(MdOutlineLibraryAdd)`
   }
 `;
 
+
+/*
 const Overlay = styled.div`
   position: fixed;
-  top: 50%;
-  left: 50%;
+ top: 50%;
+ left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.8); /* Fondo opaco */
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999; /* Asegura que el overlay esté en la parte superior 
+`;*/
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Esto hace que el fondo sea negro y semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Asegura que el overlay esté en la parte superior */
 `;
 
 const FormContainer = styled.div`
   background-color: white;
   padding: 20px;
   border-radius: 5px;
-  width: 100%;
-  height: 100%;
-  
 `;
 
 const FormTitle = styled.h2`
@@ -64,34 +79,89 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-function FormProject() {
+  function FormProject(props) {
+ // CONSUMIR API
+
+ //para obtener el usuario en contexto, osea el usuario logueado
+ //para que se renderice la lista de proyectos
+    const { user } = useContext(UserContext);
+    const dataInicial = {
+      idUsuario: user.id,
+      nombre: '',
+      descripcion: ''
+    }
+    const [formData, setFormData] = useState(dataInicial);
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData(prevState => ({
+          ...prevState,
+          [name]: value
+      }));
+    };
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      axios.post("http://localhost:8080/proyecto/crear", formData)
+      .then(response => {
+          console.log('¡Datos enviados con éxito!', response.data);
+          alert('Se registro nuuevo proyecto');
+          setAbrirFormulario(false)
+          setFormData(dataInicial)
+          props.actualizarProyectos();
+         
+      })
+      .catch(error => {
+          console.error('Error al enviar los datos:', error);
+          alert("No se puede enviar el formulario")
+      });
+    };
+
+    //MOSTRAR EL FORMULARIO
 
   const [abrirFormulario, setAbrirFormulario] = useState(false);
 
+  const formRef = useRef();
+
   const handleButtonClick = () => {
-    setAbrirFormulario(!abrirFormulario);
+    setAbrirFormulario(true);
   };
 
+  const handleClickOutside = (event) => {
+    if (formRef.current && !formRef.current.contains(event.target)) {
+      setAbrirFormulario(false);
+    }
+  }
 
+    useEffect(() => {
+      
+      document.addEventListener('mousedown', handleClickOutside);
+  
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []); 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Lógica para manejar el envío del formulario
-  };
-
+  
+     
   return (
     <>
       <ButtonAddProject onClick={handleButtonClick} />
         {abrirFormulario && (
+    
         <Overlay>
-          <FormContainer>
+          <FormContainer ref={formRef}>
            <FormTitle>Ingrese los datos del proyecto</FormTitle>
             <Form onSubmit={handleSubmit}>
              <Label htmlFor="name">Nombre:</Label>
-             <Input type="text" id="name" name="name" required />
+             <Input type="text" id="name" name="nombre" required
+              value={formData.nombre}
+              onChange={handleChange}  />
 
              <Label htmlFor="description">Descripción:</Label>
-             <Input type="text" id="description" name="description" required />
+             <Input type="text" id="description" name="descripcion" required 
+             value={formData.descripcion}
+             onChange={handleChange}/>
 
             <Button type="submit">Enviar</Button>
           </Form>
@@ -103,5 +173,6 @@ function FormProject() {
     </>
   );
 }
+
 
 export default FormProject;
