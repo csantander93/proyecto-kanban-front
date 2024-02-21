@@ -7,7 +7,7 @@ function formularioProyecto(){
         idUsuario: '',
         nombre: '',
         descripcion: ''
-      });ç
+      });
       
     return(
         <PrincipalBox>
