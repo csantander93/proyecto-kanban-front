@@ -15,23 +15,21 @@ const ButtonAddProject = styled(MdOutlineLibraryAdd)`
 
 const Overlay = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.8); /* Fondo opaco */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;
 `;
 
 const FormContainer = styled.div`
   background-color: white;
   padding: 20px;
-  margin: 250px;
   border-radius: 5px;
-  width: 20%;
-  height: 40%;
+  width: 100%;
+  height: 100%;
   
 `;
 
