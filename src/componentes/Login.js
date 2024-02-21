@@ -73,8 +73,8 @@ const IconViewPass = styled(FaRegEyeSlash)`
   transform: translateY(-50%);
 `;
 
-const H4 = styled.h4`
-  text-align: center;
+const P = styled.p`
+  text-align: left;
 `;
 
 function Login() {
@@ -135,7 +135,7 @@ function Login() {
         <FormDiv>
           <form onSubmit={handleSubmit}>
             <Title>Bienvenido a INFINIT!</Title>
-            <H4>Inicia Sesión para continuar</H4>
+            <P>Inicia Sesión para continuar</P>
             
             <Label>Usuario</Label>
             <InputContainer>
