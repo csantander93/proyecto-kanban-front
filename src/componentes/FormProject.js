@@ -19,16 +19,20 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo opaco */
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo opaco */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;
 `;
 
 const FormContainer = styled.div`
   background-color: white;
   padding: 20px;
+  margin: 250px;
   border-radius: 5px;
+  width: 20%;
+  height: 40%;
+  
 `;
 
 const FormTitle = styled.h2`
@@ -63,56 +67,41 @@ const Button = styled.button`
 `;
 
 function FormProject() {
-  const [showForm, setShowForm] = useState(false);
-  const overlayRef = useRef(null);
-  const formRef = useRef(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (overlayRef.current && formRef.current && !formRef.current.contains(event.target) && !overlayRef.current.contains(event.target)) {
-        handleCloseForm();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  const [abrirFormulario, setAbrirFormulario] = useState(false);
 
   const handleButtonClick = () => {
-    setShowForm(true);
+    setAbrirFormulario(!abrirFormulario);
   };
 
-  const handleCloseForm = () => {
-    setShowForm(false);
-  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Lógica para manejar el envío del formulario
-    handleCloseForm();
   };
 
   return (
     <>
       <ButtonAddProject onClick={handleButtonClick} />
-      {showForm && (
-        <Overlay ref={overlayRef}>
-          <FormContainer ref={formRef}>
-            <FormTitle>Ingrese los datos del proyecto</FormTitle>
+        {abrirFormulario && (
+        <Overlay>
+          <FormContainer>
+           <FormTitle>Ingrese los datos del proyecto</FormTitle>
             <Form onSubmit={handleSubmit}>
-              <Label htmlFor="name">Nombre:</Label>
-              <Input type="text" id="name" name="name" required />
+             <Label htmlFor="name">Nombre:</Label>
+             <Input type="text" id="name" name="name" required />
 
-              <Label htmlFor="description">Descripción:</Label>
-              <Input type="text" id="description" name="description" required />
+             <Label htmlFor="description">Descripción:</Label>
+             <Input type="text" id="description" name="description" required />
 
-              <Button type="submit">Enviar</Button>
-            </Form>
-          </FormContainer>
+            <Button type="submit">Enviar</Button>
+          </Form>
+        </FormContainer>
         </Overlay>
-      )}
+        )}
+      
+          
     </>
   );
 }
