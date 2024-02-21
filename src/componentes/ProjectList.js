@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const Li = styled.li`
+  color: white;
   font-family: sans-serif;
   font-weight: bold;
   margin: 5px;
-  background-color: #85b1ee;
-  border: 2px solid #85b1ee;
+  background-color: #4B8AF0;
+  border: 2px solid #4B8AF0;
   display: grid;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -25,7 +26,7 @@ const Ul = styled.ul`
 `;
 
 
-function ListadoProyectos({ listaProyectos }) {
+function ProjectList({ listaProyectos }) {
 
   return (
     <Ul>
@@ -36,4 +37,4 @@ function ListadoProyectos({ listaProyectos }) {
   );
 }
 
-export default ListadoProyectos;
+export default ProjectList;

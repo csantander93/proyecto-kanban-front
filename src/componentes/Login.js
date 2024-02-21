@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { Link, BrowserRouter as Router, Routes, Route, useNavigate  } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
 import Body from "./BodyPrincipal";
 import { UserContext } from './UserContext';
+import { FaRegUser, FaLock, FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 const Button = styled.button`
   margin-top: 10px;
@@ -38,16 +39,42 @@ const Label = styled.label`
   margin-bottom: 10px;
 `;
 
+const InputContainer = styled.div`
+  position: relative;
+`;
+
 const Input = styled.input`
   width: 95%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 20px; /* Añadir margen inferior para separar del siguiente campo */
+  padding-left: 30px; /* Añadir espacio a la izquierda para el icono */
 `;
 
-const H4 = styled.h4`
-  text-align: center;
+const IconUser = styled(FaRegUser)`
+  position: absolute;
+  top: 30%;
+  left: 10px;
+  transform: translateY(-50%);
+`;
+
+const IconPassword = styled(FaLock)`
+  position: absolute;
+  top: 30%;
+  left: 10px;
+  transform: translateY(-50%);
+`;
+
+const IconViewPass = styled(FaRegEyeSlash)`
+  position: absolute;
+  top: 30%;
+  right: 0;
+  transform: translateY(-50%);
+`;
+
+const P = styled.p`
+  text-align: left;
 `;
 
 function Login() {
@@ -59,6 +86,13 @@ function Login() {
 
   //para poder ver la contrasenia se crea un useState que controle el estado del tipo de input 
   const [verPassword, setVerPassword] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Función para manejar el clic en el ícono del ojo
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   //para navegar entre rutas
   const navigate = useNavigate();
@@ -86,16 +120,9 @@ function Login() {
         })
         .catch(error => {
             console.error('Error al enviar los datos:', error);
-            alert("usuario/contrasenia incorrecta")
+            alert("usuario/contraseña incorrecta")
         });
   };
-
-  const mostrarPassword = (e) =>{
-    e.preventDefault();
-    setVerPassword(!verPassword);
-  }
-
-  
 
 
   return (
@@ -104,28 +131,37 @@ function Login() {
         <FormDiv>
           <form onSubmit={handleSubmit}>
             <Title>Bienvenido a INFINIT!</Title>
-            <H4>Inicia Sesión para continuar</H4>
-
+            <P>Inicia Sesión para continuar</P>
+            
             <Label>Usuario</Label>
-            <Input
-              type="text"
-              name="usuario"
-              placeholder="usuario"
-              value={formData.usuario}
-              onChange={handleChange} 
-            />
+            <InputContainer>
+              <IconUser />
+              <Input
+                type="text"
+                name="usuario"
+                placeholder=" usuario"
+                value={formData.usuario}
+                onChange={handleChange} 
+              />
+            </InputContainer>
+            
             <Label>Contraseña</Label>
-            <Input
-              type={verPassword ? "text" : "password"}
-              name="password"
-              placeholder="contraseña"
-              value={formData.password}
-              onChange={handleChange}
-            />
-
-            <button onClick={mostrarPassword}>
-              {verPassword ? "Ocultar" : "Mostrar"}
-            </button>
+              <InputContainer>
+                <IconPassword />
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder=" contraseña"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                {/* Aquí cambiamos el icono según el estado de showPassword */}
+                {showPassword ? (
+                  <IconViewPass onClick={handleTogglePasswordVisibility} as={FaRegEye} />
+                ) : (
+                  <IconViewPass onClick={handleTogglePasswordVisibility} />
+                )}
+              </InputContainer>
           
             <Button type="submit">Iniciar Sesión</Button>
 
