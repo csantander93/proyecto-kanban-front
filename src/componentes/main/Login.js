@@ -7,6 +7,7 @@ import Body from "./BodyPrincipal";
 import { UserContext } from '../contexts/UserContext';
 import { FaRegUser, FaLock, FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
+
 const Button = styled.button`
   margin-top: 10px;
   width: 100%;
