@@ -1,9 +1,9 @@
-import { UserContext } from "./contexts/UserContext";
+import { UserContext } from "../contexts/UserContext";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import ProjectList from "./ProjectList";
+import ProjectList from "../project/ProjectList";
 import styled from "styled-components";
-import FormProject from "./FormProject";
+import FormProject from "../project/FormProject";
 
 
 const H1 = styled.h1 `

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { MdOutlineLibraryAdd } from 'react-icons/md';
-import { UserContext } from './contexts/UserContext';
+import { UserContext } from '../contexts/UserContext';
 import axios from 'axios';
 
 
@@ -15,19 +15,6 @@ const ButtonAddProject = styled(MdOutlineLibraryAdd)`
     transition: ease-in-out 0.1s;
   }
 `;
-
-
-/*
-const Overlay = styled.div`
-  position: fixed;
- top: 50%;
- left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999; /* Asegura que el overlay esté en la parte superior 
-`;*/
 
 const Overlay = styled.div`
   position: fixed;
