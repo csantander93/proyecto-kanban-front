@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const Li = styled.li`
-  color: white;
+  color: ${props => props.clicked ? "#9fffff" : "#c9c9c9"} ;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 13px;
   margin: 5px;
@@ -10,10 +10,11 @@ const Li = styled.li`
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 5px;
-  transition: all 0.4s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  background-color:${props => props.clicked ? "#194070" : null} ;
   cursor: pointer;
   &:hover {
-    background-color: #b2d0f9;
+    background-color: #194070;
   }
 `;
 
@@ -26,10 +27,21 @@ const Ul = styled.ul`
 
 function ProjectList({ listaProyectos }) {
 
+  const [selectedIdItem, setSelectedIdItem] = useState(null);
+
+  const handleClick = (index) => {
+    setSelectedIdItem(index);
+  }
+
   return (
     <Ul>
       {listaProyectos && listaProyectos.length > 0 && listaProyectos.map((proyectoObj, index) => (
-        <Li key={proyectoObj.id}>{proyectoObj.nombre}</Li>
+        <Li
+           key={proyectoObj.id}
+           onClick={() => handleClick(index)}
+           clicked = {index === selectedIdItem}>
+          {proyectoObj.nombre}
+        </Li>
         ))}
     </Ul>
   );

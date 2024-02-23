@@ -23,7 +23,8 @@ const Header = styled.header `
   z-index: 9997;
   transition: all 0.5s;
   padding: 0 15px;
-  background-color: #040b14;
+  /*background-color: #040b14;*/
+  background-color: #171719;
   overflow: auto;
 `;
 
