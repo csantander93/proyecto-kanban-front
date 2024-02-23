@@ -5,10 +5,9 @@ const Li = styled.li`
   color: ${props => props.clicked ? "#9fffff" : "#c9c9c9"} ;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 13px;
-  margin: 5px;
+  margin: 1px;
   display: grid;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 2px 3px 3px;
   border-radius: 5px;
   transition: all 0.2s ease-in-out;
   background-color:${props => props.clicked ? "#194070" : null} ;
@@ -20,7 +19,7 @@ const Li = styled.li`
 
 const Ul = styled.ul`
   height: 100%;
-  padding: 5px;
+  padding: 0;
   margin: 0;
 `;
 

@@ -4,7 +4,15 @@ import axios from "axios";
 import ProjectList from "../project/ProjectList";
 import styled from "styled-components";
 import FormProject from "../project/FormProject";
+import TaskBoard from "../task/TaskBoard"
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 90vh; /* Tamaño 90% de la ventana */
+  margin-left: 200px; /* Margen izquierdo igual al ancho del Header */
+`;
 
 const H1 = styled.h1 `
   font-family: sans-serif;
@@ -48,13 +56,14 @@ function Home () {
     fetchData();
   }
   return (
-    <Header>
+    <Container>
+      <Header>
         <H1>{user.usuario}</H1>
         <FormProject actualizarProyectos = {actualizarProyectos}/>
-       
         <ProjectList listaProyectos={proyectos}/>
-        
-     </Header>
+      </Header>
+      <TaskBoard />
+    </Container>
   )
 }
 

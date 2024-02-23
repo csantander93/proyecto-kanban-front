@@ -1,23 +1,44 @@
-import React from "react";
 import styled from 'styled-components';
+import { useState } from "react";
 
-const DivTabla = styled.div`
-display: table;
-width: 100%;
-height: 100%;
-position: fixed;
-border: 1px solid #000;
-  `;
+const DrawerContainer  = styled.div`
+  margin: 0;
+  padding: 0;
+  background-color: #171719;
+  border: solid;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+`;
+
+const Item = styled.div`
+  color: white;
+  width: 200px;
+  height: 100px;
+  margin: 10px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 function TaskBoard () {
-    return (
-        <DivTabla>
-            <div style={{display: 'table-row'}}>
-            <div style={{display: 'table-cell', border: '1px solid #000', padding: '10px'}}>Celda 1</div>
-            <div style={{display: 'table-cell', border: '1px solid #000', padding: '10px'}}>Celda 2</div>
-            </div>
-        </DivTabla>
-    );
+
+  const [items, setItems] = useState(["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]);
+
+  const handleAddItem = () => {
+    setItems([...items, `Item ${items.length + 1}`]);
+  };
+
+  return (
+    <DrawerContainer>
+        {items.map((item, index) => (
+          <Item key={index}>{item}</Item>
+        ))}
+    </DrawerContainer>
+  );
 }
 
 export default TaskBoard;

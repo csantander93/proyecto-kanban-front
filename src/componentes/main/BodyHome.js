@@ -7,7 +7,7 @@ const BodyHome = styled.body `
   padding: 0; /* Elimina el padding por defecto del body */
   overflow: hidden; /* Evita que haya scroll horizontal o vertical */
   background-size: cover;
-  background-color: #0d0d0d;
+  background-color: #171719;
 
 `;
 

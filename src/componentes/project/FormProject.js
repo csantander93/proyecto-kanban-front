@@ -55,6 +55,7 @@ const Button = styled.button`
 `;
 
 const DivCreate = styled.div `
+  margin-bottom: 10px;
   padding: 3px;
   border: solid 1px rgba(255,255,255,0.3);
   border-radius: 5px;
