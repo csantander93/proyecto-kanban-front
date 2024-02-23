@@ -4,18 +4,6 @@ import { MdOutlineLibraryAdd } from 'react-icons/md';
 import { UserContext } from '../contexts/UserContext';
 import axios from 'axios';
 
-
-const ButtonAddProject = styled(MdOutlineLibraryAdd)`
-  margin-left: 42%;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
-  &:hover {
-    font-size: 33px;
-    transition: ease-in-out 0.1s;
-  }
-`;
-
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -66,6 +54,33 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const DivCreate = styled.div `
+  padding: 3px;
+  border: solid 1px rgba(255,255,255,0.3);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  color: white;
+
+`;
+
+const Span = styled.span `
+  font-size: 0.8em;
+  font-family: sans-serif;
+
+`;
+
+const ButtonAddProject = styled(MdOutlineLibraryAdd)`
+  margin-left: 70px;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  &:hover {
+    font-size: 22px;
+    transition: ease-in-out 0.1s;
+  }
+`;
+
   function FormProject(props) {
  // CONSUMIR API
 
@@ -92,7 +107,7 @@ const Button = styled.button`
       axios.post("http://localhost:8080/proyecto/crear", formData)
       .then(response => {
           console.log('¡Datos enviados con éxito!', response.data);
-          alert('Se registro nuuevo proyecto');
+          alert('Se registro nuevo proyecto');
           setAbrirFormulario(false)
           setFormData(dataInicial)
           props.actualizarProyectos();
@@ -133,9 +148,10 @@ const Button = styled.button`
      
   return (
     <>
-      <ButtonAddProject onClick={handleButtonClick} />
+    <DivCreate><Span>Crear proyecto</Span>
+    <ButtonAddProject onClick={handleButtonClick} />
+    </DivCreate>
         {abrirFormulario && (
-    
         <Overlay>
           <FormContainer ref={formRef}>
            <FormTitle>Ingrese los datos del proyecto</FormTitle>
