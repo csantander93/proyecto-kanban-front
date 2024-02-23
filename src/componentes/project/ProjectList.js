@@ -3,11 +3,9 @@ import styled from "styled-components";
 
 const Li = styled.li`
   color: white;
-  font-family: sans-serif;
-  font-weight: bold;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 13px;
   margin: 5px;
-  background-color: #4B8AF0;
-  border: 2px solid #4B8AF0;
   display: grid;
   padding-top: 5px;
   padding-bottom: 5px;
