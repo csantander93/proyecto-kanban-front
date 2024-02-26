@@ -73,12 +73,12 @@ const Span = styled.span `
 
 const ButtonAddProject = styled(MdOutlineLibraryAdd)`
   margin-left: 70px;
-  font-size: 20px;
+  font-size: 15px;
   color: white;
   cursor: pointer;
   &:hover {
-    font-size: 22px;
-    transition: ease-in-out 0.1s;
+    font-size: 20px;
+    transition: ease-in-out 0.3s;
   }
 `;
 
