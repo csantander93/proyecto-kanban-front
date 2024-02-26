@@ -33,7 +33,8 @@ const Header = styled.header `
   padding: 0 15px;
   /*background-color: #040b14;*/
   background-color: #171719;
-  overflow: auto;
+  overflow: hidden;
+  border-right: 2px solid #272729;
 `;
 
 function Home () {
@@ -45,8 +46,18 @@ function Home () {
 
   const fetchData = () => {
     return axios.get(`http://localhost:8080/proyecto/traerProyectos/${user.id}`)
-    .then((response) => setProyectos(response.data));
-  }
+    .then((response) => {
+      if(response.status === 200){
+        setProyectos(response.data)
+      }
+      else if(response.status === 400){
+        console.log(response.data)
+      }
+      }) 
+    .catch(error => {
+      console.error('Error al enviar los datos:', error)});
+    }
+  
 
   useEffect(() => {
     fetchData();

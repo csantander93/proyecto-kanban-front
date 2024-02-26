@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { GrEdit } from "react-icons/gr";
+import { FiInfo } from "react-icons/fi";
 const Li = styled.li`
   color: ${props => props.clicked ? "#9fffff" : "#c9c9c9"} ;
   background-color:${props => props.clicked ? "#194070" : "none"} ;
@@ -8,7 +10,9 @@ const Li = styled.li`
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 13px;
   margin: 1px;
-  display: grid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 2px 3px 3px;
   border-radius: 5px;
   transition: all 0.2s ease-in-out;
@@ -24,6 +28,40 @@ const Ul = styled.ul`
   padding: 0;
   margin: 0;
 `;
+
+const P = styled.p`
+  padding-top: 50px ;
+  color: #c9c9c9 ;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 13px;
+  text-align: center;
+`;
+
+const Info = styled(FiInfo)`
+ &:hover{
+  font-size: 15px;
+ }
+`;
+
+const Edit = styled(GrEdit)`
+  margin-left: 6px ;
+  &:hover{
+  font-size: 15px;
+ }
+`;
+
+const Delete = styled(RiDeleteBin6Line)`
+  margin-left: 6px;
+  &:hover{
+  font-size: 15px;
+ }
+`;
+
+const Span = styled.span`
+
+`;
+
+
 
 
 function ProjectList({ listaProyectos }) {
@@ -41,12 +79,22 @@ function ProjectList({ listaProyectos }) {
            key={proyectoObj.id}
            onClick={() => handleClick(index)}
            clicked = {index === selectedIdItem}>
-          {proyectoObj.nombre}
+           
+             <Span>{proyectoObj.nombre}</Span>
+             {index === selectedIdItem && (
+                <div>
+                  <Info />
+                  <Edit />
+                  <Delete />
+                </div>
+              )}
+            
+          
         </Li>
         ))) : (
-          <Li>
+          <P>
             No hay proyectos disponibles
-          </Li>
+          </P>
         )}
     </Ul>
   );
