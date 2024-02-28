@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { Link, useNavigate  } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
-import Body from "./BodyPrincipal";
+import BodyPrincipal from "./BodyPrincipal";
 import { UserContext } from '../contexts/UserContext';
 import { FaRegUser, FaLock, FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
@@ -12,16 +12,16 @@ const Button = styled.button`
   margin-top: 10px;
   width: 100%;
   padding: 10px 20px;
-  background-color: #339966;
+  background-color: #1d90cc;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   &:hover {
-    background-color: #3BB377;
+    background-color: #3da9d9;
   }
   &:active {
-    background-color: #48C084;
+    background-color: #3da9d9;
   }
 `;
 
@@ -32,7 +32,7 @@ const FormDiv = styled.div`
 const Title = styled.h1`
   text-align: center;
   margin-bottom: 20px; /* Añadir margen inferior para separar del resto del contenido */
-  color: #2E931F;
+  color: #1d90cc;
 `;
 
 const Label = styled.label`
@@ -127,7 +127,7 @@ function Login() {
 
 
   return (
-    <Body>
+    <BodyPrincipal>
       <PrincipalBox>
         <FormDiv>
           <form onSubmit={handleSubmit}>
@@ -174,7 +174,7 @@ function Login() {
       </PrincipalBox>
 
     
-    </Body>
+    </BodyPrincipal>
   );
 }
 

@@ -8,16 +8,16 @@ const Button = styled.button`
   margin-top: 10px;
   width: 100%;
   padding: 10px 20px;
-  background-color: #339966;
+  background-color: #1d90cc;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   &:hover {
-    background-color: #3BB377;
+    background-color: #3da9d9;
   }
   &:active {
-    background-color: #48C084;
+    background-color: #3da9d9;
   }
 `;
 

@@ -32,7 +32,7 @@ const Header = styled.header `
   top: 0;
   left: 0;
   bottom: 0;
-  width: 200px;
+  width: 250px;
   z-index: 9997;
   transition: all 0.5s;
   padding: 0 15px;
