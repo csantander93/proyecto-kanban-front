@@ -3,9 +3,9 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { Link, useNavigate  } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
-import BodyPrincipal from "./BodyPrincipal";
 import { UserContext } from '../contexts/UserContext';
 import { FaRegUser, FaLock, FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import GlobalStyles from "./GlobalStyles";
 
 
 const Button = styled.button`
@@ -127,7 +127,8 @@ function Login() {
 
 
   return (
-    <BodyPrincipal>
+    <>
+    <GlobalStyles/>
       <PrincipalBox>
         <FormDiv>
           <form onSubmit={handleSubmit}>
@@ -172,9 +173,7 @@ function Login() {
           </Link>
         </FormDiv>
       </PrincipalBox>
-
-    
-    </BodyPrincipal>
+    </>
   );
 }
 

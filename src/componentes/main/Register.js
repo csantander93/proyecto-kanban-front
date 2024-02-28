@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
+import GlobalStyles from "./GlobalStyles";
 
 const Button = styled.button`
   margin-top: 10px;
@@ -93,6 +94,8 @@ function Register() {
   };
 
   return (
+    <>
+    <GlobalStyles/>
       <PrincipalBox>
         <FormDiv>
             <form onSubmit={handleSubmit}>
@@ -151,6 +154,7 @@ function Register() {
             </Link>
         </FormDiv>
       </PrincipalBox>
+    </>
   );
 }
 
