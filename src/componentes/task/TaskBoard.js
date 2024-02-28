@@ -11,8 +11,8 @@ const DrawerContainer = styled.div`
 const Item = styled.div`
   background-color: #0F0F0F;
   color: white;
-  width: 200px;
-  height: 100px;
+  width: 250px;
+  height: 150px;
   margin: 5px;
   border: 2px solid #1A1A1D;
   border-radius: 10px;
@@ -24,7 +24,7 @@ const ItemText = styled.div`
   font-size: 13px;
   color: #6F6F85;
   text-align: start;
-  margin-top: 5px; /* Ajuste de margen superior */
+  margin-top: 10px; /* Ajuste de margen superior */
   margin-left: 10px; /* Ajuste de margen izquierdo */
   position: absolute; /* Posiciona de forma absoluta */
   top: 0; /* Lo posiciona en la esquina superior */
