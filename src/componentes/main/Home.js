@@ -37,14 +37,7 @@ const Header = styled.header `
   transition: all 0.5s;
   padding: 0 15px;
   background-color: #171719;
-  overflow: hidden;
-  border-right: 2px solid #272729; /* Color del borde más claro */
-`;
-
-const TaskBoardContainer = styled.div`
-  background-color: #171719; /* Mismo color de fondo que el Header */
-  padding: 20px; /* Espaciado interior */
-  border-radius: 10px; /* Borde redondeado */
+  overflow: auto;
 `;
 
 function Home () {
@@ -53,8 +46,18 @@ function Home () {
 
   const fetchData = () => {
     return axios.get(`http://localhost:8080/proyecto/traerProyectos/${user.id}`)
-    .then((response) => setProyectos(response.data));
-  }
+    .then((response) => {
+      if(response.status === 200){
+        setProyectos(response.data)
+      }
+      else if(response.status === 400){
+        console.log(response.data)
+      }
+      }) 
+    .catch(error => {
+      console.error('Error al enviar los datos:', error)});
+    }
+  
 
   useEffect(() => {
     fetchData();
