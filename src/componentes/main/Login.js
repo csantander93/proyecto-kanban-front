@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
 import { UserContext } from '../contexts/UserContext';
 import { FaRegUser, FaLock, FaRegEyeSlash, FaRegEye } from "react-icons/fa";
@@ -31,7 +31,7 @@ const FormDiv = styled.div`
 
 const Title = styled.h1`
   text-align: center;
-  margin-bottom: 20px; /* Añadir margen inferior para separar del resto del contenido */
+  margin-bottom: 20px;
   color: #1d90cc;
 `;
 
@@ -49,8 +49,12 @@ const Input = styled.input`
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-bottom: 20px; /* Añadir margen inferior para separar del siguiente campo */
-  padding-left: 30px; /* Añadir espacio a la izquierda para el icono */
+  margin-bottom: 20px;
+  padding-left: 30px;
+  &:focus {
+    border-color: blue;
+    outline: none;
+  }
 `;
 
 const IconUser = styled(FaRegUser)`
@@ -72,10 +76,27 @@ const IconViewPass = styled(FaRegEyeSlash)`
   top: 30%;
   right: 0;
   transform: translateY(-50%);
+  cursor: pointer;
+  &:hover {
+    border-radius: 5px;
+    background-color: #D6D6D6;
+  }
 `;
 
 const P = styled.p`
-  text-align: left;
+  font-size: 20px;
+  text-align: center;
+`;
+
+const ForgotPasswordLink = styled(Link)`
+  text-decoration: none;
+  color: blue;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+  &:hover {
+   color: orange;
+  }
 `;
 
 function Login() {
@@ -85,20 +106,8 @@ function Login() {
     password: '',
   });
 
-  //para poder ver la contrasenia se crea un useState que controle el estado del tipo de input 
-  const [verPassword, setVerPassword] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
-
-  // Función para manejar el clic en el ícono del ojo
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  //para navegar entre rutas
   const navigate = useNavigate();
-
-  //para tener acceso de setear el usuario en contexto
   const { setUser } = useContext(UserContext);
 
   const handleChange = (e) => {
@@ -114,8 +123,6 @@ function Login() {
     axios.post("http://localhost:8080/login", formData)
         .then(response => {
             console.log('¡Datos enviados con éxito!', response.data);
-            //se setea el usuario en contexto por el usuario obtenido en el login correcto
-            //el usuario nuevo queda guardado en una "constante" en todo el proyecto
             setUser(response.data)
             navigate('/home');
         })
@@ -125,6 +132,9 @@ function Login() {
         });
   };
 
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <>
@@ -133,7 +143,7 @@ function Login() {
         <FormDiv>
           <form onSubmit={handleSubmit}>
             <Title>Bienvenido a INFINIT!</Title>
-            <P>Inicia Sesión para continuar</P>
+            <P>Ingresa tus datos para continuar</P>
             
             <Label>Usuario</Label>
             <InputContainer>
@@ -148,22 +158,24 @@ function Login() {
             </InputContainer>
             
             <Label>Contraseña</Label>
-              <InputContainer>
-                <IconPassword />
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  placeholder=" contraseña"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-                {/* Aquí cambiamos el icono según el estado de showPassword */}
-                {showPassword ? (
-                  <IconViewPass onClick={handleTogglePasswordVisibility} as={FaRegEye} />
-                ) : (
-                  <IconViewPass onClick={handleTogglePasswordVisibility} />
-                )}
-              </InputContainer>
+            <InputContainer>
+              <IconPassword />
+              <Input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder=" contraseña"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              {showPassword ? (
+                <IconViewPass onClick={handleTogglePasswordVisibility} as={FaRegEye} />
+              ) : (
+                <IconViewPass onClick={handleTogglePasswordVisibility} />
+              )}
+            </InputContainer>
+
+            {/* Enlace para recuperar contraseña */}
+            <ForgotPasswordLink to="/forgot-password">¿Olvidaste Usuario y/o Contraseña?</ForgotPasswordLink>
           
             <Button type="submit">Iniciar Sesión</Button>
 

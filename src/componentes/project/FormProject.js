@@ -10,7 +10,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Esto hace que el fondo sea negro y semi-transparente */
+  background-color: rgba(0, 0, 0, 0.7); /* Esto hace que el fondo sea negro y semi-transparente */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,6 +43,10 @@ const Input = styled.input`
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 5px;
+  &:focus {
+    border-color: blue;
+    outline: none;
+  }
 `;
 
 const Button = styled.button`
@@ -173,7 +177,7 @@ const ButtonAddProject = styled(MdOutlineLibraryAdd)`
              value={formData.descripcion}
              onChange={handleChange}/>
 
-            <Button type="submit">Enviar</Button>
+            <Button type="submit">Crear</Button>
           </Form>
         </FormContainer>
         </Overlay>

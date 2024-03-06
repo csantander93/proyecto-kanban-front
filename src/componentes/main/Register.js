@@ -38,6 +38,10 @@ export const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 20px;
+  &:focus {
+    border-color: blue;
+    outline: none;
+  }
 `;
 
 const SuccessMessage = styled.div`

@@ -8,7 +8,7 @@ import TaskBoard from "../task/TaskBoard";
 import GlobalStyles from "./GlobalStyles";
 
 const Container = styled.div`
-  margin: 0;
+  margin-left: 170px;
   padding: 0;
   overflow: hidden; /* Evita que haya scroll horizontal o vertical */
   background-color: #171719;
