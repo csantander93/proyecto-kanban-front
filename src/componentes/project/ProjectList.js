@@ -80,7 +80,7 @@ const Span = styled.span`
   text-overflow: ellipsis;
 `;
 
-function ProjectList({ listaProyectos }) {
+function ProjectList({ listaProyectos, actualizarProyectos }) {
   const [selectedIdItem, setSelectedIdItem] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -105,6 +105,23 @@ function ProjectList({ listaProyectos }) {
     setModalIsOpen(false); // Cerrar el modal
   };
 
+  const handleDeleteClick = async (projectId) => {
+    try {
+      alert("Al aceptar, se eliminará el proyecto");
+      const response = await axios.put(`http://localhost:8080/proyecto/bajaProyecto/${projectId}`);
+      actualizarProyectos();
+      console.log("proyecto eliminado exitosamente");
+
+    } catch (error) {
+      console.error("Error al eliminar el proyecto", error);
+    }
+  };
+ 
+
+
+ 
+
+
   return (
     <div>
       <Ul>
@@ -120,7 +137,7 @@ function ProjectList({ listaProyectos }) {
                 <IconsContainer>
                   <Info onClick={() => handleInfoClick(proyectoObj.id)} />
                   <Edit />
-                  <Delete />
+                  <Delete onClick={() => handleDeleteClick(proyectoObj.id)}/>
                 </IconsContainer>
               )}
             </Li>

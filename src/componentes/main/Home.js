@@ -70,7 +70,7 @@ function Home () {
       <Header>
         <H1>{user.usuario}</H1>
         <FormProject actualizarProyectos={actualizarProyectos} />
-        <ProjectList listaProyectos={proyectos} />
+        <ProjectList listaProyectos={proyectos} actualizarProyectos={actualizarProyectos} />
       </Header>
       <Container>
         <TaskBoardContainer>
