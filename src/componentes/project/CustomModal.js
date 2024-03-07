@@ -29,7 +29,7 @@ const CloseButton = styled.button`
   }
 `;
 
-function CustomModal({ isOpen, onRequestClose, contentLabel, children }) {
+function CustomModal({ isOpen, onRequestClose, children }) {
   if (!isOpen) return null;
 
   return (
