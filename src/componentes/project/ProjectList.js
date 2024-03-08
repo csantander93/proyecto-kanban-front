@@ -105,23 +105,20 @@ function ProjectList({ listaProyectos, actualizarProyectos }) {
     setModalIsOpen(false); // Cerrar el modal
   };
 
-  const handleDeleteClick = async (projectId) => {
-    try {
-      alert("Al aceptar, se eliminará el proyecto");
-      const response = await axios.put(`http://localhost:8080/proyecto/bajaProyecto/${projectId}`);
-      actualizarProyectos();
-      console.log("proyecto eliminado exitosamente");
-
-    } catch (error) {
-      console.error("Error al eliminar el proyecto", error);
+  const handleDeleteClick = async (projectId, projectNombre) => {
+    const confirmDelete = window.confirm(`¿Estás seguro que deseas borrar el proyecto ${projectNombre}?`);
+    if (confirmDelete) {
+      try {
+        const response = await axios.put(`http://localhost:8080/proyecto/bajaProyecto/${projectId}`);
+        actualizarProyectos();
+        console.log("Proyecto eliminado exitosamente");
+      } catch (error) {
+        console.error("Error al eliminar el proyecto", error);
+      }
     }
   };
+  
  
-
-
- 
-
-
   return (
     <div>
       <Ul>
@@ -137,7 +134,7 @@ function ProjectList({ listaProyectos, actualizarProyectos }) {
                 <IconsContainer>
                   <Info onClick={() => handleInfoClick(proyectoObj.id)} />
                   <Edit />
-                  <Delete onClick={() => handleDeleteClick(proyectoObj.id)}/>
+                  <Delete onClick={() => handleDeleteClick(proyectoObj.id, proyectoObj.nombre)}/>
                 </IconsContainer>
               )}
             </Li>
