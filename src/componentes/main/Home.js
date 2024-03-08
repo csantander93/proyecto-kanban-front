@@ -53,7 +53,8 @@ function Home () {
 
   const fetchData = () => {
     return axios.get(`http://localhost:8080/proyecto/traerProyectos/${user.id}`)
-    .then((response) => setProyectos(response.data));
+    .then((response) => setProyectos(response.data))
+    .catch((error) => console.log("error", error));
   }
 
   useEffect(() => {
