@@ -88,8 +88,9 @@ function ProjectList({ listaProyectos, actualizarProyectos}) {
 
 
  
-  const handleClick = (index) => {
+  const handleClick = (index, projectId) => {
     setSelectedIdItem(index);
+    console.log(projectId);
   };
 
   const handleInfoClick = async (projectId) => {
@@ -130,7 +131,7 @@ function ProjectList({ listaProyectos, actualizarProyectos}) {
           listaProyectos.map((proyectoObj, index) => (
             <Li
               key={proyectoObj.id}
-              onClick={() => handleClick(index)}
+              onClick={() => handleClick(index, proyectoObj.id)}
               clicked={index === selectedIdItem}
             >
               <Span title={proyectoObj.nombre}>{proyectoObj.nombre}</Span>
