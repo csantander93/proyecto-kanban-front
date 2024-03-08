@@ -80,11 +80,14 @@ const Span = styled.span`
   text-overflow: ellipsis;
 `;
 
-function ProjectList({ listaProyectos, actualizarProyectos }) {
+function ProjectList({ listaProyectos, actualizarProyectos}) {
+
   const [selectedIdItem, setSelectedIdItem] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+
+ 
   const handleClick = (index) => {
     setSelectedIdItem(index);
   };
@@ -114,6 +117,7 @@ function ProjectList({ listaProyectos, actualizarProyectos }) {
         console.log("Proyecto eliminado exitosamente");
       } catch (error) {
         console.error("Error al eliminar el proyecto", error);
+        actualizarProyectos();
       }
     }
   };

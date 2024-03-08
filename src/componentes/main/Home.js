@@ -55,11 +55,7 @@ function Home () {
   const fetchData = () => {
     return axios.get(`http://localhost:8080/proyecto/traerProyectos/${user.id}`)
     .then((response) => {
-      if (response.data.length === 0) {
-        setError("No hay proyectos activos para este usuario");
-      } else {
-        setProyectos(response.data);
-      }
+      setProyectos(response.data);
     })
     .catch(error => {
       setError("Error al obtener proyectos");
