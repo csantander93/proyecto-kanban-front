@@ -50,11 +50,20 @@ const TaskBoardContainer = styled.div`
 function Home () {
   const {user} = useContext(UserContext);
   const [proyectos, setProyectos] = useState([]);
+  const [error, setError] = useState(null);
 
   const fetchData = () => {
     return axios.get(`http://localhost:8080/proyecto/traerProyectos/${user.id}`)
-    .then((response) => setProyectos(response.data))
-    .catch((error) => console.log("error", error));
+    .then((response) => {
+      if (response.data.length === 0) {
+        setError("No hay proyectos activos para este usuario");
+      } else {
+        setProyectos(response.data);
+      }
+    })
+    .catch(error => {
+      setError("Error al obtener proyectos");
+    });
   }
 
   useEffect(() => {
