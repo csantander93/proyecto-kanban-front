@@ -40,6 +40,7 @@ function TaskBoard() {
     <DrawerContainer>
       {statuses.map((status, index) => (
         <Item key={index}>
+          <button>agregar incidencia</button>
           <ItemText>{status}</ItemText>
           {items[index] ? items[index] : null}
         </Item>
