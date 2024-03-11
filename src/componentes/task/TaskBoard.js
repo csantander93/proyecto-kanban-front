@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from "react";
+import Task from './Task';
 
 const DrawerContainer = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ const Item = styled.div`
   background-color: #0F0F0F;
   color: white;
   width: 250px;
-  height: 150px;
+  min-height: 150px;
   margin: 5px;
   border: 2px solid #1A1A1D;
   border-radius: 10px;
@@ -31,20 +32,53 @@ const ItemText = styled.div`
   left: 0; /* Lo posiciona en la esquina izquierda */
 `;
 
-function TaskBoard() {
+function TaskBoard(props) {
+
+  //consumir la api que obtiene las tareas del proyecto props.idProyecto
+
+
+  const [tareas, setTareas] = useState([]);
+  const [porHacer, setPorHacer] = useState([]);
+  const [enProceso, setEnProceso] = useState([]);
+  const [finalizado, setfinalizado] = useState([]);
+  const [enRevision, setEnRevision] = useState([]);
+  const [aprobado, setAprobado] = useState([]);
+
+ const separarTareasEstados = () => {
+  tareas.map((tarea, index)=>{
+    if(tarea.estado === "PARA HACER"){
+      setPorHacer(porHacer.push(tarea));
+    }else if(tarea.estado === "EN PROCESO"){
+      setEnProceso(enProceso.push(tarea));
+    }else if(tarea.estado === "FINALIZADO"){
+      setfinalizado(finalizado.push(tarea));
+    }else if(tarea.estado === "EN REVISIÓN"){
+      setEnRevision(enRevision.push(tarea));
+    }else if(tarea.estado === "APROBADO"){
+      setAprobado(aprobado.push(tarea));
+    }
+  }
+  );
+ }
 
   const [items, setItems] = useState([]); // Inicialmente vacío
-  const statuses = ["PARA HACER", "EN PROCESO", "FINALIZADO", "EN REVISIÓN", "APROBADO"]; // Textos para cada item
+  const estados = ["PARA HACER", "EN PROCESO", "FINALIZADO", "EN REVISIÓN", "APROBADO"]; // Textos para cada item
 
   return (
     <DrawerContainer>
-      {statuses.map((status, index) => (
+      {estados.map((estado, index) => (
         <Item key={index}>
+
           <button>agregar incidencia</button>
-          <ItemText>{status}</ItemText>
+          <ItemText>{estado}</ItemText>
+
           {items[index] ? items[index] : null}
+          {estado === "PARA HACER" && porHacer.length > 0 && porHacer.map((tarea, index) =>{
+            
+          })}
         </Item>
-      ))}
+      ) 
+      )}
     </DrawerContainer>
   );
 }
