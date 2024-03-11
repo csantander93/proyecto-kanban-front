@@ -91,6 +91,7 @@ function ProjectList({ listaProyectos, actualizarProyectos}) {
   const handleClick = (index, projectId) => {
     setSelectedIdItem(index);
     console.log(projectId);
+   //invocar al componente task 
   };
 
   const handleInfoClick = async (projectId) => {
