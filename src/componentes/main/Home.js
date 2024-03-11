@@ -6,6 +6,7 @@ import styled from "styled-components";
 import FormProject from "../project/FormProject";
 import TaskBoard from "../task/TaskBoard";
 import GlobalStyles from "./GlobalStyles";
+import SearchProject from "../project/SearchProject";
 
 const Container = styled.div`
   margin-left: 170px;
@@ -22,7 +23,7 @@ const Container = styled.div`
 const H1 = styled.h1 `
   font-family: sans-serif;
   text-align: center;
-  border: 1px solid white;
+  border: none;
   border-radius: 10px;
   background-color: #22D9EE;
 `;
@@ -74,8 +75,9 @@ function Home () {
     <>
     <GlobalStyles/>
       <Header>
-        <H1>{user.usuario}</H1>
+        <H1>{ user.nombre[0] }{ user.apellido[0] } </H1>
         <FormProject actualizarProyectos={actualizarProyectos} />
+        <SearchProject></SearchProject>
         <ProjectList listaProyectos={proyectos} actualizarProyectos={actualizarProyectos} />
       </Header>
       <Container>
