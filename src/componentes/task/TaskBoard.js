@@ -68,7 +68,7 @@ function TaskBoard(props) {
     <DrawerContainer>
       {estados.map((estado, index) => (
         <Item key={index}>
-
+      
           <button>agregar incidencia</button>
           <ItemText>{estado}</ItemText>
 
