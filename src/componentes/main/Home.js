@@ -80,11 +80,6 @@ function Home () {
         <SearchProject></SearchProject>
         <ProjectList listaProyectos={proyectos} actualizarProyectos={actualizarProyectos} />
       </Header>
-      <Container>
-        <TaskBoardContainer>
-          <TaskBoard />
-        </TaskBoardContainer>
-      </Container>
     </>
   )
 }

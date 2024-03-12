@@ -81,6 +81,24 @@ const Span = styled.span`
   text-overflow: ellipsis;
 `;
 
+const Container = styled.div`
+  margin-left: 170px;
+  padding: 0;
+  overflow: hidden; /* Evita que haya scroll horizontal o vertical */
+  background-color: #171719;
+  width: 100vw; /* Ocupa todo el ancho de la ventana */
+  height: 100vh; /* Ocupa todo el alto de la ventana */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+`;
+
+const TaskBoardContainer = styled.div`
+  background-color: #171719; /* Mismo color de fondo que el Header */
+  padding: 20px; /* Espaciado interior */
+  border-radius: 10px; /* Borde redondeado */
+`;
+
 function ProjectList({ listaProyectos, actualizarProyectos}) {
 
   const [selectedIdItem, setSelectedIdItem] = useState(null);

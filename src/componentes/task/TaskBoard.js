@@ -60,7 +60,6 @@ function TaskBoard(props) {
     fetchData();
   }, []);
 
-   
 
   const separarTareasEstados = () => {
     const nuevoPorHacer = [];
