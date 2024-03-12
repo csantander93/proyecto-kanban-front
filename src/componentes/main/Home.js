@@ -93,8 +93,6 @@ function Home () {
         actualizarProyectos={actualizarProyectos}
         clickProyecto = {handleProjectClick} />
       </Header>
-<<<<<<< HEAD
-=======
       <Container>
         {selectedIdProject && (
         <TaskBoardContainer>
@@ -103,7 +101,6 @@ function Home () {
          )
         }
       </Container>
->>>>>>> master
     </>
   )
 }
