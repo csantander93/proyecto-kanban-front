@@ -9,17 +9,7 @@ import GlobalStyles from "./GlobalStyles";
 import SearchProject from "../project/SearchProject";
 import { IoIosNotifications } from "react-icons/io";
 
-const Container = styled.div`
-  margin-left: 170px;
-  padding: 0;
-  overflow: hidden; /* Evita que haya scroll horizontal o vertical */
-  background-color: #171719;
-  width: 100vw; /* Ocupa todo el ancho de la ventana */
-  height: 100vh; /* Ocupa todo el alto de la ventana */
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-`;
+
 
 const Header = styled.header `
   position: fixed;
@@ -98,32 +88,30 @@ const DropdownContent = styled.div`
 `;
 
 
+const Container = styled.div`
+  margin-left: 170px;
+  padding: 0;
+  overflow: hidden; /* Evita que haya scroll horizontal o vertical */
+  background-color: #171719;
+  width: 100vw; /* Ocupa todo el ancho de la ventana */
+  height: 100vh; /* Ocupa todo el alto de la ventana */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+`;
+
 const TaskBoardContainer = styled.div`
   background-color: #171719; /* Mismo color de fondo que el Header */
   padding: 20px; /* Espaciado interior */
   border-radius: 10px; /* Borde redondeado */
 `;
 
-const Campana = styled(IoIosNotifications )`
-margin-right: 6px;
-font-size: 45px;
-margin-top:18px;
-color:#1d90cc;
-&:hover {
-  font-size: 50px;
-  cursor: pointer;
-  transition: font-size 0.7s; /* Controla la velocidad de cambio en el hover */
-  filter: brightness(70%); /* Reduce el brillo al pasar el cursor */
-}
-position: absolute;
-top: 0;
-right: 60px; /* Ajusta el valor de left según sea necesario */
-`;
 
 function Home () {
   const {user} = useContext(UserContext);
   const [proyectos, setProyectos] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedIdProject, setSelectedIdProject] = useState(null);
 
   const fetchData = () => {
     return axios.get(`http://localhost:8080/proyecto/traerProyectos/${user.id}`)
@@ -132,6 +120,7 @@ function Home () {
     })
     .catch(error => {
       setError("Error al obtener proyectos");
+      console.log(error);
     });
   }
 
@@ -144,9 +133,10 @@ function Home () {
   }
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  const handleProjectClick = (idProyecto) => {
+    setSelectedIdProject(idProyecto);
+  }
+
   return (
     <>
     <GlobalStyles/>
@@ -155,20 +145,18 @@ function Home () {
         
         <FormProject actualizarProyectos={actualizarProyectos} />
         <SearchProject></SearchProject>
-        <ProjectList listaProyectos={proyectos} actualizarProyectos={actualizarProyectos} />
+        <ProjectList 
+        listaProyectos={proyectos}
+        actualizarProyectos={actualizarProyectos}
+        clickProyecto = {handleProjectClick} />
       </Header>
       <Container>
-        <div>
-          <Campana />
-          <Perfil onClick={toggleDropdown}>{ user.nombre[0] }{ user.apellido[0] } </Perfil>
-          <DropdownContent isOpen={isOpen}>
-                  <a id="cerrar"href="#">Cerrar sesión</a>
-                  <a id="editar"href="#">Editar perfil</a>
-          </DropdownContent>
-        </div>
-        <TaskBoardContainer>s
-          <TaskBoard />
+        {selectedIdProject && (
+        <TaskBoardContainer>
+           <TaskBoard proyectoId = {selectedIdProject}/>
         </TaskBoardContainer>
+         )
+        }
       </Container>
     </>
   )
