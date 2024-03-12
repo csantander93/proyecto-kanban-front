@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState, useEffect } from "react";
 import Task from './Task';
 import axios from 'axios';
+import { RiAddCircleFill } from "react-icons/ri";
 
 const DrawerContainer = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ const Item = styled.div`
 `;
 
 const ItemText = styled.div`
+width: 100%;
   font-family: sans-serif;
   font-size: 13px;
   color: #6F6F85;
@@ -33,10 +35,49 @@ const ItemText = styled.div`
   left: 0; /* Lo posiciona en la esquina izquierda */
 `;
 
+const ContainerAddTask = styled.div`
+display: flex;
+justify-content: left;
+align-items: left;
+margin-top: 40px;
+margin-bottom: 20px;
+margin-left: 10px;
+padding-top: 5px;
+padding-bottom: 5px;
+border-radius: 5px;
+width: 90%;
+&:hover{
+  cursor: pointer;
+  background-color: rgba(120, 120, 120, 0.5);
+}
+
+`;
+
+const AddTask = styled(RiAddCircleFill)`
+  margin-left: 10px;
+  font-size: 20px;
+  color: #c9c9c9;
+ 
+
+`;
+
+const DivRelleno = styled.div`
+  width: 100%;
+  margin-top: 40px;
+`;
+
+const TextAdd = styled.span`
+  color: #c9c9c9;
+  margin-left: 10px;
+  margin-top: 0.5px;
+  font-size: 18px;
+  font-family: sans-serif;
+`;
+
 function TaskBoard(props) {
 
 
-  const [tareas, setTareas] = useState([]);
+
   const [error, setError] = useState([]);
   const [porHacer, setPorHacer] = useState([]);
   const [enProceso, setEnProceso] = useState([]);
@@ -48,20 +89,24 @@ function TaskBoard(props) {
   const fetchData = () => {
     return axios.get(`http://localhost:8080/tarea/traerTareas/${props.proyectoId}`)
     .then((response) => {
-      setTareas(response.data);
-      separarTareasEstados();
+      console.log("response data:\n", response.data)
+     
+      separarTareasEstados(response.data);
+      
     })
     .catch(error => {
       setError("Error al obtener proyectos");
+      console.log(error);
     });
   }
 
   useEffect(() => {
+    console.log("ID del proyecto seleccionado:", props.proyectoId);
     fetchData();
-  }, []);
+  }, [props.proyectoId]);
 
 
-  const separarTareasEstados = () => {
+  const separarTareasEstados = (tareas) => {
     const nuevoPorHacer = [];
     const nuevoEnProceso = [];
     const nuevoFinalizado = [];
@@ -105,9 +150,18 @@ function TaskBoard(props) {
     <DrawerContainer>
       {estados.map((estado, index) => (
         <Item key={index}>
-          {/*<button>agregar incidencia</button>*/}
-          <ItemText>{estado}</ItemText>
+           <ItemText>{estado}</ItemText>
           {items[index] ? items[index] : null}
+          {estado === "PARA HACER" && (
+            <ContainerAddTask>
+             <AddTask />
+             <TextAdd>Agregar tarea</TextAdd>
+            </ContainerAddTask>
+          )}
+
+        {estado != "PARA HACER" && (
+            <DivRelleno />
+          )}
 
           {(() => {
             switch(estado){
