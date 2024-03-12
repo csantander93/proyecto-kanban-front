@@ -36,7 +36,7 @@ const ItemText = styled.div`
 function TaskBoard(props) {
 
 
-  const [tareas, setTareas] = useState([]);
+
   const [error, setError] = useState([]);
   const [porHacer, setPorHacer] = useState([]);
   const [enProceso, setEnProceso] = useState([]);
@@ -48,21 +48,25 @@ function TaskBoard(props) {
   const fetchData = () => {
     return axios.get(`http://localhost:8080/tarea/traerTareas/${props.proyectoId}`)
     .then((response) => {
-      setTareas(response.data);
-      separarTareasEstados();
+      console.log("response data:\n", response.data)
+     
+      separarTareasEstados(response.data);
+      
     })
     .catch(error => {
       setError("Error al obtener proyectos");
+      console.log(error);
     });
   }
 
   useEffect(() => {
+    console.log("ID del proyecto seleccionado:", props.proyectoId);
     fetchData();
-  }, []);
+  }, [props.proyectoId]);
 
    
 
-  const separarTareasEstados = () => {
+  const separarTareasEstados = (tareas) => {
     const nuevoPorHacer = [];
     const nuevoEnProceso = [];
     const nuevoFinalizado = [];

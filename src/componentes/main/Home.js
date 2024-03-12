@@ -8,17 +8,7 @@ import TaskBoard from "../task/TaskBoard";
 import GlobalStyles from "./GlobalStyles";
 import SearchProject from "../project/SearchProject";
 
-const Container = styled.div`
-  margin-left: 170px;
-  padding: 0;
-  overflow: hidden; /* Evita que haya scroll horizontal o vertical */
-  background-color: #171719;
-  width: 100vw; /* Ocupa todo el ancho de la ventana */
-  height: 100vh; /* Ocupa todo el alto de la ventana */
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-`;
+
 
 const H1 = styled.h1 `
   font-family: sans-serif;
@@ -42,16 +32,31 @@ const Header = styled.header `
   border-right: 2px solid #272729; /* Color del borde más claro */
 `;
 
+const Container = styled.div`
+  margin-left: 170px;
+  padding: 0;
+  overflow: hidden; /* Evita que haya scroll horizontal o vertical */
+  background-color: #171719;
+  width: 100vw; /* Ocupa todo el ancho de la ventana */
+  height: 100vh; /* Ocupa todo el alto de la ventana */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+`;
+
 const TaskBoardContainer = styled.div`
   background-color: #171719; /* Mismo color de fondo que el Header */
   padding: 20px; /* Espaciado interior */
   border-radius: 10px; /* Borde redondeado */
 `;
 
+
+
 function Home () {
   const {user} = useContext(UserContext);
   const [proyectos, setProyectos] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedIdProject, setSelectedIdProject] = useState(null);
 
   const fetchData = () => {
     return axios.get(`http://localhost:8080/proyecto/traerProyectos/${user.id}`)
@@ -60,6 +65,7 @@ function Home () {
     })
     .catch(error => {
       setError("Error al obtener proyectos");
+      console.log(error);
     });
   }
 
@@ -71,6 +77,10 @@ function Home () {
     fetchData();
   }
 
+  const handleProjectClick = (idProyecto) => {
+    setSelectedIdProject(idProyecto);
+  }
+
   return (
     <>
     <GlobalStyles/>
@@ -78,12 +88,18 @@ function Home () {
         <H1>{ user.nombre[0] }{ user.apellido[0] } </H1>
         <FormProject actualizarProyectos={actualizarProyectos} />
         <SearchProject></SearchProject>
-        <ProjectList listaProyectos={proyectos} actualizarProyectos={actualizarProyectos} />
+        <ProjectList 
+        listaProyectos={proyectos}
+        actualizarProyectos={actualizarProyectos}
+        clickProyecto = {handleProjectClick} />
       </Header>
       <Container>
+        {selectedIdProject && (
         <TaskBoardContainer>
-          <TaskBoard />
+           <TaskBoard proyectoId = {selectedIdProject}/>
         </TaskBoardContainer>
+         )
+        }
       </Container>
     </>
   )

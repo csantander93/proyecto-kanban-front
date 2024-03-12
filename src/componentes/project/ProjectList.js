@@ -81,17 +81,21 @@ const Span = styled.span`
   text-overflow: ellipsis;
 `;
 
-function ProjectList({ listaProyectos, actualizarProyectos}) {
+
+
+function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
 
   const [selectedIdItem, setSelectedIdItem] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  
 
 
  
   const handleClick = (index, projectId) => {
     setSelectedIdItem(index);
     console.log(projectId);
+    clickProyecto(projectId);
   };
 
   const handleInfoClick = async (projectId) => {
@@ -149,6 +153,7 @@ function ProjectList({ listaProyectos, actualizarProyectos}) {
           <P>No hay proyectos disponibles</P>
         )}
       </Ul>
+      
       <CustomModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -165,7 +170,8 @@ function ProjectList({ listaProyectos, actualizarProyectos}) {
           </div>
         )}
       </CustomModal>
-    </div>
+      </div>
+  
   );
 }
 
