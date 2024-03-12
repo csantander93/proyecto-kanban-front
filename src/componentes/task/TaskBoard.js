@@ -23,7 +23,7 @@ const Item = styled.div`
 `;
 
 const ItemText = styled.div`
-width: 100%;
+  width: 100%;
   font-family: sans-serif;
   font-size: 13px;
   color: #6F6F85;
@@ -36,19 +36,19 @@ width: 100%;
 `;
 
 const ContainerAddTask = styled.div`
-display: flex;
-justify-content: left;
-align-items: left;
-margin-top: 40px;
-margin-bottom: 20px;
-margin-left: 10px;
-padding-top: 5px;
-padding-bottom: 5px;
-border-radius: 5px;
-width: 90%;
-&:hover{
-  cursor: pointer;
-  background-color: rgba(120, 120, 120, 0.5);
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  width: 90%;
+  &:hover{
+    cursor: pointer;
+    background-color: rgba(120, 120, 120, 0.5);
 }
 
 `;
@@ -75,8 +75,6 @@ const TextAdd = styled.span`
 `;
 
 function TaskBoard(props) {
-
-
 
   const [error, setError] = useState([]);
   const [porHacer, setPorHacer] = useState([]);
