@@ -86,7 +86,21 @@ const DropdownContent = styled.div`
     }
   }
 `;
-
+const Campana = styled(IoIosNotifications )`
+margin-right: 6px;
+font-size: 45px;
+margin-top:18px;
+color:#1d90cc;
+&:hover {
+  font-size: 50px;
+  cursor: pointer;
+  transition: font-size 0.7s; /* Controla la velocidad de cambio en el hover */
+  filter: brightness(70%); /* Reduce el brillo al pasar el cursor */
+}
+position: absolute;
+top: 0;
+right: 60px; /* Ajusta el valor de left según sea necesario */
+`;
 
 const Container = styled.div`
   margin-left: 170px;
@@ -132,6 +146,9 @@ function Home () {
     fetchData();
   }
   const [isOpen, setIsOpen] = useState(false);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
   const handleProjectClick = (idProyecto) => {
     setSelectedIdProject(idProyecto);
@@ -142,7 +159,6 @@ function Home () {
     <GlobalStyles/>
     
       <Header>
-        
         <FormProject actualizarProyectos={actualizarProyectos} />
         <SearchProject></SearchProject>
         <ProjectList 
@@ -151,6 +167,14 @@ function Home () {
         clickProyecto = {handleProjectClick} />
       </Header>
       <Container>
+        <div>
+          <Campana />
+          <Perfil onClick={toggleDropdown}>{ user.nombre[0] }{ user.apellido[0] } </Perfil>
+          <DropdownContent isOpen={isOpen}>
+                  <a id="cerrar"href="#">Cerrar sesión</a>
+                  <a id="editar"href="#">Editar perfil</a>
+          </DropdownContent>
+        </div>
         {selectedIdProject && (
         <TaskBoardContainer>
            <TaskBoard proyectoId = {selectedIdProject}/>
