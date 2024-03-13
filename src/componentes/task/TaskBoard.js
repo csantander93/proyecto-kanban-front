@@ -150,16 +150,15 @@ function TaskBoard(props) {
         <Item key={index}>
            <ItemText>{estado}</ItemText>
           {items[index] ? items[index] : null}
-          {estado === "PARA HACER" && (
+          
+          {estado === "PARA HACER" ? (
             <ContainerAddTask>
-             <AddTask />
-             <TextAdd>Agregar tarea</TextAdd>
-            </ContainerAddTask>
-          )}
-
-        {estado != "PARA HACER" && (
-            <DivRelleno />
-          )}
+              <AddTask />
+            <TextAdd>Agregar tarea</TextAdd>
+          </ContainerAddTask>
+            ) : (
+            estado !== "PARA HACER" && <DivRelleno />
+           )}
 
           {(() => {
             switch(estado){
