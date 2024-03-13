@@ -138,6 +138,22 @@ function Home () {
     });
   }
 
+  const handleSearch = (searchTerm) => {
+    if (searchTerm.trim() !== '') {
+      // Realizar búsqueda por nombre
+      axios.get(`http://localhost:8080/proyecto/buscarProyectos/${user.id}/${searchTerm}`)
+      .then((response) => {
+        setProyectos(response.data);
+      })
+      .catch(error => {
+        console.error("Error al buscar proyectos:", error);
+      });
+    } else {
+      // Si la barra de búsqueda está vacía, actualizar la lista de proyectos por ID
+      fetchData();
+    }
+  };  
+
   useEffect(() => {
     fetchData();
   }, [])
@@ -157,10 +173,9 @@ function Home () {
   return (
     <>
     <GlobalStyles/>
-    
       <Header>
         <FormProject actualizarProyectos={actualizarProyectos} />
-        <SearchProject></SearchProject>
+        <SearchProject onSearch={handleSearch}></SearchProject>
         <ProjectList 
         listaProyectos={proyectos}
         actualizarProyectos={actualizarProyectos}

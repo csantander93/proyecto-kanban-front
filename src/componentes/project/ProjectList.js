@@ -5,7 +5,6 @@ import { GrEdit } from "react-icons/gr";
 import { FiInfo } from "react-icons/fi";
 import axios from "axios";
 import CustomModal from "./CustomModal"; // Importa el nuevo componente de modal
-import TaskBoard from "../task/TaskBoard";
 
 const Li = styled.li`
   position: relative;
@@ -89,12 +88,8 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   
-
-
- 
   const handleClick = (index, projectId) => {
     setSelectedIdItem(index);
-    console.log(projectId);
     clickProyecto(projectId);
   };
 
