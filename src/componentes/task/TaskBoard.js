@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Task from './Task';
 import axios from 'axios';
 import { RiAddCircleFill } from "react-icons/ri";
@@ -42,8 +42,8 @@ const ContainerAddTask = styled.div`
   margin-top: 40px;
   margin-bottom: 20px;
   margin-left: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: ${props => props.crearTarea ? "0" : "5px"};
+  padding-bottom: ${props => props.crearTarea ? "0" : "5px"};
   border-radius: 5px;
   width: 90%;
   &:hover{
@@ -74,6 +74,22 @@ const TextAdd = styled.span`
   font-family: sans-serif;
 `;
 
+const TaskInput = styled.textarea`
+  color: white;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  margin: 0;
+  border-radius: 5px;
+  background-color: rgb(90, 90, 90);
+  overflow-x: hidden; /* Muestra la barra de desplazamiento horizontal si el contenido es demasiado ancho */
+  overflow-y: hidden; /* Oculta la barra de desplazamiento vertical */
+  white-space: nowrap; /* Evita que el texto se envuelva */
+  &::placeholder {
+    color: rgb(180, 180, 180);
+  }
+`;
+
 function TaskBoard(props) {
 
   const [error, setError] = useState([]);
@@ -82,6 +98,12 @@ function TaskBoard(props) {
   const [finalizado, setFinalizado] = useState([]);
   const [enRevision, setEnRevision] = useState([]);
   const [aprobado, setAprobado] = useState([]);
+
+  //estado par agregar la tarea
+  const [crearTarea, setCrearTarea] = useState(false);
+
+  //para controlar cuando se hace click fuera del text area de crear tarea
+  const taskInputRef = useRef(null);
 
   //consumir la api que obtiene las tareas del proyecto props.idProyecto
   const fetchData = () => {
@@ -101,6 +123,20 @@ function TaskBoard(props) {
   useEffect(() => {
     console.log("ID del proyecto seleccionado:", props.proyectoId);
     fetchData();
+
+    // codigo para controlar el click fuera del componente TaskInput
+    const handleClickOutside = (event) => {
+      if (taskInputRef.current && !taskInputRef.current.contains(event.target)) {
+        setCrearTarea(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+
+
   }, [props.proyectoId]);
 
 
@@ -140,6 +176,10 @@ function TaskBoard(props) {
     setAprobado(nuevoAprobado);
   };
 
+  const handleAddTask = () => {
+    setCrearTarea(true);
+  }
+
 
   const [items, setItems] = useState([]); // Inicialmente vacío
   const estados = ["PARA HACER", "EN PROCESO", "FINALIZADO", "EN REVISION", "APROBADO"]; // Textos para cada item
@@ -152,13 +192,23 @@ function TaskBoard(props) {
           {items[index] ? items[index] : null}
           
           {estado === "PARA HACER" ? (
-            <ContainerAddTask>
-              <AddTask />
-            <TextAdd>Agregar tarea</TextAdd>
-          </ContainerAddTask>
+            <ContainerAddTask 
+            crearTarea = {crearTarea}
+            onClick={() => handleAddTask()}>
+            {crearTarea === false ? (
+               <>
+                <AddTask />
+                 <TextAdd>Agregar tarea</TextAdd>
+               </>
+              ) : (
+              <TaskInput
+               ref = {taskInputRef}
+               placeholder='Título de la tarea...'/>
+              )}
+           </ContainerAddTask>
             ) : (
             estado !== "PARA HACER" && <DivRelleno />
-           )}
+            )}
 
           {(() => {
             switch(estado){
