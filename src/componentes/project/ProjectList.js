@@ -80,21 +80,52 @@ const Span = styled.span`
   text-overflow: ellipsis;
 `;
 
+const ContainerFormEdit = styled.div`
+  margin-top: 10px;
+  padding: 3px;
+  border: solid 1px rgba(255,255,255,0.3);
+  border-radius: 5px;
+  align-items: center;
+  color: white;
+`;
 
+// Styled para el formulario de edición
+const EditForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const Input = styled.input`
+  padding: 5px;
+`;
+
+const SubmitButton = styled.button`
+  padding: 5px;
+  background-color: #194070;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
 
 function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
 
   const [selectedIdItem, setSelectedIdItem] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [editFormOpen, setEditFormOpen] = useState(false); // Estado para controlar si el formulario de edición está abierto
+  const [formProjectEdit, setFormEdit] = useState()
   
   const handleClick = (index, projectId) => {
     setSelectedIdItem(index);
     clickProyecto(projectId);
   };
 
+
   const handleInfoClick = async (projectId) => {
     try {
+      /*este metodo se va a cambiar por una api que traiga no solo el proyecto sino tambien la cantidad de tareas y usuarios relacionados, toda la info*/
       const response = await axios.get(`http://localhost:8080/proyecto/traerProyectoId/${projectId}`);
       const projectDetails = response.data; // Detalles del proyecto
       setSelectedProject(projectDetails);
@@ -123,16 +154,40 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
     }
   };
 
-  const handleEditClick = async (projectId, projectNombre, projectDescripcion) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormEdit(prevState => ({
+        ...prevState,
+        [name]: value
+    }));
+  };
 
+  const handleEditClick = async (projectId) => {
+      
       try {
-        const response = await axios.put(`http://localhost:8080/proyecto/editarProyecto/${projectId}/${projectNombre}/${projectDescripcion}`);
-        actualizarProyectos();
-        console.log("Proyecto eliminado exitosamente");
+        const response = await axios.get(`http://localhost:8080/proyecto/traerProyectoId/${projectId}`);
+        setFormEdit(response.data);
+        // Abre el formulario de edición
+        setEditFormOpen(!editFormOpen);
       } catch (error) {
-        console.error("Error al eliminar el proyecto", error);
-        actualizarProyectos();
+        console.error("Error al obtener los detalles del proyecto:", error);
       }
+  
+  };
+
+  const handleSubmitEdit = async (e) => {
+    // Aquí puedes enviar la solicitud de edición al servidor utilizando axios o cualquier otra biblioteca de solicitud HTTP
+    e.preventDefault();
+    try {
+      const response = await axios.put(`http://localhost:8080/proyecto/editarProyecto/${formProjectEdit.id}/${formProjectEdit.nombre}/${formProjectEdit.descripcion}`);
+      actualizarProyectos();
+      console.log("Proyecto editado exitosamente");
+    } catch (error) {
+      console.error("Error al editar el proyecto", error);
+      actualizarProyectos();
+    }
+    // Cierra el formulario de edición después de enviar
+    setEditFormOpen(false);
   };
   
  
@@ -150,7 +205,7 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
               {index === selectedIdItem && (
                 <IconsContainer>
                   <Info onClick={() => handleInfoClick(proyectoObj.id)} />
-                  <Edit onClick={() => handleEditClick(proyectoObj.id, proyectoObj.nombre, proyectoObj.descripcion)}/>
+                  <Edit onClick={() => handleEditClick(proyectoObj.id)}/>
                   <Delete onClick={() => handleDeleteClick(proyectoObj.id, proyectoObj.nombre)}/>
                 </IconsContainer>
               )}
@@ -177,6 +232,17 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
           </div>
         )}
       </CustomModal>
+
+      {/* Formulario de edición */}
+      {editFormOpen &&  (
+          <ContainerFormEdit>
+            <EditForm onSubmit={handleSubmitEdit}>
+              <Input type="text" name="nombre" value={formProjectEdit.nombre} onChange={handleChange} />
+              <Input type="text" name="descripcion" value={formProjectEdit.descripcion} onChange={handleChange}/>
+              <SubmitButton>Enviar</SubmitButton>
+            </EditForm>
+          </ContainerFormEdit>
+        )}
       </div>
   
   );
