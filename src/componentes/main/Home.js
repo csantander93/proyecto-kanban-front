@@ -177,9 +177,9 @@ function Home () {
         <FormProject actualizarProyectos={actualizarProyectos} />
         <SearchProject onSearch={handleSearch}></SearchProject>
         <ProjectList 
-        listaProyectos={proyectos}
-        actualizarProyectos={actualizarProyectos}
-        clickProyecto = {handleProjectClick} />
+          listaProyectos={proyectos}
+          actualizarProyectos={actualizarProyectos}
+          clickProyecto = {handleProjectClick} />
       </Header>
       <Container>
         <div>

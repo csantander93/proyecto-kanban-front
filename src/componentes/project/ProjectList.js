@@ -122,6 +122,18 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
       }
     }
   };
+
+  const handleEditClick = async (projectId, projectNombre, projectDescripcion) => {
+
+      try {
+        const response = await axios.put(`http://localhost:8080/proyecto/editarProyecto/${projectId}/${projectNombre}/${projectDescripcion}`);
+        actualizarProyectos();
+        console.log("Proyecto eliminado exitosamente");
+      } catch (error) {
+        console.error("Error al eliminar el proyecto", error);
+        actualizarProyectos();
+      }
+  };
   
  
   return (
@@ -138,7 +150,7 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
               {index === selectedIdItem && (
                 <IconsContainer>
                   <Info onClick={() => handleInfoClick(proyectoObj.id)} />
-                  <Edit />
+                  <Edit onClick={() => handleEditClick(proyectoObj.id, proyectoObj.nombre, proyectoObj.descripcion)}/>
                   <Delete onClick={() => handleDeleteClick(proyectoObj.id, proyectoObj.nombre)}/>
                 </IconsContainer>
               )}
