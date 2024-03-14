@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect} from "react";
 import styled from "styled-components";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GrEdit } from "react-icons/gr";
@@ -115,7 +115,21 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editFormOpen, setEditFormOpen] = useState(false); // Estado para controlar si el formulario de edición está abierto
-  const [formProjectEdit, setFormEdit] = useState()
+  const [formProjectEdit, setFormEdit] = useState();
+  const formRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (formRef.current && !formRef.current.contains(event.target)) {
+      setEditFormOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   
   const handleClick = (index, projectId) => {
     setSelectedIdItem(index);
@@ -203,7 +217,7 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
             >
               <Span title={proyectoObj.nombre}>{proyectoObj.nombre}</Span>
               {index === selectedIdItem && (
-                <IconsContainer>
+                <IconsContainer ref={formRef}>
                   <Info onClick={() => handleInfoClick(proyectoObj.id)} />
                   <Edit onClick={() => handleEditClick(proyectoObj.id)}/>
                   <Delete onClick={() => handleDeleteClick(proyectoObj.id, proyectoObj.nombre)}/>
