@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import Task from './Task';
 import axios from 'axios';
 import { RiAddCircleFill } from "react-icons/ri";
+import { IoMdSend } from "react-icons/io";
+
 
 const DrawerContainer = styled.div`
   display: flex;
@@ -48,7 +50,7 @@ const ContainerAddTask = styled.div`
   width: 90%;
   &:hover{
     cursor: pointer;
-    background-color: rgba(120, 120, 120, 0.5);
+    background-color:${props => props.crearTarea ? "null" : "rgba(120, 120, 120, 0.5)"};
 }
 
 `;
@@ -80,6 +82,7 @@ const TaskInput = styled.textarea`
   height: 100%;
   resize: none;
   margin: 0;
+  margin-right: 5px;
   border-radius: 5px;
   background-color: rgb(90, 90, 90);
   overflow-x: hidden; /* Muestra la barra de desplazamiento horizontal si el contenido es demasiado ancho */
@@ -90,6 +93,17 @@ const TaskInput = styled.textarea`
   }
 `;
 
+const AddTaskButton = styled(IoMdSend)`
+  font-size: 25px;
+  color:rgb(54, 135, 186);
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+  &:hover{
+    font-size: 26px;
+    color:rgb(85, 151, 193 );
+  }
+`;
 function TaskBoard(props) {
 
   const [error, setError] = useState([]);
@@ -103,7 +117,7 @@ function TaskBoard(props) {
   const [crearTarea, setCrearTarea] = useState(false);
 
   //para controlar cuando se hace click fuera del text area de crear tarea
-  const taskInputRef = useRef(null);
+  const ContainerAddTaskRef = useRef(null);
 
   //consumir la api que obtiene las tareas del proyecto props.idProyecto
   const fetchData = () => {
@@ -126,7 +140,7 @@ function TaskBoard(props) {
 
     // codigo para controlar el click fuera del componente TaskInput
     const handleClickOutside = (event) => {
-      if (taskInputRef.current && !taskInputRef.current.contains(event.target)) {
+      if (ContainerAddTaskRef.current && !ContainerAddTaskRef.current.contains(event.target)) {
         setCrearTarea(false);
       }
     };
@@ -180,6 +194,9 @@ function TaskBoard(props) {
     setCrearTarea(true);
   }
 
+  const handleAddTaskButton = () => {
+    setCrearTarea(false);
+  }
 
   const [items, setItems] = useState([]); // Inicialmente vacío
   const estados = ["PARA HACER", "EN PROCESO", "FINALIZADO", "EN REVISION", "APROBADO"]; // Textos para cada item
@@ -194,16 +211,21 @@ function TaskBoard(props) {
           {estado === "PARA HACER" ? (
             <ContainerAddTask 
             crearTarea = {crearTarea}
-            onClick={() => handleAddTask()}>
+            onClick={() => handleAddTask()}
+            ref = {ContainerAddTaskRef}>
             {crearTarea === false ? (
-               <>
+              <>
                 <AddTask />
                  <TextAdd>Agregar tarea</TextAdd>
-               </>
+              </>
               ) : (
-              <TaskInput
-               ref = {taskInputRef}
-               placeholder='Título de la tarea...'/>
+              <>
+                <TaskInput
+                placeholder='Título de la tarea...' />
+                <AddTaskButton 
+                onClick={() => handleAddTaskButton()}/>
+              </>
+               
               )}
            </ContainerAddTask>
             ) : (
