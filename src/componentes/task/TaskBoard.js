@@ -113,7 +113,7 @@ function TaskBoard(props) {
   const [enRevision, setEnRevision] = useState([]);
   const [aprobado, setAprobado] = useState([]);
 
-  //estado par agregar la tarea
+  //estado que controla si se hace click en el icono de agregarTarea
   const [crearTarea, setCrearTarea] = useState(false);
 
   //para controlar cuando se hace click fuera del text area de crear tarea
@@ -123,20 +123,28 @@ function TaskBoard(props) {
   const fetchData = () => {
     return axios.get(`http://localhost:8080/tarea/traerTareas/${props.proyectoId}`)
     .then((response) => {
+  
       console.log("response data:\n", response.data)
      
       separarTareasEstados(response.data);
       
     })
     .catch(error => {
-      setError("Error al obtener proyectos");
+      setError("Error al obtener tareas");
       console.log(error);
     });
   }
 
   useEffect(() => {
     console.log("ID del proyecto seleccionado:", props.proyectoId);
+    //trae las tareas cada vez que se cambia de proyecto
     fetchData();
+    //cada vez que se hace click en un nuevo proyecto, el id dentro del estado de la nueva tarea sea el actual
+    setNuevaTarea(
+      {
+        idProyecto: props.proyectoId,
+        titulo: ""
+      });
 
     // codigo para controlar el click fuera del componente TaskInput
     const handleClickOutside = (event) => {
@@ -194,13 +202,48 @@ function TaskBoard(props) {
     setCrearTarea(true);
   }
 
-  const handleAddTaskButton = () => {
-    setCrearTarea(false);
-  }
-
+  //ESTADOS NECESARIOS
   const [items, setItems] = useState([]); // Inicialmente vacío
   const estados = ["PARA HACER", "EN PROCESO", "FINALIZADO", "EN REVISION", "APROBADO"]; // Textos para cada item
 
+  //------------CREAR TAREA--------
+  //arranca en nulo ya que se actualiza luego en el usseEfect
+  const [nuevaTarea, setNuevaTarea] = useState(null);
+  //controla el cambio en el input de tarea
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNuevaTarea(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+  // Controla el click en el icono enviar 
+  const handleAddTaskButton = () => {
+  if(nuevaTarea.titulo != ""){
+   fetchApiNewTask();
+  }else{
+    window.alert("El nombre de la tarea no puede ser vacío");
+  }
+  }
+
+  //API PARA CREAR NUEVA TAREA
+  const fetchApiNewTask = () => {
+
+    return axios.post(`http://localhost:8080/tarea/crearTarea`, nuevaTarea)
+    .then((response) => {
+      setCrearTarea(false);
+      setNuevaTarea(nuevaTarea.titulo = "");
+      console.log("response data:\n", response.data);
+      fetchData();
+      
+    })
+    .catch(error => {
+      setError("Error al crear tarea");
+      console.log(error);
+    });
+  }
+
+  //---------------------------
   return (
     <DrawerContainer>
       {estados.map((estado, index) => (
@@ -221,7 +264,12 @@ function TaskBoard(props) {
               ) : (
               <>
                 <TaskInput
-                placeholder='Título de la tarea...' />
+                name='titulo'
+                value={nuevaTarea.titulo}
+                placeholder='Título de la tarea...' 
+                required
+                onChange={handleChange}/>
+
                 <AddTaskButton 
                 onClick={() => handleAddTaskButton()}/>
               </>
