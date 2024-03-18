@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 
 const Contenedor = styled.div`
-  margin: 10px;
+  margin: 5px 10px 5px 10px;
   padding-top: 10px;
   padding-bottom: 10px;
   width: 90%;
@@ -20,8 +20,9 @@ const Contenedor = styled.div`
 `;
 
 const Span = styled.span`
+ margin-left: 5px;
  color: #c9c9c9;
- text-align: center;
+ text-align: left;
 `;
 
 const P = styled.p`

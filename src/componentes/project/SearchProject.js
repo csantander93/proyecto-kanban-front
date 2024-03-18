@@ -40,7 +40,7 @@ function SearchProject({ onSearch }) {
   return (
     <SearchContainer>
       <SearchInput
-        placeholder="Buscar proyecto..."
+        placeholder="Buscar proyecto"
         value={searchTerm}
         onChange={handleChange}
       />

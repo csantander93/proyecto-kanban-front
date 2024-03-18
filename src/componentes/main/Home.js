@@ -9,8 +9,6 @@ import GlobalStyles from "./GlobalStyles";
 import SearchProject from "../project/SearchProject";
 import { IoIosNotifications } from "react-icons/io";
 
-
-
 const Header = styled.header `
   position: fixed;
   top: 0;
@@ -24,20 +22,19 @@ const Header = styled.header `
   overflow: hidden;
   border-right: 2px solid #272729; /* Color del borde más claro */
 `;
+
 const Perfil = styled.button `
-
-font-family: sans-serif;
-
+  font-family: sans-serif;
   background-color: #1d90cc;
   position: absolute;
   top: 0;
   right: 0;
-   padding: 10px; /* Añade un poco de espacio interno para que no esté pegado al borde */
-   margin:20px;
-border: none; /* Quita el borde para un aspecto más limpio */
+  padding: 10px; /* Añade un poco de espacio interno para que no esté pegado al borde */
+  margin:20px;
+  border: none; /* Quita el borde para un aspecto más limpio */
   cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
   transition: background-color 0.3s; /* Agrega una transición suave al cambio de color */
-border-radius:10px;
+  border-radius:10px;
   &:hover {
     background-color: #276465;
   }
@@ -103,7 +100,7 @@ right: 60px; /* Ajusta el valor de left según sea necesario */
 `;
 
 const Container = styled.div`
-  margin-left: 170px;
+  margin-left: 100px;
   padding: 0;
   overflow: hidden; /* Evita que haya scroll horizontal o vertical */
   background-color: #171719;
@@ -111,15 +108,8 @@ const Container = styled.div`
   height: 100vh; /* Ocupa todo el alto de la ventana */
   display: flex;
   justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
+  align-items: start; /* Centra verticalmente */
 `;
-
-const TaskBoardContainer = styled.div`
-  background-color: #171719; /* Mismo color de fondo que el Header */
-  padding: 20px; /* Espaciado interior */
-  border-radius: 10px; /* Borde redondeado */
-`;
-
 
 function Home () {
   const {user} = useContext(UserContext);
@@ -138,7 +128,7 @@ function Home () {
     });
   }
 
-  const handleSearch = (searchTerm) => {
+  const handleSearchProject = (searchTerm) => {
     if (searchTerm.trim() !== '') {
       // Realizar búsqueda por nombre
       axios.get(`http://localhost:8080/proyecto/buscarProyectos/${user.id}/${searchTerm}`)
@@ -152,7 +142,7 @@ function Home () {
       // Si la barra de búsqueda está vacía, actualizar la lista de proyectos por ID
       fetchData();
     }
-  };  
+  };
 
   useEffect(() => {
     fetchData();
@@ -175,7 +165,7 @@ function Home () {
     <GlobalStyles/>
       <Header>
         <FormProject actualizarProyectos={actualizarProyectos} />
-        <SearchProject onSearch={handleSearch}></SearchProject>
+        <SearchProject onSearch={handleSearchProject}></SearchProject>
         <ProjectList 
           listaProyectos={proyectos}
           actualizarProyectos={actualizarProyectos}
@@ -191,9 +181,7 @@ function Home () {
           </DropdownContent>
         </div>
         {selectedIdProject && (
-        <TaskBoardContainer>
-           <TaskBoard proyectoId = {selectedIdProject}/>
-        </TaskBoardContainer>
+          <TaskBoard proyectoId = {selectedIdProject}/>
          )
         }
       </Container>

@@ -4,9 +4,11 @@ import Task from './Task';
 import axios from 'axios';
 import { RiAddCircleFill } from "react-icons/ri";
 import { IoMdSend } from "react-icons/io";
+import SearchTask from './SearchTask';
 
 
 const DrawerContainer = styled.div`
+  font-family: sans-serif;
   display: flex;
   justify-content: space-between; /* Distribuye los elementos con espaciado igual */
   min-height: 300px; /* Tamaño mínimo del contenedor */
@@ -29,7 +31,7 @@ const ItemText = styled.div`
   font-family: sans-serif;
   font-size: 13px;
   color: #6F6F85;
-  text-align: start;
+  text-align: e;
   margin-top: 10px; /* Ajuste de margen superior */
   margin-left: 10px; /* Ajuste de margen izquierdo */
   position: absolute; /* Posiciona de forma absoluta */
@@ -51,16 +53,13 @@ const ContainerAddTask = styled.div`
   &:hover{
     cursor: pointer;
     background-color:${props => props.crearTarea ? "null" : "rgba(120, 120, 120, 0.5)"};
-}
-
+  }
 `;
 
 const AddTask = styled(RiAddCircleFill)`
   margin-left: 10px;
   font-size: 20px;
   color: #c9c9c9;
- 
-
 `;
 
 const DivRelleno = styled.div`
@@ -96,14 +95,18 @@ const TaskInput = styled.textarea`
 const AddTaskButton = styled(IoMdSend)`
   font-size: 25px;
   color:rgb(54, 135, 186);
-  align-items: center;
-  justify-content: center;
   margin-top: 4px;
   &:hover{
     font-size: 26px;
     color:rgb(85, 151, 193 );
   }
 `;
+
+const TaskBoardContainer = styled.div`
+  background-color: #171719; /* Mismo color de fondo que el Header */
+  border-radius: 10px; /* Borde redondeado */
+`;
+
 function TaskBoard(props) {
 
   const [error, setError] = useState([]);
@@ -134,6 +137,22 @@ function TaskBoard(props) {
       console.log(error);
     });
   }
+
+  const handleSearchTask = (searchTerm) => {
+    if (searchTerm.trim() !== '') {
+      // Realizar búsqueda por nombre
+      axios.get(`http://localhost:8080/tarea/buscarTareasIdNombre/${props.proyectoId}/${searchTerm}`)
+      .then((response) => {
+        separarTareasEstados(response.data);
+      })
+      .catch(error => {
+        console.error("Error al buscar proyectos:", error);
+      });
+    } else {
+      // Si la barra de búsqueda está vacía, actualizar la lista de proyectos por ID
+      fetchData();
+    }
+  };
 
   useEffect(() => {
     console.log("ID del proyecto seleccionado:", props.proyectoId);
@@ -243,14 +262,14 @@ function TaskBoard(props) {
     });
   }
 
-  //---------------------------
   return (
-    <DrawerContainer>
+    <TaskBoardContainer >
+      <SearchTask onSearch={handleSearchTask}></SearchTask>
+      <DrawerContainer>
       {estados.map((estado, index) => (
         <Item key={index}>
            <ItemText>{estado}</ItemText>
           {items[index] ? items[index] : null}
-          
           {estado === "PARA HACER" ? (
             <ContainerAddTask 
             crearTarea = {crearTarea}
@@ -320,6 +339,7 @@ function TaskBoard(props) {
       ) 
       )}
     </DrawerContainer>
+    </TaskBoardContainer>
   );
 }
 
