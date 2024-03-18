@@ -26,8 +26,8 @@ const SearchInput = styled.div`
   }
 `;
 
-
 const InputTextarea = styled.textarea`
+  font-family: sans-serif;
   width: 100%;
   height: 100%;
   resize: none;
@@ -37,6 +37,7 @@ const InputTextarea = styled.textarea`
   color: white;
   font-size: 15px;
   outline: none; /* Añadir esta línea para eliminar el borde al enfocarse */
+  line-height: 30px; /* Ajustar la altura de línea para centrar verticalmente el placeholder */
   &::placeholder {
     font-size: 15px;
     color: rgb(180, 180, 180);
