@@ -10,7 +10,7 @@ const SearchContainer = styled.div`
 
 const SearchInput = styled.div`
   color: white;
-  width: 40%;
+  width: 27%;
   height: 30px;
   margin: 80px 0 20px 5px;
   border-radius: 5px;
@@ -20,9 +20,11 @@ const SearchInput = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid transparent; /* Borde transparente por defecto */
+  transition: width 0.3s ease; /* Transición suave para el cambio de ancho */
   &:focus-within {
     border-color: #00C9FF; /* Color del borde cuando el div contiene un elemento con foco */
     box-shadow: 1px 1px 3px rgba(0, 0, 255, 0.7); /* Sombra para resaltar el borde */
+    width: 40%;
   }
 `;
 
