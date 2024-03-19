@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IoSearch, IoPersonAdd } from "react-icons/io5";
-
+import AddUserToProject from '../user/AddUserToProject';
 
 // Estilos para el componente de búsqueda
 const SearchContainer = styled.div`
@@ -66,9 +66,11 @@ const AgregarPersonaIcon = styled(IoPersonAdd)`
   }
 `;
 
-// Componente de búsqueda
-function SearchTask({ onSearch }) {
+//Componente de búsqueda
+//Recibe el handleClickAgregarPersonaIcon obtenido desde el home y luego por TaskBoard
+function SearchTask({ onSearch, handleClickAgregarPersonaIcon }) {
   const [searchTerm, setSearchTerm] = useState('');
+  
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -78,6 +80,7 @@ function SearchTask({ onSearch }) {
   };
 
   return (
+    <>
     <SearchContainer>
       <SearchInput>
         <InputTextarea
@@ -87,8 +90,9 @@ function SearchTask({ onSearch }) {
         />
         <Lupita />
       </SearchInput>
-      <AgregarPersonaIcon />
+      <AgregarPersonaIcon onClick={() => handleClickAgregarPersonaIcon()}/>
     </SearchContainer>
+    </>
   );
 };
 
