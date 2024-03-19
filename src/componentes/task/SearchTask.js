@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { IoSearch } from "react-icons/io5";
+import { IoSearch, IoPersonAdd } from "react-icons/io5";
+
 
 // Estilos para el componente de búsqueda
 const SearchContainer = styled.div`
-  width: 70%;
+  width: 97%;
   padding: 0;
+  display: flex;
+  align-items: center;
 `;
 
 const SearchInput = styled.div`
   color: white;
-  width: 27%;
+  width: 17%;
   height: 30px;
   margin: 80px 0 20px 5px;
   border-radius: 5px;
@@ -24,7 +27,7 @@ const SearchInput = styled.div`
   &:focus-within {
     border-color: #00C9FF; /* Color del borde cuando el div contiene un elemento con foco */
     box-shadow: 1px 1px 3px rgba(0, 0, 255, 0.7); /* Sombra para resaltar el borde */
-    width: 40%;
+    width: 25%;
   }
 `;
 
@@ -51,6 +54,18 @@ const Lupita = styled(IoSearch)`
   margin-right: 10px;
 `;
 
+const AgregarPersonaIcon = styled(IoPersonAdd)`
+  color:  #c9c9c9;
+  font-size: 22px;
+  margin-top: 58px;
+  margin-left: auto;
+  &:hover{
+    font-size: 24px;
+    cursor: pointer;
+    color: #f7f7f7;
+  }
+`;
+
 // Componente de búsqueda
 function SearchTask({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -72,6 +87,7 @@ function SearchTask({ onSearch }) {
         />
         <Lupita />
       </SearchInput>
+      <AgregarPersonaIcon />
     </SearchContainer>
   );
 };

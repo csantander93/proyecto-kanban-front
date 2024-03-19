@@ -180,6 +180,7 @@ function Home () {
                   <a id="editar"href="#">Editar perfil</a>
           </DropdownContent>
         </div>
+        
         {selectedIdProject && (
           <TaskBoard proyectoId = {selectedIdProject}/>
          )
