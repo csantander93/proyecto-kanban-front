@@ -83,7 +83,7 @@ const DropdownContent = styled.div`
     }
   }
 `;
-const Campana = styled(IoIosNotifications )`
+const Campana = styled(IoIosNotifications)`
 margin-right: 6px;
 font-size: 45px;
 margin-top:18px;
@@ -176,8 +176,8 @@ function Home () {
           <Campana />
           <Perfil onClick={toggleDropdown}>{ user.nombre[0] }{ user.apellido[0] } </Perfil>
           <DropdownContent isOpen={isOpen}>
-                  <a id="cerrar"href="#">Cerrar sesión</a>
-                  <a id="editar"href="#">Editar perfil</a>
+                  <a id="cerrar" href="#">Cerrar sesión</a>
+                  <a id="editar" href="#">Editar perfil</a>
           </DropdownContent>
         </div>
         {selectedIdProject && (

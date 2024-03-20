@@ -1,5 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
+import { PiUserCircleFill } from "react-icons/pi";
+import { SlOptions } from "react-icons/sl";
 
 const Contenedor = styled.div`
   margin: 5px 10px 5px 10px;
@@ -25,14 +27,29 @@ const Span = styled.span`
  text-align: left;
 `;
 
-const P = styled.p`
+const AssignTask = styled(PiUserCircleFill)`
+  font-size: 30px;
+  margin-left: 80%;
+  &:hover {
+    color: #1d90cc;
+  }
 `;
 
+const Options = styled(SlOptions)`
+  font-size: 30px;
+  margin-left: 80%;
+  &:hover {
+    color: #1d90cc;
+  }
+`
 
 function Task (props){
     return(
         <Contenedor>
-           <Span>{props.titulo}</Span>
+           <Span>{props.titulo}
+           <AssignTask title="Asignar usuario"></AssignTask>
+           <Options></Options>
+           </Span>
         </Contenedor>
     );
 }
