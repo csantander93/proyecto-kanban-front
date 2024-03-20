@@ -22,8 +22,8 @@ const FormContainer = styled.div`
   width: 35%;
   background-color: #3a3a40;
   padding: 20px;
-  border-radius: 5px;
-  border: 4px solid white;
+  border-radius: 30px;
+  box-shadow: 0px 0px 6px 1px #c9c9c9;
   color: #c9c9c9;
   align-items: center;
   justify-content: center;
@@ -97,9 +97,26 @@ const Ul = styled.ul`
  margin-top: 3px;
  padding: 0;
  width: 50%;
- height: 400%;
+ min-height: 400%;
+ max-height: 800%;
  border-radius: 5px;
+ box-shadow: 0px 0px 5px 1px #c9c9c9;
+ overflow-y: auto;
+  /* Estilo para el contenedor del scroll */
+  &::-webkit-scrollbar {
+   width: 10px;
+ }
 
+ /* Estilo para la barra de scroll */
+ &::-webkit-scrollbar-thumb {
+   background: #888; 
+   border-radius: 10px;
+ }
+
+ /* Estilo para la barra de scroll cuando se pasa el mouse por encima */
+ &::-webkit-scrollbar-thumb:hover {
+   background: #555; 
+ }
 `;
 
 const UserListItem = styled.li`
@@ -197,7 +214,8 @@ function AddUserToProject(props){
       window.alert("Debe ingresar un rol");
     } else {
       // Aquí puedes enviar el formulario
-      console.log("Usuario:", event.target.nombre.value);
+      console.log("idProyecto: ", props.idProyecto)
+      console.log("Usuario:", selectedUser);
       console.log("Rol:", selectedRole);
     }
   };

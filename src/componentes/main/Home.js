@@ -180,7 +180,10 @@ function Home () {
           actualizarProyectos={actualizarProyectos}
           clickProyecto = {handleProjectClick} />
           {formAddUser && (
-            <AddUserToProject handleClickAgregarPersonaIcon = {handleClickAgregarPersonaIcon}/>
+            <AddUserToProject 
+            handleClickAgregarPersonaIcon = {handleClickAgregarPersonaIcon}
+            idProyecto = {selectedIdProject}
+            />
           )}
       </Header>
       <Container>
