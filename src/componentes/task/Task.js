@@ -22,36 +22,48 @@ const Contenedor = styled.div`
 `;
 
 const Span = styled.span`
- margin-left: 5px;
- color: #c9c9c9;
- text-align: left;
+  display: flex; /* Establece el contenedor como flexbox */
+  align-items: center; /* Alinea los elementos verticalmente en el centro */
+  justify-content: space-between; /* Distribuye los elementos horizontalmente */
+  margin-left: 5px;
+  color: #c9c9c9;
+  text-align: left;
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const AssignTask = styled(PiUserCircleFill)`
-  font-size: 30px;
-  margin-left: 80%;
+  font-size: 24px;
+  margin-left: 10px; /* Ajusta el margen izquierdo */
+  margin-right: 10px;
   &:hover {
     color: #1d90cc;
   }
 `;
 
 const Options = styled(SlOptions)`
-  font-size: 30px;
-  margin-left: 80%;
+  font-size: 24px;
+  margin-left: 10px; /* Ajusta el margen izquierdo */
+  margin-right: 10px;
   &:hover {
     color: #1d90cc;
   }
-`
+`;
 
-function Task (props){
-    return(
-        <Contenedor>
-           <Span>{props.titulo}
-           <AssignTask title="Asignar usuario"></AssignTask>
-           <Options></Options>
-           </Span>
-        </Contenedor>
-    );
+function Task(props) {
+  return (
+    <Contenedor>
+      <Span>
+        {props.titulo}
+        <IconContainer>
+          <Options title="Opciones"/>
+          <AssignTask title="Asignar usuario" />
+        </IconContainer>
+      </Span>
+    </Contenedor>
+  );
 }
-
 export default Task;

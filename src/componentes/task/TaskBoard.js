@@ -18,13 +18,31 @@ const DrawerContainer = styled.div`
 const Item = styled.div`
   background-color: #0F0F0F;
   color: white;
-  width: 250px;
-  min-height: 150px;
+  width: 275px;
+  max-height: 700px; /* Establece la altura máxima */
   margin: 5px;
   border: 2px solid #1A1A1D;
   border-radius: 10px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Añade una barra de desplazamiento vertical si el contenido excede el tamaño máximo */
   position: relative; /* Establece el contexto de posicionamiento para los elementos hijos */
+
+  /* Estilos del scrollbar */
+  &::-webkit-scrollbar {
+    width: 8px; /* Ancho del scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #1A1A1D; /* Color del track */
+    border-radius: 10px; /* Borde del track */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #434343; /* Color del thumb */
+    border-radius: 10px; /* Borde del thumb */
+  }
 `;
+
 
 const ItemText = styled.div`
   width: 100%;
