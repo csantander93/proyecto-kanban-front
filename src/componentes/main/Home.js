@@ -1,5 +1,5 @@
 import { UserContext } from "../contexts/UserContext";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import ProjectList from "../project/ProjectList";
 import styled from "styled-components";
@@ -8,6 +8,7 @@ import TaskBoard from "../task/TaskBoard";
 import GlobalStyles from "./GlobalStyles";
 import SearchProject from "../project/SearchProject";
 import { IoIosNotifications } from "react-icons/io";
+import AddUserToProject from "../user/AddUserToProject";
 
 const Header = styled.header `
   position: fixed;
@@ -159,6 +160,14 @@ function Home () {
   const handleProjectClick = (idProyecto) => {
     setSelectedIdProject(idProyecto);
   }
+   //controla si se abre o no el formulario para agregar usuario al proyecto
+   const [formAddUser, setFormAddUser] = useState(false);
+
+  const handleClickAgregarPersonaIcon = () => {
+    setFormAddUser(!formAddUser);
+  };
+
+
 
   return (
     <>
@@ -170,6 +179,12 @@ function Home () {
           listaProyectos={proyectos}
           actualizarProyectos={actualizarProyectos}
           clickProyecto = {handleProjectClick} />
+          {formAddUser && (
+            <AddUserToProject 
+            handleClickAgregarPersonaIcon = {handleClickAgregarPersonaIcon}
+            idProyecto = {selectedIdProject}
+            />
+          )}
       </Header>
       <Container>
         <div>
@@ -180,8 +195,13 @@ function Home () {
                   <a id="editar" href="#">Editar perfil</a>
           </DropdownContent>
         </div>
+        
         {selectedIdProject && (
-          <TaskBoard proyectoId = {selectedIdProject}/>
+          <TaskBoard
+           proyectoId = {selectedIdProject}
+           //viaja para taskboard, y luego para search task, donde esta el boton de agregar usuario al proyecto
+           //por lo tanto, dicho boton va a activar éste método 
+           handleClickAgregarPersonaIcon = {handleClickAgregarPersonaIcon}/>
          )
         }
       </Container>

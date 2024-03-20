@@ -261,10 +261,14 @@ function TaskBoard(props) {
       console.log(error);
     });
   }
-
+  
+  //Se puede obswerevar como el handleClickAgregarPersonaIcon se obtiene desde el home y viaja hasta SearchTask
+  //donde justamente se encuentra el Icono de agregar Persona
   return (
     <TaskBoardContainer >
-      <SearchTask onSearch={handleSearchTask}></SearchTask>
+      <SearchTask 
+      onSearch={handleSearchTask}
+      handleClickAgregarPersonaIcon = {props.handleClickAgregarPersonaIcon}></SearchTask>
       <DrawerContainer>
       {estados.map((estado, index) => (
         <Item key={index}>
