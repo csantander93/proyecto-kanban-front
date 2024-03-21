@@ -173,7 +173,7 @@ function AddUserToProject(props){
   const fetchApiUsersTerm = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/usuario/traerUsuariosPorNombreUsuario/${searchTerm}`
+        `http://localhost:8080/usuario/traerUsuariosPorNombreUsuario/${searchTerm}/${props.idProyecto}`
       );
       setUserList(response.data);
       console.log(response.data);
@@ -200,7 +200,6 @@ function AddUserToProject(props){
   }, [searchTerm]);
 
   const formAddUserRef = useRef();
-
   //al reconocer que se hace click fuera, se ejecuta la funcion instalada en el home para que no se muestre el formulario
   const handleClickFormAddUserOutside = (event) => {
     if (formAddUserRef.current && !formAddUserRef.current.contains(event.target)) {
