@@ -1,5 +1,5 @@
 import { UserContext } from "../contexts/UserContext";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import ProjectList from "../project/ProjectList";
 import styled from "styled-components";
@@ -8,7 +8,11 @@ import TaskBoard from "../task/TaskBoard";
 import GlobalStyles from "./GlobalStyles";
 import SearchProject from "../project/SearchProject";
 import { IoIosNotifications } from "react-icons/io";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
+=======
+import AddUserToProject from "../user/AddUserToProject";
+>>>>>>> master
 
 const Header = styled.header `
   position: fixed;
@@ -16,7 +20,7 @@ const Header = styled.header `
   left: 0;
   bottom: 0;
   width: 250px;
-  z-index: 9997;
+  z-index: 2;
   transition: all 0.5s;
   padding: 0 15px;
   background-color: #171719;
@@ -84,7 +88,7 @@ const DropdownContent = styled.div`
     }
   }
 `;
-const Campana = styled(IoIosNotifications )`
+const Campana = styled(IoIosNotifications)`
 margin-right: 6px;
 font-size: 45px;
 margin-top:18px;
@@ -160,6 +164,14 @@ function Home () {
   const handleProjectClick = (idProyecto) => {
     setSelectedIdProject(idProyecto);
   }
+   //controla si se abre o no el formulario para agregar usuario al proyecto
+   const [formAddUser, setFormAddUser] = useState(false);
+
+  const handleClickAgregarPersonaIcon = () => {
+    setFormAddUser(!formAddUser);
+  };
+
+
 
   return (
     <>
@@ -171,21 +183,36 @@ function Home () {
           listaProyectos={proyectos}
           actualizarProyectos={actualizarProyectos}
           clickProyecto = {handleProjectClick} />
+          {formAddUser && (
+            <AddUserToProject 
+            handleClickAgregarPersonaIcon = {handleClickAgregarPersonaIcon}
+            idProyecto = {selectedIdProject}
+            />
+          )}
       </Header>
       <Container>
         <div>
           <Campana />
           <Perfil onClick={toggleDropdown}>{ user.nombre[0] }{ user.apellido[0] } </Perfil>
           <DropdownContent isOpen={isOpen}>
+<<<<<<< HEAD
                   <a id="cerrar"href="#">Cerrar sesión</a>
                   <Link to="/editProfile">
                     <a id="editar">Editar perfil</a>
                   </Link>
+=======
+                  <a id="cerrar" href="#">Cerrar sesión</a>
+                  <a id="editar" href="#">Editar perfil</a>
+>>>>>>> master
           </DropdownContent>
         </div>
         
         {selectedIdProject && (
-          <TaskBoard proyectoId = {selectedIdProject}/>
+          <TaskBoard
+           proyectoId = {selectedIdProject}
+           //viaja para taskboard, y luego para search task, donde esta el boton de agregar usuario al proyecto
+           //por lo tanto, dicho boton va a activar éste método 
+           handleClickAgregarPersonaIcon = {handleClickAgregarPersonaIcon}/>
          )
         }
       </Container>
