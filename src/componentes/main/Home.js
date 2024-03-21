@@ -8,6 +8,7 @@ import TaskBoard from "../task/TaskBoard";
 import GlobalStyles from "./GlobalStyles";
 import SearchProject from "../project/SearchProject";
 import { IoIosNotifications } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const Header = styled.header `
   position: fixed;
@@ -177,7 +178,9 @@ function Home () {
           <Perfil onClick={toggleDropdown}>{ user.nombre[0] }{ user.apellido[0] } </Perfil>
           <DropdownContent isOpen={isOpen}>
                   <a id="cerrar"href="#">Cerrar sesión</a>
-                  <a id="editar"href="#">Editar perfil</a>
+                  <Link to="/editProfile">
+                    <a id="editar">Editar perfil</a>
+                  </Link>
           </DropdownContent>
         </div>
         
