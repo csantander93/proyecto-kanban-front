@@ -351,7 +351,7 @@ function TaskBoard(props) {
                   return (
                     <Task
                       key={index} 
-                      idTarea = {tarea.idTarea}
+                      idTarea = {tarea.id}
                       titulo = {tarea.titulo}
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
@@ -366,7 +366,7 @@ function TaskBoard(props) {
                   return (
                     <Task
                       key={index}
-                      idTarea = {tarea.idTarea}
+                      idTarea = {tarea.id}
                       titulo = {tarea.titulo}
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
@@ -381,7 +381,7 @@ function TaskBoard(props) {
                   return (
                     <Task
                       key={index}
-                      idTarea = {tarea.idTarea} 
+                      idTarea = {tarea.id} 
                       titulo = {tarea.titulo}
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
@@ -396,7 +396,7 @@ function TaskBoard(props) {
                   return (
                     <Task
                       key={index}
-                      idTarea = {tarea.idTarea}
+                      idTarea = {tarea.id}
                       titulo = {tarea.titulo}
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea

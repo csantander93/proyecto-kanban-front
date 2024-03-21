@@ -162,7 +162,7 @@ const ButtonAddProject = styled(MdOutlineLibraryAdd)`
   return (
     <>
     <DivCreate><Span>Crear proyecto</Span>
-    <ButtonAddProject onClick={handleButtonClick} />
+    <ButtonAddProject onClick={handleButtonClick} title='crear proyecto'/>
     </DivCreate>
         {abrirFormulario && (
         <Overlay>
