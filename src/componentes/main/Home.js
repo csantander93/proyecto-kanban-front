@@ -16,7 +16,7 @@ const Header = styled.header `
   left: 0;
   bottom: 0;
   width: 250px;
-  z-index: 9997;
+  z-index: 2;
   transition: all 0.5s;
   padding: 0 15px;
   background-color: #171719;

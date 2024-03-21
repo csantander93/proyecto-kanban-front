@@ -3,14 +3,17 @@ import styled from "styled-components";
 import Draggable from "react-draggable";
 
 const ModalContainer = styled.div`
+  font-family: sans-serif;
+  color: white;
+  z-index: 1000;
   position: fixed;
-  background-color: #f0f0f0;
+  background-color: #3a3a40;
   border: none;
   border-radius: 5px;
   padding: 20px;
   max-width: 400px;
   width: 80%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 6px 1px #c9c9c9;
   cursor: pointer;
 `;
 

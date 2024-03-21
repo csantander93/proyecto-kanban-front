@@ -1,5 +1,5 @@
 //EN ESTE ARCHIVO SE CONSUMIRAN LAS APIS NECESARIOS Y SE IMPLEMENTARA LO NECESARIO PARA AGREGAR A UN USUARIO AL PROYECTO
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -222,10 +222,6 @@ function AddUserToProject(props){
   //Se guarda el rol seleccionado en ese estado
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
-  };
- // se guarda la terminacion escrita en el text area
-  const handleTextAreaChange = (event) => {
-    setSearchTerm(event.target.value);
   };
 
   //guardamos el usuario seleccionado

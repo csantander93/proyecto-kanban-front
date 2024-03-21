@@ -14,11 +14,13 @@ const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999; /* Asegura que el overlay esté en la parte superior */
+  z-index: 1000; /* Asegura que el overlay esté en la parte superior */
 `;
 
 const FormContainer = styled.div`
-  background-color: white;
+  color: white;
+  box-shadow: 0px 0px 6px 1px #c9c9c9;
+  background-color: #3a3a40;
   padding: 20px;
   border-radius: 5px;
 `;
@@ -181,9 +183,7 @@ const ButtonAddProject = styled(MdOutlineLibraryAdd)`
           </Form>
         </FormContainer>
         </Overlay>
-        )}
-      
-          
+        )}   
     </>
   );
 }
