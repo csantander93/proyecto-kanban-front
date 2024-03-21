@@ -209,9 +209,9 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
                 </Span>
                 {index === selectedIdItem && (
                   <IconsContainer ref={formRef}>
-                    <Info onClick={() => handleInfoClick(proyectoObj.id)} />
-                    <Edit onClick={() => handleEditClick(proyectoObj.id)} />
-                    <Delete onClick={() => handleDeleteClick(proyectoObj.id, proyectoObj.nombre)}/>
+                    <Info onClick={() => handleInfoClick(proyectoObj.id)} title="info"/>
+                    <Edit onClick={() => handleEditClick(proyectoObj.id)} title="editar"/>
+                    <Delete onClick={() => handleDeleteClick(proyectoObj.id, proyectoObj.nombre)} title="eliminar proyecto"/>
                   </IconsContainer>
                 )}
               </Li>

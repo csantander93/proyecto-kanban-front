@@ -1,11 +1,10 @@
 //EN ESTE ARCHIVO SE CONSUMIRAN LAS APIS NECESARIOS Y SE IMPLEMENTARA LO NECESARIO PARA AGREGAR A UN USUARIO AL PROYECTO
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-
-
 const Overlay = styled.div`
+  font-family: sans-serif;
   position: fixed;
   top: 0;
   left: 0;
@@ -223,10 +222,6 @@ function AddUserToProject(props){
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
   };
- // se guarda la terminacion escrita en el text area
-  const handleTextAreaChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
 
   //guardamos el usuario seleccionado
   const handleUserSelect = (user) => {
@@ -239,7 +234,7 @@ function AddUserToProject(props){
     return(
         <Overlay>
         <FormContainer ref = {formAddUserRef}>
-         <FormTitle>Ingrese al usuario y su rol</FormTitle>
+         <FormTitle>Añadir usuario al proyecto</FormTitle>
           <Form onSubmit={handleSubmit}>
            <Label htmlFor="usuario">Selecciona usuario</Label>
 

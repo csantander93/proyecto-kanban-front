@@ -6,7 +6,6 @@ import { RiAddCircleFill } from "react-icons/ri";
 import { IoMdSend } from "react-icons/io";
 import SearchTask from './SearchTask';
 
-
 const DrawerContainer = styled.div`
   font-family: sans-serif;
   display: flex;
@@ -18,13 +17,31 @@ const DrawerContainer = styled.div`
 const Item = styled.div`
   background-color: #0F0F0F;
   color: white;
-  width: 250px;
-  min-height: 150px;
+  width: 275px;
+  max-height: 700px; /* Establece la altura máxima */
   margin: 5px;
   border: 2px solid #1A1A1D;
   border-radius: 10px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Añade una barra de desplazamiento vertical si el contenido excede el tamaño máximo */
   position: relative; /* Establece el contexto de posicionamiento para los elementos hijos */
+
+  /* Estilos del scrollbar */
+  &::-webkit-scrollbar {
+    width: 8px; /* Ancho del scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #1A1A1D; /* Color del track */
+    border-radius: 10px; /* Borde del track */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #434343; /* Color del thumb */
+    border-radius: 10px; /* Borde del thumb */
+  }
 `;
+
 
 const ItemText = styled.div`
   width: 100%;
@@ -115,6 +132,16 @@ function TaskBoard(props) {
   const [finalizado, setFinalizado] = useState([]);
   const [enRevision, setEnRevision] = useState([]);
   const [aprobado, setAprobado] = useState([]);
+  const [tareaSeleccionada, setTareaSeleccionada] = useState(null); // Estado para rastrear la tarea con el menú abierto
+
+  const handleOpenMenu = (tareaId) => {
+    // Cerrar el menú de la tarea actualmente seleccionada (si existe)
+    if (tareaSeleccionada !== null) {
+      setTareaSeleccionada(null);
+    }
+    // Abrir el menú de la tarea seleccionada
+    setTareaSeleccionada(tareaId);
+  }
 
   //estado que controla si se hace click en el icono de agregarTarea
   const [crearTarea, setCrearTarea] = useState(false);
@@ -126,9 +153,7 @@ function TaskBoard(props) {
   const fetchData = () => {
     return axios.get(`http://localhost:8080/tarea/traerTareas/${props.proyectoId}`)
     .then((response) => {
-  
       console.log("response data:\n", response.data)
-     
       separarTareasEstados(response.data);
       
     })
@@ -308,31 +333,76 @@ function TaskBoard(props) {
 
               case "PARA HACER":
                 return porHacer.map((tarea, index) => {
-                  return <Task key={index} titulo = {tarea.titulo}/>
+                  return (
+                  <Task
+                    key={index} 
+                    idTarea = {tarea.id}
+                    titulo = {tarea.titulo}
+                    onClickMenu={() => handleOpenMenu(tarea.id)}
+                    isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
+                    fetchData={fetchData}
+                  />
+                  )
                 });
                 break;
               
               case "EN PROCESO":
                 return enProceso.map((tarea, index) => {
-                   return <Task key={index} titulo = {tarea.titulo}/>
+                  return (
+                    <Task
+                      key={index} 
+                      idTarea = {tarea.id}
+                      titulo = {tarea.titulo}
+                      onClickMenu={() => handleOpenMenu(tarea.id)}
+                      isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
+                      fetchData={fetchData}
+                    />
+                    )
                 });
                break;
 
                case "FINALIZADO":
                 return finalizado.map((tarea, index) => {
-                   return <Task key={index} titulo = {tarea.titulo}/>
+                  return (
+                    <Task
+                      key={index}
+                      idTarea = {tarea.id}
+                      titulo = {tarea.titulo}
+                      onClickMenu={() => handleOpenMenu(tarea.id)}
+                      isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
+                      fetchData={fetchData}
+                    />
+                    )
                 });
                break;
 
                case "EN REVISION":
                 return enRevision.map((tarea, index) => {
-                   return <Task key={index} titulo = {tarea.titulo}/>
+                  return (
+                    <Task
+                      key={index}
+                      idTarea = {tarea.id} 
+                      titulo = {tarea.titulo}
+                      onClickMenu={() => handleOpenMenu(tarea.id)}
+                      isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
+                      fetchData={fetchData}
+                    />
+                    )
                 });
                break;
 
                case "APROBADO":
                 return aprobado.map((tarea, index) => {
-                   return <Task key={index} titulo = {tarea.titulo}/>
+                  return (
+                    <Task
+                      key={index}
+                      idTarea = {tarea.id}
+                      titulo = {tarea.titulo}
+                      onClickMenu={() => handleOpenMenu(tarea.id)}
+                      isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
+                      fetchData={fetchData}
+                    />
+                    )
                 });
                break;
 
