@@ -84,7 +84,7 @@ function MenuOption(props) {
         <EditTask
           taskEdit={taskEdit}
           fetchData={props.fetchData}
-          defaultPosition={{ x: window.innerWidth / 2 - 675, y: window.innerHeight / 2 - 200 }}
+          defaultPosition={{ x: window.innerWidth / 2 - 1120, y: window.innerHeight / 2 - 800 }}
         />
       )}
     </MenuContainer>
