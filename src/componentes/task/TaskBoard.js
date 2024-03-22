@@ -251,8 +251,12 @@ function TaskBoard(props) {
   const estados = ["PARA HACER", "EN PROCESO", "FINALIZADO", "EN REVISION", "APROBADO"]; // Textos para cada item
 
   //------------CREAR TAREA--------
+  const tareaInicial = {
+    idProyecto: props.proyectoId,
+     titulo: ""
+  }
   //arranca en nulo ya que se actualiza luego en el usseEfect
-  const [nuevaTarea, setNuevaTarea] = useState(null);
+  const [nuevaTarea, setNuevaTarea] = useState(tareaInicial);
   //controla el cambio en el input de tarea
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -276,7 +280,7 @@ function TaskBoard(props) {
     return axios.post(`http://localhost:8080/tarea/crearTarea`, nuevaTarea)
     .then((response) => {
       setCrearTarea(false);
-      setNuevaTarea(nuevaTarea.titulo = "");
+      setNuevaTarea(tareaInicial);
       console.log("response data:\n", response.data);
       fetchData();
       
