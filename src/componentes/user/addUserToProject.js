@@ -215,6 +215,22 @@ function AddUserToProject(props){
       console.log("idProyecto: ", props.idProyecto)
       console.log("Usuario:", selectedUser);
       console.log("Rol:", selectedRole);
+      const json = {
+        idUsuario: selectedUser.id,
+        idProyecto: props.idProyecto,
+        idRolUsuario: selectedRole
+      }
+      axios.post("http://localhost:8080/proyecto/agregarUsuarioAProyecto", json)
+      .then(response => {
+          console.log('¡Datos enviados con éxito!', response.data);
+          window.alert("Se ingreso el usuario al proyecto");
+          props.handleClickAgregarPersonaIcon();
+         
+      })
+      .catch(error => {
+          console.error('Error al enviar los datos:', error);
+          window.alert("No se puede enviar el formulario")
+      });
     }
   };
 
