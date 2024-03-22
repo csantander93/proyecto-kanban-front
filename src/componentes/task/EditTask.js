@@ -63,6 +63,7 @@ const FormButton = styled.button`
 
 function EditTask(props) {
   const [formData, setFormData] = useState({
+    idTarea: props.taskEdit.id,
     titulo: props.taskEdit.titulo,
     descripcion: props.taskEdit.descripcion,
     dificultad: props.taskEdit.dificultad,
@@ -79,8 +80,10 @@ function EditTask(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData)
     try {
-      const response = await axios.put(`http://localhost:8080/tarea/editarTarea/${props.taskEdit.id}`, formData);
+      const response = await axios.put(`http://localhost:8080/tarea/editarTarea`, formData);
+      console.log(response.data);
       console.log("Tarea editada exitosamente");
       props.fetchData();
     } catch (error) {
@@ -119,7 +122,7 @@ function EditTask(props) {
               <option value="APROBADO">Aprobado</option>
             </FormSelect>
           </FormField>
-          <FormButton type="submit" onClick={handleSubmit}>Guardar Cambios</FormButton>
+          <FormButton type="submit">Guardar Cambios</FormButton>
         </form>
       </FormContainer>
     </Draggable>
