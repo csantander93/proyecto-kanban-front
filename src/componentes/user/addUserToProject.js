@@ -170,23 +170,28 @@ function AddUserToProject(props){
 
   //se consume la api que busca usuarios por terminación
   const fetchApiUsersTerm = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/usuario/traerUsuariosPorNombreUsuario/${searchTerm}/${props.idProyecto}`
-      );
-      setUserList(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error al obtener listado de usuarios por terminacion:", error);
-    }
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/usuario/traerUsuariosPorNombreUsuario/${searchTerm}/${props.idProyecto}`
+        );
+        setUserList(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error al obtener listado de usuarios por terminacion:", error);
+      }
   };
 
   //controlamos que al dar click fuera del FormContainer, se actualice el estado del Home llamado formAddUser
   useEffect(() => {
 
-    if(searchTerm != ""){
+    if (selectedUser && selectedUser.usuario !== searchTerm) {
+      setSelectedUser(null);
+    }
+
+    if(searchTerm !=="" && !selectedUser){
       fetchApiUsersTerm();
     }
+
 
     document.addEventListener('mousedown', handleClickFormAddUserOutside);
   
@@ -196,7 +201,7 @@ function AddUserToProject(props){
 
     
 
-  }, [searchTerm]);
+  }, [searchTerm, selectedUser]);
 
   const formAddUserRef = useRef();
   //al reconocer que se hace click fuera, se ejecuta la funcion instalada en el home para que no se muestre el formulario
@@ -210,7 +215,9 @@ function AddUserToProject(props){
     event.preventDefault();
     if (selectedRole === "") {
       window.alert("Debe ingresar un rol");
-    } else {
+    } else if (!selectedUser) {
+    window.alert("Por favor, seleccione un usuario de la lista");
+     } else{
       // Aquí puedes enviar el formulario
       console.log("idProyecto: ", props.idProyecto)
       console.log("Usuario:", selectedUser);
@@ -243,7 +250,7 @@ function AddUserToProject(props){
   const handleUserSelect = (user) => {
     setSelectedUser(user);
     setUserList([]);
-    setSearchTerm(user.usuario)
+    setSearchTerm(user.usuario);
     console.log("Usuario seleccionado:", user);
   };
 
@@ -258,10 +265,16 @@ function AddUserToProject(props){
             <Input
               type="text"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              //
+              onChange={(e) => {
+                const nuevoValor = e.target.value;
+                setSearchTerm(nuevoValor);
+                console.log(searchTerm);
+              }
+            }
               placeholder="Buscar usuario..."
             />
-            {userList.length > 0 && (
+            {userList.length > 0 &&(
               <Ul>
                 {userList.map((user) => (
                   <UserListItem key={user.id} onClick={() => handleUserSelect(user)}>
