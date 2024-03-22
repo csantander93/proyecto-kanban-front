@@ -28,7 +28,7 @@ const Texto = styled.div`
   function UserLogo (props){
 
     return(
-        <Perfil title={props.usuario}><Texto>{props.nombre[0]}{props.apellido[0]}</Texto></Perfil>
+        <Perfil title={props.usuario}><Texto>{props.nombre[0].toUpperCase()}{props.apellido[0].toUpperCase()}</Texto></Perfil>
     );
   }
 
