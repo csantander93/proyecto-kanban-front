@@ -9,6 +9,7 @@ import GlobalStyles from "./GlobalStyles";
 import SearchProject from "../project/SearchProject";
 import { IoIosNotifications } from "react-icons/io";
 import AddUserToProject from "../user/AddUserToProject";
+import UserLogo from "../user/UserLogo";
 
 const Header = styled.header `
   position: fixed;
@@ -112,6 +113,15 @@ const Container = styled.div`
   align-items: start; /* Centra verticalmente */
 `;
 
+const AjustarUserlogo = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 40px;
+  width: 40px;
+  font-size: 40px;
+`;
+
 function Home () {
   const {user} = useContext(UserContext);
   const [proyectos, setProyectos] = useState([]);
@@ -190,6 +200,7 @@ function Home () {
         <div>
           <Campana />
           <Perfil onClick={toggleDropdown}>{ user.nombre[0] }{ user.apellido[0] } </Perfil>
+
           <DropdownContent isOpen={isOpen}>
                   <a id="cerrar" href="#">Cerrar sesión</a>
                   <a id="editar" href="#">Editar perfil</a>

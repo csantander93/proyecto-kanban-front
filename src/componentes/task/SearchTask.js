@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IoSearch, IoPersonAdd } from "react-icons/io5";
 import AddUserToProject from '../user/AddUserToProject';
+import UserLogo from '../user/UserLogo';
+import UserLogoList from '../user/UserLogoList';
 
 // Estilos para el componente de búsqueda
 const SearchContainer = styled.div`
@@ -58,17 +60,26 @@ const AgregarPersonaIcon = styled(IoPersonAdd)`
   color:  #c9c9c9;
   font-size: 22px;
   margin-top: 58px;
-  margin-left: auto;
+  margin-left: 30px;
+  transition: color 0.3s;
   &:hover{
-    font-size: 24px;
     cursor: pointer;
     color: #f7f7f7;
   }
 `;
 
+const UserLogoContainer = styled.div`
+  margin-left: auto; /* Mueve el UserLogo hacia la derecha */
+  margin-top: 58px;
+  /* Añade un espacio entre el UserLogo y el AgregarPersonaIcon */
+  display: flex;
+  align-items: center;
+ 
+  `;
+
 //Componente de búsqueda
 //Recibe el handleClickAgregarPersonaIcon obtenido desde el home y luego por TaskBoard
-function SearchTask({ onSearch, handleClickAgregarPersonaIcon }) {
+function SearchTask({ onSearch, handleClickAgregarPersonaIcon, idProyecto }) {
   const [searchTerm, setSearchTerm] = useState('');
   
 
@@ -90,7 +101,11 @@ function SearchTask({ onSearch, handleClickAgregarPersonaIcon }) {
         />
         <Lupita />
       </SearchInput>
-      <AgregarPersonaIcon onClick={() => handleClickAgregarPersonaIcon()}/>
+      <UserLogoContainer>
+      <UserLogoList idProyecto = {idProyecto}/>
+      </UserLogoContainer>
+      <AgregarPersonaIcon onClick={() => handleClickAgregarPersonaIcon()}
+      title='agregar usuario al proyecto'/>
     </SearchContainer>
     </>
   );

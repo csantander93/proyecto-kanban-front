@@ -293,7 +293,8 @@ function TaskBoard(props) {
     <TaskBoardContainer >
       <SearchTask 
       onSearch={handleSearchTask}
-      handleClickAgregarPersonaIcon = {props.handleClickAgregarPersonaIcon}></SearchTask>
+      handleClickAgregarPersonaIcon = {props.handleClickAgregarPersonaIcon}
+      idProyecto={props.proyectoId}></SearchTask>
       <DrawerContainer>
       {estados.map((estado, index) => (
         <Item key={index}>
