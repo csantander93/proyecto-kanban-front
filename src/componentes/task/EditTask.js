@@ -54,11 +54,17 @@ const FormSelect = styled.select`
 
 const FormButton = styled.button`
   padding: 8px 16px;
-  background-color: #4CAF50;
+  background-color: #126b78;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  &:hover {
+    background-color: #00d2db;
+  }
+  &:active {
+    background-color: #3da9d9;
+  }
 `;
 
 function EditTask(props) {
