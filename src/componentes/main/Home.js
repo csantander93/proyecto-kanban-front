@@ -9,7 +9,6 @@ import GlobalStyles from "./GlobalStyles";
 import SearchProject from "../project/SearchProject";
 import { IoIosNotifications } from "react-icons/io";
 import AddUserToProject from "../user/AddUserToProject";
-import UserLogo from "../user/UserLogo";
 
 const Header = styled.header `
   position: fixed;
@@ -43,7 +42,7 @@ const Perfil = styled.button `
 `;
 // Estilizando la ventana desplegable
 const DropdownContent = styled.div`
-  display: ${(props) => (props.isOpen ? 'block' : 'none')};
+  display: ${(props) => (props.open ? 'block' : 'none')};
   position: absolute;
   top: 70px;
   right: 0;
@@ -113,20 +112,22 @@ const Container = styled.div`
   align-items: start; /* Centra verticalmente */
 `;
 
-const AjustarUserlogo = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 40px;
-  width: 40px;
-  font-size: 40px;
-`;
-
 function Home () {
   const {user} = useContext(UserContext);
   const [proyectos, setProyectos] = useState([]);
   const [error, setError] = useState(null);
   const [selectedIdProject, setSelectedIdProject] = useState(null);
+  const [usersInProject, setUsersInProject] = useState([]); // Nuevo estado para almacenar los usuarios del proyecto seleccionado
+
+  const fetchUsersInProject = async (idProyecto) => {
+    // Función para obtener la lista de usuarios del proyecto seleccionado
+    try {
+      const response = await axios.get(`http://localhost:8080/usuario/traerUsuariosPorIdProyecto/${idProyecto}`);
+      setUsersInProject(response.data);
+    } catch (error) {
+      console.error("Error al obtener listado de usuarios por proyecto:",error);
+    }
+  };
 
   const fetchData = () => {
     return axios.get(`http://localhost:8080/proyecto/traerProyectos/${user.id}`)
@@ -162,13 +163,14 @@ function Home () {
   const actualizarProyectos = () => {
     fetchData();
   }
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setIsOpen] = useState(false);
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(!open);
   };
 
   const handleProjectClick = (idProyecto) => {
     setSelectedIdProject(idProyecto);
+    fetchUsersInProject(idProyecto);
   }
    //controla si se abre o no el formulario para agregar usuario al proyecto
    const [formAddUser, setFormAddUser] = useState(false);
@@ -176,8 +178,6 @@ function Home () {
   const handleClickAgregarPersonaIcon = () => {
     setFormAddUser(!formAddUser);
   };
-
-
 
   return (
     <>
@@ -191,8 +191,10 @@ function Home () {
           clickProyecto = {handleProjectClick} />
           {formAddUser && (
             <AddUserToProject 
+            actualizarProyectos={actualizarProyectos}
             handleClickAgregarPersonaIcon = {handleClickAgregarPersonaIcon}
             idProyecto = {selectedIdProject}
+            fetchUsersInProject={handleProjectClick}
             />
           )}
       </Header>
@@ -201,7 +203,7 @@ function Home () {
           <Campana />
           <Perfil onClick={toggleDropdown}>{ user.nombre[0] }{ user.apellido[0] } </Perfil>
 
-          <DropdownContent isOpen={isOpen}>
+          <DropdownContent open={open}>
                   <a id="cerrar" href="#">Cerrar sesión</a>
                   <a id="editar" href="#">Editar perfil</a>
           </DropdownContent>
@@ -212,7 +214,9 @@ function Home () {
            proyectoId = {selectedIdProject}
            //viaja para taskboard, y luego para search task, donde esta el boton de agregar usuario al proyecto
            //por lo tanto, dicho boton va a activar éste método 
-           handleClickAgregarPersonaIcon = {handleClickAgregarPersonaIcon}/>
+           handleClickAgregarPersonaIcon = {handleClickAgregarPersonaIcon}
+           userList={usersInProject}
+           />
          )
         }
       </Container>

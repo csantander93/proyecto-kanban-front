@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import Loading from "../loading/Loading";
 
 const Overlay = styled.div`
   font-family: sans-serif;
@@ -159,9 +160,8 @@ const Span = styled.span`
   margin-left: 50px;
 `;
 function AddUserToProject(props){
-
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
-
   const [selectedUser, setSelectedUser] = useState(null);
   //se guarda la terminación
   const [searchTerm, setSearchTerm] = useState('');
@@ -218,6 +218,7 @@ function AddUserToProject(props){
     } else if (!selectedUser) {
     window.alert("Por favor, seleccione un usuario de la lista");
      } else{
+      setIsLoading(true);
       // Aquí puedes enviar el formulario
       console.log("idProyecto: ", props.idProyecto)
       console.log("Usuario:", selectedUser);
@@ -232,7 +233,8 @@ function AddUserToProject(props){
           console.log('¡Datos enviados con éxito!', response.data);
           window.alert("Se ingreso el usuario al proyecto");
           props.handleClickAgregarPersonaIcon();
-         
+          props.fetchUsersInProject(props.idProyecto);
+          setIsLoading(false);
       })
       .catch(error => {
           console.error('Error al enviar los datos:', error);
@@ -291,11 +293,10 @@ function AddUserToProject(props){
             <Option value="1">Administrador</Option>
             <Option value="2">Colaborador</Option>
            </Select>
-           
-
           <Button type="submit">Agregar</Button>
         </Form>
       </FormContainer>
+      <Loading isLoading={isLoading}></Loading>
       </Overlay>
     );
 }

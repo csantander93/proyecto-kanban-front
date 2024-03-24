@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 import axios from "axios";
 import Draggable from "react-draggable";
+import Loading from "../loading/Loading";
 
 const FormContainer = styled.div`
   font-family: sans-serif;
@@ -68,6 +69,8 @@ const FormButton = styled.button`
 `;
 
 function EditTask(props) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     idTarea: props.taskEdit.id,
     titulo: props.taskEdit.titulo,
@@ -86,12 +89,12 @@ function EditTask(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
+    setIsLoading(true);
     try {
       const response = await axios.put(`http://localhost:8080/tarea/editarTarea`, formData);
-      console.log(response.data);
       console.log("Tarea editada exitosamente");
       props.fetchData();
+      setIsLoading(false);
     } catch (error) {
       console.error("Error al editar la tarea", error);
     }
@@ -130,6 +133,7 @@ function EditTask(props) {
           </FormField>
           <FormButton type="submit">Guardar Cambios</FormButton>
         </form>
+        <Loading isLoading={isLoading}></Loading>
       </FormContainer>
     </Draggable>
   );

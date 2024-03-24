@@ -5,6 +5,7 @@ import axios from 'axios';
 import { RiAddCircleFill } from "react-icons/ri";
 import { IoMdSend } from "react-icons/io";
 import SearchTask from './SearchTask';
+import Loading from "../loading/Loading";
 
 const DrawerContainer = styled.div`
   font-family: sans-serif;
@@ -133,6 +134,7 @@ function TaskBoard(props) {
   const [enRevision, setEnRevision] = useState([]);
   const [aprobado, setAprobado] = useState([]);
   const [tareaSeleccionada, setTareaSeleccionada] = useState(null); // Estado para rastrear la tarea con el menú abierto
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOpenMenu = (tareaId) => {
     // Cerrar el menú de la tarea actualmente seleccionada (si existe)
@@ -276,9 +278,10 @@ function TaskBoard(props) {
 
   //API PARA CREAR NUEVA TAREA
   const fetchApiNewTask = () => {
-
+    setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
     return axios.post(`http://localhost:8080/tarea/crearTarea`, nuevaTarea)
     .then((response) => {
+      setIsLoading(false);
       setCrearTarea(false);
       setNuevaTarea(tareaInicial);
       console.log("response data:\n", response.data);
@@ -298,7 +301,8 @@ function TaskBoard(props) {
       <SearchTask 
       onSearch={handleSearchTask}
       handleClickAgregarPersonaIcon = {props.handleClickAgregarPersonaIcon}
-      idProyecto={props.proyectoId}></SearchTask>
+      userList={props.userList}>
+      </SearchTask>
       <DrawerContainer>
       {estados.map((estado, index) => (
         <Item key={index}>
@@ -418,6 +422,7 @@ function TaskBoard(props) {
       ) 
       )}
     </DrawerContainer>
+    <Loading isLoading={isLoading}></Loading>
     </TaskBoardContainer>
   );
 }

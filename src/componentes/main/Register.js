@@ -4,7 +4,19 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
 import GlobalStyles from "./GlobalStyles";
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'; // Importa los íconos
 
+const IconViewPass = styled(FaRegEyeSlash)`
+  position: absolute;
+  top: 30%;
+  right: 0;
+  transform: translateY(-50%);
+  cursor: pointer;
+  &:hover {
+    border-radius: 5px;
+    background-color: #D6D6D6;
+  }
+`;
 const Button = styled.button`
   margin-top: 10px;
   width: 100%;
@@ -44,6 +56,10 @@ export const Input = styled.input`
   }
 `;
 
+const InputContainer = styled.div`
+  position: relative;
+`;
+
 const SuccessMessage = styled.div`
   color: green;
   text-align: center;
@@ -64,6 +80,11 @@ function Register() {
 
   const [enviandoPeticion, setEnviandoPeticion] = useState(false);
   const [registroExitoso, setRegistroExitoso] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -115,14 +136,20 @@ function Register() {
               />
 
               <Label>Contraseña</Label>
-              <Input
-                type="password"
-                name="password"
-                placeholder="contraseña"
-                value={formData.password}
-                onChange={handleChange}
-              />
-
+              <InputContainer>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="contraseña"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                {showPassword ? (
+                  <IconViewPass onClick={handleTogglePasswordVisibility} as={FaRegEye} />
+                ) : (
+                  <IconViewPass onClick={handleTogglePasswordVisibility} />
+                )}
+              </InputContainer>
               <Label>Nombre</Label>
               <Input
                 type="text"

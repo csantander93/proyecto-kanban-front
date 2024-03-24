@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { MdOutlineLibraryAdd } from 'react-icons/md';
 import { UserContext } from '../contexts/UserContext';
 import axios from 'axios';
+import Loading from "../loading/Loading";
 
 const Overlay = styled.div`
   position: fixed;
@@ -95,6 +96,7 @@ const ButtonAddProject = styled(MdOutlineLibraryAdd)`
 `;
 
   function FormProject(props) {
+    const [isLoading, setIsLoading] = useState(false);
  // CONSUMIR API
 
  //para obtener el usuario en contexto, osea el usuario logueado
@@ -117,9 +119,11 @@ const ButtonAddProject = styled(MdOutlineLibraryAdd)`
 
     const handleSubmit = (e) => {
       e.preventDefault();
+      setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
       axios.post("http://localhost:8080/proyecto/crear", formData)
       .then(response => {
           console.log('¡Datos enviados con éxito!', response.data);
+          setIsLoading(false);
           alert('Se registro nuevo proyecto');
           setAbrirFormulario(false)
           setFormData(dataInicial)
@@ -180,6 +184,7 @@ const ButtonAddProject = styled(MdOutlineLibraryAdd)`
              onChange={handleChange}/>
 
             <Button type="submit">Crear</Button>
+            <Loading isLoading={isLoading}></Loading>
           </Form>
         </FormContainer>
         </Overlay>

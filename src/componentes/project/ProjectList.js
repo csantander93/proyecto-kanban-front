@@ -1,15 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GrEdit } from "react-icons/gr";
 import { FiInfo } from "react-icons/fi";
 import axios from "axios";
 import CustomModal from "./CustomModal";
+import Loading from "../loading/Loading";
 
 const Li = styled.li`
   position: relative;
-  color: ${(props) => (props.clicked ? "#9fffff" : "#c9c9c9")};
-  background-color: ${(props) => (props.clicked ? "#194070" : "none")};
+  color: ${(props) => (props.clicked === "true" ? "#9fffff" : "#c9c9c9")};
+  background-color: ${(props) => (props.clicked === "true" ? "#194070" : "none")};
   overflow: hidden;
   white-space: nowrap;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -27,6 +28,7 @@ const Li = styled.li`
     background-color: #194070;
   }
 `;
+
 
 const Ul = styled.ul`
   height: 100%;
@@ -115,6 +117,7 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
   const [formProjectEdit, setFormEdit] = useState();
   const [editFormOpen, setEditFormOpen] = useState(false);
   const formRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = (index, projectId) => {
     setSelectedIdItem(index);
@@ -124,12 +127,12 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
   };
 
   const handleInfoClick = async (projectId) => {
+    setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
     try {
-      const response = await axios.get(
-        `http://localhost:8080/proyecto/traerProyectoId/${projectId}`
-      );
+      const response = await axios.get(`http://localhost:8080/proyecto/traerProyectoId/${projectId}`);
       const projectDetails = response.data;
       setSelectedProject(projectDetails);
+      setIsLoading(false);
       setModalIsOpen(true);
     } catch (error) {
       console.error("Error al obtener los detalles del proyecto:", error);
@@ -181,11 +184,11 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
 
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
     try {
-      const response = await axios.put(
-        `http://localhost:8080/proyecto/editarProyecto/${formProjectEdit.id}/${formProjectEdit.nombre}/${formProjectEdit.descripcion}`
-      );
+      const response = await axios.put(`http://localhost:8080/proyecto/editarProyecto/${formProjectEdit.id}/${formProjectEdit.nombre}/${formProjectEdit.descripcion}`);
       actualizarProyectos();
+      setIsLoading(false);
       console.log("Proyecto editado exitosamente");
     } catch (error) {
       console.error("Error al editar el proyecto", error);
@@ -202,7 +205,7 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
             <React.Fragment key={proyectoObj.id}>
               <Li
                 onClick={() => handleClick(index, proyectoObj.id)}
-                clicked={index === selectedIdItem}
+                clicked={index === selectedIdItem ? "true" : "false"}
               >
                 <Span title={proyectoObj.nombre}>
                   {proyectoObj.nombre}
@@ -268,6 +271,7 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
           </div>
         )}
       </CustomModal>
+      <Loading isLoading={isLoading}></Loading>
     </div>
   );
 }

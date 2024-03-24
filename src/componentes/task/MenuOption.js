@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from "axios";
 import DetailsTask from "./DetailsTask";
 import EditTask from "./EditTask";
+import Loading from "../loading/Loading";
 
 const MenuContainer = styled.div`
   position: absolute;
@@ -30,6 +31,7 @@ function MenuOption(props) {
   const [taskDetails, setTaskDetails] = useState(null);
   const [taskEdit, setTaskEdit] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDeleteClick = async () => {
     const { idTarea, titulo } = props;
@@ -47,10 +49,12 @@ function MenuOption(props) {
 
   const handleViewDetails = async () => {
     const { idTarea } = props;
+    setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
     console.log(idTarea);
     try {
       const response = await axios.get(`http://localhost:8080/tarea/traerTareaPorId/${idTarea}`);
       setTaskDetails(response.data);
+      setIsLoading(false);
       setShowDetails(true);
     } catch (error) {
       console.error("Error al obtener los detalles de la tarea", error);
@@ -87,6 +91,7 @@ function MenuOption(props) {
           defaultPosition={{ x: window.innerWidth / 2 - 1120, y: window.innerHeight / 2 - 800 }}
         />
       )}
+      <Loading isLoading={isLoading}></Loading>
     </MenuContainer>
   );
 }
