@@ -8,11 +8,9 @@ import TaskBoard from "../task/TaskBoard";
 import GlobalStyles from "./GlobalStyles";
 import SearchProject from "../project/SearchProject";
 import { IoIosNotifications } from "react-icons/io";
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
-=======
 import AddUserToProject from "../user/AddUserToProject";
->>>>>>> master
+
 
 const Header = styled.header `
   position: fixed;
@@ -121,7 +119,28 @@ function Home () {
   const [proyectos, setProyectos] = useState([]);
   const [error, setError] = useState(null);
   const [selectedIdProject, setSelectedIdProject] = useState(null);
+  const dropdownRef = useRef(null); // Referencia al elemento del dropdown
 
+
+  useEffect(() => {
+    // Función para cerrar el dropdown si se hace clic fuera de él
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    // Agrega el event listener cuando el componente monta
+    document.addEventListener("mousedown", handleClickOutside);
+    
+    // Limpia el event listener cuando el componente desmonta
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);    
+
+
+    
   const fetchData = () => {
     return axios.get(`http://localhost:8080/proyecto/traerProyectos/${user.id}`)
     .then((response) => {
@@ -191,19 +210,14 @@ function Home () {
           )}
       </Header>
       <Container>
-        <div>
+        <div ref={dropdownRef}>
           <Campana />
           <Perfil onClick={toggleDropdown}>{ user.nombre[0] }{ user.apellido[0] } </Perfil>
           <DropdownContent isOpen={isOpen}>
-<<<<<<< HEAD
                   <a id="cerrar"href="#">Cerrar sesión</a>
                   <Link to="/editProfile">
                     <a id="editar">Editar perfil</a>
                   </Link>
-=======
-                  <a id="cerrar" href="#">Cerrar sesión</a>
-                  <a id="editar" href="#">Editar perfil</a>
->>>>>>> master
           </DropdownContent>
         </div>
         

@@ -121,15 +121,15 @@ function EditProfile() {
             setEnviandoPeticion(false);
         });
   };
-  useEffect(()=> {
-    axios.get("http://localhost:8080/usuario/registro")
-         .then(response =>{
-          setFormData(response.data);
-         })
-         .catch(error =>{
-          console.error('Error al obtener los datos del perfil:', error);
-         });
-  },[]);
+  // useEffect(()=> {
+  //   axios.get("http://localhost:8080/usuario/registro")
+  //        .then(response =>{
+  //         setFormData(response.data);
+  //        })
+  //        .catch(error =>{
+  //         console.error('Error al obtener los datos del perfil:', error);
+  //        });
+  // },[]);
  
     return(
       <>
