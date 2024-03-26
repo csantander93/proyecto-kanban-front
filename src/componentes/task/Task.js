@@ -64,7 +64,6 @@ const AddUserContainer = styled.div`
 `;
 
 function Task(props) {
-  const [TaskSeleted] = useState(props.isOpenMenu);
   const [menuOpenTask, setMenuOpen] = useState(false);
   const [assignOpen, setAssignOpen] = useState(false);
   const menuRef = useRef(null);
@@ -91,6 +90,7 @@ function Task(props) {
 
   const toggleAssign = () => {
     setAssignOpen(!assignOpen);
+    setMenuOpen(!menuOpenTask);
   };
 
   return (
@@ -99,7 +99,7 @@ function Task(props) {
         {props.titulo}
         <IconContainer>
           <Options title="Opciones" onClick={toggleMenu}/>
-          <AssignTask title="Asignar usuario" onClick={toggleAssign}/>
+          <AssignTask title="Asignar usuario" onClick={toggleAssign} />
         </IconContainer>
       </Span>
       {menuOpenTask && <MenuOption isOpen={menuOpenTask}  idTarea={props.idTarea} titulo={props.titulo} fetchData={props.fetchData}/>}
