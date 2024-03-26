@@ -110,6 +110,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center; /* Centra horizontalmente */
   align-items: start; /* Centra verticalmente */
+  z-index: -1;
 `;
 
 function Home () {

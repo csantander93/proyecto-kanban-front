@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { PiUserCircleFill } from "react-icons/pi";
 import { SlOptions } from "react-icons/sl";
 import MenuOption from "./MenuOption";
+import AddUserToTask from "../user/AddUserToTask";
 
 const Contenedor = styled.div`
   position: relative;
@@ -56,18 +57,25 @@ const Options = styled(SlOptions)`
   }
 `;
 
-function Task(props) {
-  const [menuOpen, setMenuOpen] = useState(props.isOpenMenu);
-  const menuRef = useRef(null);
+const AddUserContainer = styled.div`
+  position: relative;
+  z-index: 3;
+  bottom: 28px;
+`;
 
-  useEffect(() => {
-    setMenuOpen(props.isOpenMenu);
-  }, [props.isOpenMenu]);
+function Task(props) {
+  const [TaskSeleted] = useState(props.isOpenMenu);
+  const [menuOpenTask, setMenuOpen] = useState(false);
+  const [assignOpen, setAssignOpen] = useState(false);
+  const menuRef = useRef(null);
+  const assignRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuOpen && menuRef.current && !menuRef.current.contains(event.target)) {
+      if ((menuOpenTask && menuRef.current && !menuRef.current.contains(event.target)) ||
+          (assignOpen && assignRef.current && !assignRef.current.contains(event.target))) {
         setMenuOpen(false);
+        setAssignOpen(false);
       }
     };
 
@@ -75,11 +83,14 @@ function Task(props) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [menuOpen]);
+  }, [menuOpenTask, assignOpen]);
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-    props.onClickMenu(); // Llama a la función para actualizar el estado en el componente TaskBoard
+    setMenuOpen(!menuOpenTask);
+  };
+
+  const toggleAssign = () => {
+    setAssignOpen(!assignOpen);
   };
 
   return (
@@ -88,10 +99,15 @@ function Task(props) {
         {props.titulo}
         <IconContainer>
           <Options title="Opciones" onClick={toggleMenu}/>
-          <AssignTask title="Asignar usuario"/>
+          <AssignTask title="Asignar usuario" onClick={toggleAssign}/>
         </IconContainer>
       </Span>
-      {menuOpen && <MenuOption isOpen={menuOpen}  idTarea={props.idTarea} titulo={props.titulo} fetchData={props.fetchData}/>}
+      {menuOpenTask && <MenuOption toggleMenu={toggleMenu} isOpen={menuOpenTask}  idTarea={props.idTarea} titulo={props.titulo} fetchData={props.fetchData}/>}
+      {assignOpen && (
+        <AddUserContainer ref={assignRef}>
+          <AddUserToTask ref={assignRef} isOpen={assignOpen} idProyecto={props.idProyecto} idTarea={props.idTarea} />
+        </AddUserContainer>
+      )}
     </Contenedor>
   );
 }

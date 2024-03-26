@@ -28,17 +28,16 @@ const MenuItem = styled.div`
 
 function MenuOption(props) {
   const [showDetails, setShowDetails] = useState(false);
-  const [taskDetails, setTaskDetails] = useState(null);
+  const [taskDetails, setTaskDetails] = useState(false);
   const [taskEdit, setTaskEdit] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDeleteClick = async () => {
-    const { idTarea, titulo } = props;
-    const confirmDelete = window.confirm(`¿Estás seguro que deseas borrar la tarea: \n<<${titulo}?>>`);
+    const confirmDelete = window.confirm(`¿Estás seguro que deseas borrar la tarea: \n<<${props.titulo}?>>`);
     if (confirmDelete) {
       try {
-        const response = await axios.put(`http://localhost:8080/tarea/bajaTarea/${idTarea}`);
+        const response = await axios.put(`http://localhost:8080/tarea/bajaTarea/${props.idTarea}`);
         console.log("Tarea eliminada exitosamente");
         props.fetchData();
       } catch (error) {
@@ -48,23 +47,20 @@ function MenuOption(props) {
   };
 
   const handleViewDetails = async () => {
-    const { idTarea } = props;
     setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
-    console.log(idTarea);
     try {
-      const response = await axios.get(`http://localhost:8080/tarea/traerTareaPorId/${idTarea}`);
+      const response = await axios.get(`http://localhost:8080/tarea/traerTareaPorId/${props.idTarea}`);
       setTaskDetails(response.data);
-      setIsLoading(false);
       setShowDetails(true);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error al obtener los detalles de la tarea", error);
     }
   };
 
   const handleEditTask = async () => {
-    const { idTarea } = props;
     try{
-      const response = await axios.get(`http://localhost:8080/tarea/traerTareaPorId/${idTarea}`);
+      const response = await axios.get(`http://localhost:8080/tarea/traerTareaPorId/${props.idTarea}`);
       setTaskEdit(response.data)
       setShowEditForm(true)
     } catch (error) {
@@ -77,7 +73,7 @@ function MenuOption(props) {
       <MenuItem onClick={handleViewDetails}>Ver detalles</MenuItem>
       <MenuItem onClick={handleEditTask}>Editar</MenuItem>
       <MenuItem onClick={handleDeleteClick}>Eliminar</MenuItem>
-      {showDetails && taskDetails && (
+      {showDetails && (
         <DetailsTask
           isOpen={showDetails}
           taskDetails={taskDetails}
@@ -88,6 +84,7 @@ function MenuOption(props) {
         <EditTask
           taskEdit={taskEdit}
           fetchData={props.fetchData}
+          setShowEditForm={setShowEditForm}
           defaultPosition={{ x: window.innerWidth / 2 - 1120, y: window.innerHeight / 2 - 800 }}
         />
       )}

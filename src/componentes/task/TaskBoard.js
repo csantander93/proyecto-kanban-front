@@ -346,6 +346,7 @@ function TaskBoard(props) {
                   <Task
                     key={index} 
                     idTarea = {tarea.id}
+                    idProyecto = {props.proyectoId}
                     titulo = {tarea.titulo}
                     onClickMenu={() => handleOpenMenu(tarea.id)}
                     isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
@@ -361,6 +362,7 @@ function TaskBoard(props) {
                     <Task
                       key={index} 
                       idTarea = {tarea.id}
+                      proyectoId = {props.proyectoId}
                       titulo = {tarea.titulo}
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
@@ -376,6 +378,7 @@ function TaskBoard(props) {
                     <Task
                       key={index}
                       idTarea = {tarea.id}
+                      proyectoId = {props.proyectoId}
                       titulo = {tarea.titulo}
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
@@ -391,6 +394,7 @@ function TaskBoard(props) {
                     <Task
                       key={index}
                       idTarea = {tarea.id} 
+                      proyectoId = {props.proyectoId}
                       titulo = {tarea.titulo}
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
@@ -406,6 +410,7 @@ function TaskBoard(props) {
                     <Task
                       key={index}
                       idTarea = {tarea.id}
+                      idProyecto = {props.proyectoId}
                       titulo = {tarea.titulo}
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea

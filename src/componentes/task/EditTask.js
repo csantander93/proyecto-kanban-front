@@ -95,6 +95,7 @@ function EditTask(props) {
       console.log("Tarea editada exitosamente");
       props.fetchData();
       setIsLoading(false);
+      props.setShowEditForm(false);
     } catch (error) {
       console.error("Error al editar la tarea", error);
     }
