@@ -102,7 +102,7 @@ function Task(props) {
           <AssignTask title="Asignar usuario" onClick={toggleAssign}/>
         </IconContainer>
       </Span>
-      {menuOpenTask && <MenuOption toggleMenu={toggleMenu} isOpen={menuOpenTask}  idTarea={props.idTarea} titulo={props.titulo} fetchData={props.fetchData}/>}
+      {menuOpenTask && <MenuOption isOpen={menuOpenTask}  idTarea={props.idTarea} titulo={props.titulo} fetchData={props.fetchData}/>}
       {assignOpen && (
         <AddUserContainer ref={assignRef}>
           <AddUserToTask ref={assignRef} isOpen={assignOpen} idProyecto={props.idProyecto} idTarea={props.idTarea} />
