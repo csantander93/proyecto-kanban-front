@@ -32,6 +32,7 @@ function MenuOption(props) {
   const [taskEdit, setTaskEdit] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [menuAbierto, setMenuAbierto] = useState(true);
 
   const handleDeleteClick = async () => {
     const confirmDelete = window.confirm(`¿Estás seguro que deseas borrar la tarea: \n<<${props.titulo}?>>`);
@@ -47,6 +48,7 @@ function MenuOption(props) {
   };
 
   const handleViewDetails = async () => {
+    setMenuAbierto(false);
     setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
     try {
       const response = await axios.get(`http://localhost:8080/tarea/traerTareaPorId/${props.idTarea}`);
@@ -56,23 +58,30 @@ function MenuOption(props) {
     } catch (error) {
       console.error("Error al obtener los detalles de la tarea", error);
     }
+   
   };
 
   const handleEditTask = async () => {
+    setMenuAbierto(false);
+    setIsLoading(true);
     try{
       const response = await axios.get(`http://localhost:8080/tarea/traerTareaPorId/${props.idTarea}`);
       setTaskEdit(response.data)
       setShowEditForm(true)
+      setIsLoading(false);
     } catch (error) {
       console.error("Error al intentar editar la tarea" , error);
     }
+  
   };
 
   return (
-    <MenuContainer isOpen={props.isOpen}>
+    <div>
+    <MenuContainer isOpen={menuAbierto}>
       <MenuItem onClick={handleViewDetails}>Ver detalles</MenuItem>
       <MenuItem onClick={handleEditTask}>Editar</MenuItem>
       <MenuItem onClick={handleDeleteClick}>Eliminar</MenuItem>
+    </MenuContainer>
       {showDetails && (
         <DetailsTask
           isOpen={showDetails}
@@ -89,7 +98,7 @@ function MenuOption(props) {
         />
       )}
       <Loading isLoading={isLoading}></Loading>
-    </MenuContainer>
+      </div>
   );
 }
 
