@@ -90,7 +90,7 @@ function Task(props) {
 
   const toggleAssign = () => {
     setAssignOpen(!assignOpen);
-    setMenuOpen(!menuOpenTask);
+    setMenuOpen(false);
   };
 
   return (
