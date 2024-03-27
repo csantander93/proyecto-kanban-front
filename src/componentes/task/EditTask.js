@@ -79,7 +79,7 @@ function EditTask(props) {
     descripcion: props.taskEdit.descripcion,
     dificultad: props.taskEdit.dificultad,
     estado: props.taskEdit.estado,
-    fechaFin: new Date()
+    fechaFin: props.taskEdit.fechaFin
   });
 
   const handleChange = (e) => {
