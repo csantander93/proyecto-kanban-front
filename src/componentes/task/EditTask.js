@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import axios from "axios";
 import Draggable from "react-draggable";
 import Loading from "../loading/Loading";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const FormContainer = styled.div`
   font-family: sans-serif;
@@ -76,7 +78,8 @@ function EditTask(props) {
     titulo: props.taskEdit.titulo,
     descripcion: props.taskEdit.descripcion,
     dificultad: props.taskEdit.dificultad,
-    estado: props.taskEdit.estado
+    estado: props.taskEdit.estado,
+    fechaFin: new Date()
   });
 
   const handleChange = (e) => {
@@ -84,6 +87,13 @@ function EditTask(props) {
     setFormData(prevState => ({
       ...prevState,
       [name]: value
+    }));
+  };
+
+  const handleDateChange = (date) => {
+    setFormData(prevState => ({
+      ...prevState,
+      fechaFin: date
     }));
   };
 
@@ -113,6 +123,10 @@ function EditTask(props) {
           <FormField>
             <FormLabel>Descripción:</FormLabel>
             <FormTextarea name="descripcion" value={formData.descripcion} onChange={handleChange}></FormTextarea>
+          </FormField>
+          <FormField>
+            <FormLabel>Fecha de Finalización:</FormLabel>
+            <DatePicker selected={formData.fechaFin} onChange={handleDateChange} />
           </FormField>
           <FormField>
             <FormLabel>Dificultad:</FormLabel>
