@@ -52,6 +52,7 @@ function MenuOption(props) {
     setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
     try {
       const response = await axios.get(`http://localhost:8080/tarea/traerTareaPorId/${props.idTarea}`);
+      console.log(response.data);
       setTaskDetails(response.data);
       setShowDetails(true);
       setIsLoading(false);
