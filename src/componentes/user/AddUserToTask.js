@@ -1,22 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import Loading from "../loading/Loading";
 
 const Container = styled.div`
-  position: absolute;
-  top: calc(42% + 5px);
-  left: calc(10% + 20px);
+  position: relative;
+  top: calc(42% + 7px);
+  left: calc(10% + -21px);
   z-index: 1000;
+  padding: 0;
+  margin: 0;
+  width: 210px;
+  display: flex;
+  align-items: center;
+  border: none;
 `;
 
-const Input = styled.input`
-  padding: 5px;
-  border: 1px solid #ccc;
+const Input = styled.textarea`
+  background-color: #bbeaff;
   border-radius: 5px;
-  width: 150px;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border-width: 3px;
+  border-color: #007dab;
+  font-family: sans-serif;
+  padding: 0;
+  font-size: 13px;
+  &::placeholder {
+    font-size: 15px;
+    color: black;
+  }
+  &:focus {
+    border-color: #00C9FF;
+    outline: none;
+  }
 `;
 
 const Ul = styled.ul`
+ top: calc(42% + 25px);
+ left: calc(10% + -21px);
  color: white;
  position: absolute;
  background-color:  #0F0F0F;
@@ -24,10 +47,10 @@ const Ul = styled.ul`
  margin-top: 3px;
  padding: 0;
  width: 100%;
- min-height: 400%;
+ min-height: 100%;
  max-height: 800%;
  border-radius: 5px;
- box-shadow: 0px 0px 5px 1px #c9c9c9;
+ box-shadow: 0px 0px 5px 1px #00C9FF;
  overflow-y: auto;
   /* Estilo para el contenedor del scroll */
   &::-webkit-scrollbar {
@@ -48,8 +71,8 @@ const Ul = styled.ul`
 
 const UserListItem = styled.li`
   margin-bottom: 0px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 3px;
+  padding-bottom: 3px;
   cursor: pointer;
   color: #c9c9c9;
   width: 100%;
@@ -60,32 +83,32 @@ const UserListItem = styled.li`
   }
 `;
 
-const Button = styled.button` 
-  background-color: #126b78;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: #00d2db;
-  }
-  &:active {
-    background-color: #3da9d9;
-  }
-`;
-
 const AddUserToTask = (props) => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [userList, setUserList] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchApiUsersTerm = async () => {
     try {
-        const response = await axios.get(`http://localhost:8080/usuario/traerUsuariosDeProyectoSinTarea/${searchTerm}/${props.idProyecto}/${props.idTarea}`);
-        setUserList(response.data);
+      const response = await axios.get(`http://localhost:8080/usuario/traerUsuariosDeProyectoSinTarea/${searchTerm}/${props.idProyecto}/${props.idTarea}`);
+      setUserList(response.data);
     } catch (error) {
       console.error("Error al obtener listado de usuarios por terminacion:", error);
+    }
+  };
+
+  const addUserToTask = async (user) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.put(`http://localhost:8080/usuario/asignarUsuarioATarea/${props.idTarea}/${user.id}`);
+      console.log(response.data);
+      props.toggleAssign();
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error("Error al agregar usuario a la tarea:", error);
     }
   };
 
@@ -104,30 +127,29 @@ const AddUserToTask = (props) => {
     setSelectedUser(user)
     setUserList([]);
     setSearchTerm(user.usuario);
+    addUserToTask(user);
   };
 
   return (
-    <Container>
-      <div>
-      <Input
-        type="text"
-        value={searchTerm}
-        placeholder="Buscar usuario..."
-        onFocus={() => setIsDropdownOpen(true)}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <Button>Enviar</Button>
-      </div>
-      {isDropdownOpen && searchTerm !== "" && userList.length > 0 &&(
-        <Ul>
-          {userList.map((user) => (
-            <UserListItem key={user.id} onClick={() => handleUserSelect(user)}>
-              {user.usuario}
-            </UserListItem>
-          ))}
-        </Ul>
-      )}
-    </Container>
+      <Container>
+        <Input
+          type="text"
+          value={searchTerm}
+          placeholder="Buscar usuario..."
+          onFocus={() => setIsDropdownOpen(true)}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        {isDropdownOpen && searchTerm !== "" && userList.length > 0 &&(
+          <Ul>
+            {userList.map((user) => (
+              <UserListItem key={user.id} onClick={() => handleUserSelect(user)}>
+                {user.usuario}
+              </UserListItem>
+            ))}
+          </Ul>
+        )}
+        <Loading isLoading={isLoading}></Loading>
+      </Container>
   );
 };
 

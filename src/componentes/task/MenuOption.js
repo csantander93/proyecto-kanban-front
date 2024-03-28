@@ -35,12 +35,16 @@ function MenuOption(props) {
   const [menuAbierto, setMenuAbierto] = useState(true);
 
   const handleDeleteClick = async () => {
+    setMenuAbierto(false);
     const confirmDelete = window.confirm(`¿Estás seguro que deseas borrar la tarea: \n<<${props.titulo}?>>`);
     if (confirmDelete) {
+      setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
       try {
         const response = await axios.put(`http://localhost:8080/tarea/bajaTarea/${props.idTarea}`);
         console.log("Tarea eliminada exitosamente");
+        props.toggleMenu();
         props.fetchData();
+        setIsLoading(false); // Activamos el cartel de carga al iniciar la petición
       } catch (error) {
         console.error("Error al eliminar la tarea", error);
       }

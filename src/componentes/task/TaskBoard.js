@@ -25,7 +25,6 @@ const Item = styled.div`
   border-radius: 10px;
   overflow-x: hidden;
   overflow-y: auto; /* Añade una barra de desplazamiento vertical si el contenido excede el tamaño máximo */
-  position: relative; /* Establece el contexto de posicionamiento para los elementos hijos */
 
   /* Estilos del scrollbar */
   &::-webkit-scrollbar {
@@ -52,7 +51,6 @@ const ItemText = styled.div`
   text-align: e;
   margin-top: 10px; /* Ajuste de margen superior */
   margin-left: 10px; /* Ajuste de margen izquierdo */
-  position: absolute; /* Posiciona de forma absoluta */
   top: 0; /* Lo posiciona en la esquina superior */
   left: 0; /* Lo posiciona en la esquina izquierda */
 `;
@@ -61,8 +59,8 @@ const ContainerAddTask = styled.div`
   display: flex;
   justify-content: left;
   align-items: left;
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   margin-left: 10px;
   padding-top: ${props => props.crearTarea ? "0" : "5px"};
   padding-bottom: ${props => props.crearTarea ? "0" : "5px"};
@@ -345,6 +343,7 @@ function TaskBoard(props) {
                   return (
                   <Task
                     key={index} 
+                    estado = {estado}
                     idTarea = {tarea.id}
                     idProyecto = {props.proyectoId}
                     titulo = {tarea.titulo}
@@ -361,8 +360,9 @@ function TaskBoard(props) {
                   return (
                     <Task
                       key={index} 
+                      estado = {estado}
                       idTarea = {tarea.id}
-                      proyectoId = {props.proyectoId}
+                      idProyecto = {props.proyectoId}
                       titulo = {tarea.titulo}
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
@@ -377,8 +377,9 @@ function TaskBoard(props) {
                   return (
                     <Task
                       key={index}
+                      estado = {estado}
                       idTarea = {tarea.id}
-                      proyectoId = {props.proyectoId}
+                      idProyecto = {props.proyectoId}
                       titulo = {tarea.titulo}
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
@@ -393,8 +394,9 @@ function TaskBoard(props) {
                   return (
                     <Task
                       key={index}
+                      estado = {estado}
                       idTarea = {tarea.id} 
-                      proyectoId = {props.proyectoId}
+                      idProyecto = {props.proyectoId}
                       titulo = {tarea.titulo}
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
@@ -409,6 +411,7 @@ function TaskBoard(props) {
                   return (
                     <Task
                       key={index}
+                      estado = {estado}
                       idTarea = {tarea.id}
                       idProyecto = {props.proyectoId}
                       titulo = {tarea.titulo}
