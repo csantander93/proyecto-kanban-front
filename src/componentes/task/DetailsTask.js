@@ -66,6 +66,18 @@ function DetailsTask({ isOpen, taskDetails, defaultPosition }) {
         <p>Estado: {taskDetails.estado}</p>
         <p>Fecha de inicio: {taskDetails.fechaInicio}</p>
         <p>Fecha de fin: {taskDetails.fechaFin}</p>
+        {taskDetails.usuarios.length === 0 ? (
+        <p>No hay usuarios asignados</p>
+         ) : (
+        <div>
+          <p>Usuarios asignados:</p>
+          <ul>
+            {taskDetails.usuarios.map((usuario, index) => (
+              <li key={index}>{usuario.usuario}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       </FormContainer>
     </Draggable>
   );

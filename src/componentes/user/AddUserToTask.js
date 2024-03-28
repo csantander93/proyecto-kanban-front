@@ -105,6 +105,7 @@ const AddUserToTask = (props) => {
       const response = await axios.put(`http://localhost:8080/usuario/asignarUsuarioATarea/${props.idTarea}/${user.id}`);
       console.log(response.data);
       props.toggleAssign();
+      props.cargarListadoTareas();
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);

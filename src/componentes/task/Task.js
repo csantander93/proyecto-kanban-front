@@ -4,6 +4,8 @@ import { PiUserCircleFill } from "react-icons/pi";
 import { SlOptions } from "react-icons/sl";
 import MenuOption from "./MenuOption";
 import AddUserToTask from "../user/AddUserToTask";
+import BubbleAlert from "../utils/BubbleAlert";
+import axios from "axios";
 
 const Contenedor = styled.div`
   position: relative;
@@ -63,6 +65,13 @@ const AddUserContainer = styled.div`
   bottom: 28px;
 `;
 
+const styles = {
+  bubble: {
+    position: "absolute",
+    left: 226,
+    top: 20,
+  }
+}
 function Task(props) {
   const [menuOpenTask, setMenuOpen] = useState(false);
   const [assignOpen, setAssignOpen] = useState(false);
@@ -82,7 +91,9 @@ function Task(props) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [menuOpenTask, assignOpen]);
+
+
+  }, [menuOpenTask, assignOpen, props.idTarea]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpenTask);
@@ -93,6 +104,8 @@ function Task(props) {
     setMenuOpen(false);
   };
 
+  
+
   return (
     <Contenedor ref={menuRef}>
       <Span>
@@ -100,14 +113,22 @@ function Task(props) {
         <IconContainer>
           <Options title="Opciones" onClick={toggleMenu}/>
           {(props.estado === "EN PROCESO" || props.estado === "PARA HACER") && (
+            <div>
+              
             <AssignTask title="Asignar usuario" onClick={toggleAssign} />
+
+            {props.cantidad > 0 && (
+              <span style={styles.bubble} title="usuarios asignados"><BubbleAlert value={props.cantidad} /></span>
+            )}
+            
+            </div>
           )}
         </IconContainer>
       </Span>
       {menuOpenTask && <MenuOption isOpen={menuOpenTask} toggleMenu={toggleMenu} idTarea={props.idTarea} titulo={props.titulo} fetchData={props.fetchData}/>}
       {assignOpen && (
         <AddUserContainer ref={assignRef}>
-          <AddUserToTask toggleAssign={toggleAssign} idProyecto={props.idProyecto} idTarea={props.idTarea} />
+          <AddUserToTask toggleAssign={toggleAssign} idProyecto={props.idProyecto} idTarea={props.idTarea} cargarListadoTareas={props.fetchData}/>
         </AddUserContainer>
       )}
     </Contenedor>

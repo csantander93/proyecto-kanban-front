@@ -350,6 +350,8 @@ function TaskBoard(props) {
                     onClickMenu={() => handleOpenMenu(tarea.id)}
                     isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
                     fetchData={fetchData}
+                    cantidad = {tarea.cantUsuarios}
+                    cargarListadoTareas={fetchData}
                   />
                   )
                 });
@@ -367,6 +369,7 @@ function TaskBoard(props) {
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
                       fetchData={fetchData}
+                      cantidad = {tarea.cantUsuarios}
                     />
                     )
                 });
@@ -384,6 +387,7 @@ function TaskBoard(props) {
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
                       fetchData={fetchData}
+                      cantidad = {tarea.cantUsuarios}
                     />
                     )
                 });
@@ -401,6 +405,7 @@ function TaskBoard(props) {
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
                       fetchData={fetchData}
+                      cantidad = {tarea.cantUsuarios}
                     />
                     )
                 });
@@ -418,6 +423,7 @@ function TaskBoard(props) {
                       onClickMenu={() => handleOpenMenu(tarea.id)}
                       isOpenMenu={tarea.id === tareaSeleccionada} // Indicar si el menú está abierto para esta tarea
                       fetchData={fetchData}
+                      cantidad = {tarea.cantUsuarios}
                     />
                     )
                 });
