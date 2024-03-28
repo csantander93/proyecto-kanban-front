@@ -8,8 +8,8 @@ import AddUserToTask from "../user/AddUserToTask";
 const Contenedor = styled.div`
   position: relative;
   margin: 5px 10px 5px 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   width: 90%;
   min-height: auto;
   background-color: aliceblue;
@@ -99,13 +99,15 @@ function Task(props) {
         {props.titulo}
         <IconContainer>
           <Options title="Opciones" onClick={toggleMenu}/>
-          <AssignTask title="Asignar usuario" onClick={toggleAssign} />
+          {(props.estado === "EN PROCESO" || props.estado === "PARA HACER") && (
+            <AssignTask title="Asignar usuario" onClick={toggleAssign} />
+          )}
         </IconContainer>
       </Span>
-      {menuOpenTask && <MenuOption isOpen={menuOpenTask}  idTarea={props.idTarea} titulo={props.titulo} fetchData={props.fetchData}/>}
+      {menuOpenTask && <MenuOption isOpen={menuOpenTask} toggleMenu={toggleMenu} idTarea={props.idTarea} titulo={props.titulo} fetchData={props.fetchData}/>}
       {assignOpen && (
         <AddUserContainer ref={assignRef}>
-          <AddUserToTask ref={assignRef} isOpen={assignOpen} idProyecto={props.idProyecto} idTarea={props.idTarea} />
+          <AddUserToTask toggleAssign={toggleAssign} idProyecto={props.idProyecto} idTarea={props.idTarea} />
         </AddUserContainer>
       )}
     </Contenedor>

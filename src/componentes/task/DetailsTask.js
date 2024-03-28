@@ -54,7 +54,7 @@ function DetailsTask({ isOpen, taskDetails, defaultPosition }) {
     <Draggable defaultPosition={defaultPosition}>
       <FormContainer style={{ display: isOpen ? 'block' : 'none' }}>
         <h2>Detalles de la tarea</h2>
-        {timeRemaining && (taskDetails.estado == "EN PROCESO" || taskDetails.estado == "PARA HACER") && (
+        {timeRemaining && (taskDetails.estado === "EN PROCESO" || taskDetails.estado === "PARA HACER") && (
           <h4 style={{ color: textColor }}>
             Tiempo restante: {timeRemaining.days} días, {timeRemaining.hours} hs, {timeRemaining.minutes} min, {timeRemaining.seconds} segundos
           </h4>
