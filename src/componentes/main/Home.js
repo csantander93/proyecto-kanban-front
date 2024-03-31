@@ -9,6 +9,7 @@ import GlobalStyles from "./GlobalStyles";
 import SearchProject from "../project/SearchProject";
 import { IoIosNotifications } from "react-icons/io";
 import AddUserToProject from "../user/AddUserToProject";
+import { Link } from "react-router-dom";
 
 const Header = styled.header `
   position: fixed;
@@ -206,7 +207,10 @@ function Home () {
 
           <DropdownContent open={open}>
                   <a id="cerrar" href="#">Cerrar sesión</a>
-                  <a id="editar" href="#">Editar perfil</a>
+
+                  <Link to="/editProfile">
+                    <a id="editar">Editar perfil</a>
+                  </Link>
           </DropdownContent>
         </div>
         

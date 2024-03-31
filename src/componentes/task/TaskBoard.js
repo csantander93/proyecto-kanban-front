@@ -151,15 +151,18 @@ function TaskBoard(props) {
 
   //consumir la api que obtiene las tareas del proyecto props.idProyecto
   const fetchData = () => {
+    setIsLoading(true);
     return axios.get(`http://localhost:8080/tarea/traerTareas/${props.proyectoId}`)
     .then((response) => {
       console.log("response data:\n", response.data)
       separarTareasEstados(response.data);
+      setIsLoading(false);
       
     })
     .catch(error => {
       setError("Error al obtener tareas");
       console.log(error);
+      setIsLoading(false);
     });
   }
 
