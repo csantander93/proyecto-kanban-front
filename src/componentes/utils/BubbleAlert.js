@@ -1,16 +1,14 @@
 import { Component } from "react";
+import styled from "styled-components";
 
-const styles = {
-    bubbleAlert: {
-        backgroundColor: "#E9725A",
-        borderRadius: "20px",
-        color: "#fff",
-        padding: "5px 8px",
-        fontSize: "0.5rem",
-        width: "20px",
-        
-    }
-}
+const Span = styled.span`
+  background-color: #E9725A;
+  border-radius: 20px;
+  color: #fff;
+  padding: 5px 8px;
+  font-size: 0.5rem;
+  width: 20px;
+`;
 
 class BubbleAlert extends Component {
     getNumber(n){
@@ -20,11 +18,11 @@ class BubbleAlert extends Component {
     render() {
         const { value } = this.props
         return (
-            <span style={styles.bubbleAlert}>
+            <Span>
                 {this.getNumber(value)}
-            </span>
+            </Span>
         )
     }
 }
 
-export default BubbleAlert
+export default BubbleAlert

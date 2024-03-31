@@ -26,9 +26,13 @@ const Texto = styled.div`
 `;
 
   function UserLogo (props){
+    
+    const handleClick = () => {
+      console.log("id "+props.id);
+    }
 
     return(
-        <Perfil title={props.usuario}><Texto>{props.nombre[0].toUpperCase()}{props.apellido[0].toUpperCase()}</Texto></Perfil>
+        <Perfil onClick={() => handleClick()} title={props.usuario}><Texto>{props.nombre[0].toUpperCase()}{props.apellido[0].toUpperCase()}</Texto></Perfil>
     );
   }
 

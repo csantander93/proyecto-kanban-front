@@ -16,12 +16,14 @@ const Span = styled.span`
 `;
 
 function UserLogoList({ userList }) {
+
   console.log(userList);
   return (
     <Div>
       {userList.map((user) => (
         <UserLogo
           key={user.id}
+          id={user.id}
           usuario={user.usuario}
           nombre={user.nombre}
           apellido={user.apellido}

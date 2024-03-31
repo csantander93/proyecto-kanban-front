@@ -65,13 +65,11 @@ const AddUserContainer = styled.div`
   bottom: 28px;
 `;
 
-const styles = {
-  bubble: {
-    position: "absolute",
-    left: 226,
-    top: 20,
-  }
-}
+const SpanBubble = styled.span `
+  position: absolute;
+  left: 226px;
+`;
+
 function Task(props) {
   const [menuOpenTask, setMenuOpen] = useState(false);
   const [assignOpen, setAssignOpen] = useState(false);
@@ -118,7 +116,7 @@ function Task(props) {
             <AssignTask title="Asignar usuario" onClick={toggleAssign} />
 
             {props.cantidad > 0 && (
-              <span style={styles.bubble} title="usuarios asignados"><BubbleAlert value={props.cantidad} /></span>
+              <SpanBubble title="usuarios asignados"><BubbleAlert value={props.cantidad} /></SpanBubble>
             )}
             
             </div>
