@@ -77,7 +77,7 @@ const UserLogoContainer = styled.div`
 
 //Componente de búsqueda
 //Recibe el handleClickAgregarPersonaIcon obtenido desde el home y luego por TaskBoard
-function SearchTask({ onSearch, handleClickAgregarPersonaIcon, userList }) {
+function SearchTask({ onSearch, handleClickAgregarPersonaIcon, userList, proyectoId, recargarUserList, recargarTareas }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
@@ -99,7 +99,11 @@ function SearchTask({ onSearch, handleClickAgregarPersonaIcon, userList }) {
         <Lupita />
       </SearchInput>
       <UserLogoContainer>
-      <UserLogoList userList={userList}/>
+      <UserLogoList 
+      userList={userList}
+      proyectoId={proyectoId}
+      recargarUserList={recargarUserList}
+      recargarTareas={recargarTareas}/>
       </UserLogoContainer>
       <AgregarPersonaIcon onClick={() => handleClickAgregarPersonaIcon()} 
       title='agregar usuario al proyecto'/>

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from 'styled-components';
 import Draggable from "react-draggable";
+import { TiDelete } from "react-icons/ti";
+import Loading from "../loading/Loading";
+import axios from "axios";
 
 const FormContainer = styled.div`
   font-family: sans-serif;
@@ -12,13 +15,49 @@ const FormContainer = styled.div`
   border-radius: 5px;
   padding: 20px;
   max-width: 400px;
-  width: 80%;
+  min-width: 20%;
   box-shadow: 0px 0px 6px 1px #c9c9c9;
   cursor: pointer;
 `;
 
-function DetailsTask({ isOpen, taskDetails, defaultPosition }) {
+const Li = styled.li`
+ /* Estilos base para el elemento <li> */
+ position: relative; /* Asegura que el pseudo-elemento esté posicionado correctamente */
+ list-style-type: none;
+ display: flex; /* Establece el contenedor como un contenedor flexible */
+  align-items: center; /* Centra verticalmente el contenido */
+
+/* Pseudo-elemento ::after para el subrayado */
+&::after {
+  content: ''; /* Obligatorio para los pseudo-elementos */
+  position: absolute; /* Posición relativa al elemento padre */
+  width: 100%; /* Ancho completo del elemento <li> */
+  height: 2px; /* Altura del subrayado */
+  bottom: -2px; /* Coloca el subrayado justo debajo del elemento */
+  left: 0; /* Alinea el subrayado a la izquierda */
+  background-color: transparent; /* Inicialmente transparente */
+  transition: background-color 0.3s ease; /* Transición para el cambio de color */
+}
+
+/* Cambia el color de fondo del subrayado cuando el mouse pasa sobre el elemento */
+&:hover::after {
+  background-color: #1d90cc; /* Cambia el color del subrayado cuando el mouse pasa sobre el elemento */
+}
+`;
+
+const DeleteUserToTask = styled(TiDelete)`
+  color: #b81414;
+  font-size: 20px;
+  margin-left: auto;
+  margin-top: 1px;
+  &:hover{
+   color: #eb636b;
+  }
+`;
+
+function DetailsTask({ isOpen, taskDetails, defaultPosition, recargarListadoTareas, idProyecto ,  handleViewDetails}) {
   const [timeRemaining, setTimeRemaining] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -50,7 +89,29 @@ function DetailsTask({ isOpen, taskDetails, defaultPosition }) {
     }
   }
 
+  const handleDeleteUserToTask = (idUser, idTarea) =>{
+    if(window.confirm("Estas seguro que deseas eliminar al usuario de la tarea?")){
+      eliminarUsuarioDeTarea(idUser, idTarea);
+    }
+  }
+
+  
+  const eliminarUsuarioDeTarea = async (idUser, idTarea) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.delete(`http://localhost:8080/usuario/eliminarUsuarioDeTarea/${idTarea}/${idUser}`);
+      recargarListadoTareas();
+      handleViewDetails();
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error al obtener listado de usuarios por proyecto:",error);
+      setIsLoading(false);
+    }
+  };
+
   return (
+    <>
+    <Loading isLoading={isLoading}></Loading>
     <Draggable defaultPosition={defaultPosition}>
       <FormContainer style={{ display: isOpen ? 'block' : 'none' }}>
         <h2>Detalles de la tarea</h2>
@@ -73,13 +134,20 @@ function DetailsTask({ isOpen, taskDetails, defaultPosition }) {
           <p>Usuarios asignados:</p>
           <ul>
             {taskDetails.usuarios.map((usuario, index) => (
-              <li key={index}>{usuario.usuario}</li>
+              <>
+              <Li key={index}>{usuario.usuario}
+               <DeleteUserToTask onClick={()=>handleDeleteUserToTask(usuario.id, taskDetails.id)}/>
+              </Li>
+              
+              </>
+              
             ))}
           </ul>
         </div>
       )}
       </FormContainer>
     </Draggable>
+    </>
   );
 }
 

@@ -302,7 +302,10 @@ function TaskBoard(props) {
       <SearchTask 
       onSearch={handleSearchTask}
       handleClickAgregarPersonaIcon = {props.handleClickAgregarPersonaIcon}
-      userList={props.userList}>
+      userList={props.userList}
+      proyectoId = {props.proyectoId}
+      recargarUserList={props.recargarUserList}
+      recargarTareas={fetchData}>
       </SearchTask>
       <DrawerContainer>
       {estados.map((estado, index) => (

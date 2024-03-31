@@ -91,6 +91,10 @@ function MenuOption(props) {
           isOpen={showDetails}
           taskDetails={taskDetails}
           defaultPosition={{ x: window.innerWidth / 2 - 1120, y: window.innerHeight / 2 - 400 }}
+          recargarListadoTareas={props.fetchData}
+          idProyecto={props.idProyecto}
+          handleViewDetails={handleViewDetails}
+
         />
       )}
       {showEditForm && (

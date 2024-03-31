@@ -15,7 +15,7 @@ const Span = styled.span`
   font-weight: bold;
 `;
 
-function UserLogoList({ userList }) {
+function UserLogoList({ userList, proyectoId, recargarUserList, recargarTareas }) {
 
   console.log(userList);
   return (
@@ -27,6 +27,9 @@ function UserLogoList({ userList }) {
           usuario={user.usuario}
           nombre={user.nombre}
           apellido={user.apellido}
+          proyectoId={proyectoId}
+          recargarUserList={recargarUserList}
+          recargarTareas={recargarTareas}
         />
       ))}
       <Span>{userList.length}</Span>

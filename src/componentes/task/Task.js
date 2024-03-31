@@ -116,14 +116,14 @@ function Task(props) {
             <AssignTask title="Asignar usuario" onClick={toggleAssign} />
 
             {props.cantidad > 0 && (
-              <SpanBubble title="usuarios asignados"><BubbleAlert value={props.cantidad} /></SpanBubble>
+              <SpanBubble title="cantidad usuarios asignados"><BubbleAlert value={props.cantidad} /></SpanBubble>
             )}
             
             </div>
           )}
         </IconContainer>
       </Span>
-      {menuOpenTask && <MenuOption isOpen={menuOpenTask} toggleMenu={toggleMenu} idTarea={props.idTarea} titulo={props.titulo} fetchData={props.fetchData}/>}
+      {menuOpenTask && <MenuOption isOpen={menuOpenTask} toggleMenu={toggleMenu} idTarea={props.idTarea} titulo={props.titulo} fetchData={props.fetchData} idProyecto={props.idProyecto}  />}
       {assignOpen && (
         <AddUserContainer ref={assignRef}>
           <AddUserToTask toggleAssign={toggleAssign} idProyecto={props.idProyecto} idTarea={props.idTarea} cargarListadoTareas={props.fetchData}/>

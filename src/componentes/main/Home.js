@@ -221,6 +221,7 @@ function Home () {
            //por lo tanto, dicho boton va a activar éste método 
            handleClickAgregarPersonaIcon = {handleClickAgregarPersonaIcon}
            userList={usersInProject}
+           recargarUserList={fetchUsersInProject}
            />
          )
         }
