@@ -8,6 +8,8 @@ const Span = styled.span`
   padding: 5px 8px;
   font-size: 0.5rem;
   width: 20px;
+  position: relative;
+  top: -7px; 
 `;
 
 class BubbleAlert extends Component {

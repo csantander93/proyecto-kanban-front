@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import UserLogo from "./UserLogo";
 import styled from "styled-components";
 
