@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Draggable from "react-draggable";
 import { TiDelete } from "react-icons/ti";
 import Loading from "../loading/Loading";
-import api from "../api/apiToken"
+import api from "../api/apiToken";
 
 const FormContainer = styled.div`
   font-family: sans-serif;

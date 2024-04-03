@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import axios from "axios";
 import DetailsTask from "./DetailsTask";
 import EditTask from "./EditTask";
 import Loading from "../loading/Loading";

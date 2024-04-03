@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { MdOutlineLibraryAdd } from 'react-icons/md';
 import { UserContext } from '../contexts/UserContext';
-import axios from 'axios';
 import Loading from "../loading/Loading";
 import api from "../api/apiToken"
 

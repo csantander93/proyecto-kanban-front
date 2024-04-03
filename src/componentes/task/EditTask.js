@@ -4,7 +4,7 @@ import Draggable from "react-draggable";
 import Loading from "../loading/Loading";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import api from "../api/apiToken"
+import api from "../api/apiToken";
 
 const FormContainer = styled.div`
   font-family: sans-serif;
