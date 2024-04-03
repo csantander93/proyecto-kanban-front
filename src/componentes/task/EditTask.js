@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import axios from "axios";
 import Draggable from "react-draggable";
 import Loading from "../loading/Loading";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import api from "../api/apiToken"
 
 const FormContainer = styled.div`
   font-family: sans-serif;
@@ -101,7 +101,7 @@ function EditTask(props) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.put(`http://localhost:8080/tarea/editarTarea`, formData);
+      const response = await api.put(`/tarea/editarTarea`, formData);
       console.log("Tarea editada exitosamente");
       props.fetchData();
       setIsLoading(false);

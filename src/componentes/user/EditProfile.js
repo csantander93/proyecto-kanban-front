@@ -4,9 +4,9 @@ import styled from "styled-components"
 
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
-import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
 import Loading from "../loading/Loading";
+import api from "../api/apiToken";
 
 
 const Formulario = styled.form`
@@ -108,7 +108,7 @@ function EditProfile() {
     if(cambioRealizado){
     setIsLoading(true);
    
-    axios.put("http://localhost:8080/usuario/editarUsuario", usuarioAEditar)
+    api.put("/usuario/editarUsuario", usuarioAEditar)
         .then(response => {
             console.log('¡Datos enviados con éxito!', response.data);
             //se supone que debe devolver el usuario editado

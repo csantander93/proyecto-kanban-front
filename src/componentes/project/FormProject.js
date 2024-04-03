@@ -4,6 +4,7 @@ import { MdOutlineLibraryAdd } from 'react-icons/md';
 import { UserContext } from '../contexts/UserContext';
 import axios from 'axios';
 import Loading from "../loading/Loading";
+import api from "../api/apiToken"
 
 const Overlay = styled.div`
   position: fixed;
@@ -120,7 +121,7 @@ const ButtonAddProject = styled(MdOutlineLibraryAdd)`
     const handleSubmit = (e) => {
       e.preventDefault();
       setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
-      axios.post("http://localhost:8080/proyecto/crear", formData)
+      api.post("/proyecto/crear", formData)
       .then(response => {
           console.log('¡Datos enviados con éxito!', response.data);
           setIsLoading(false);

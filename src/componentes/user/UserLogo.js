@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import axios from "axios";
 import Loading from "../loading/Loading";
 import { useState } from "react";
+import api from "../api/apiToken";
 
 const Perfil = styled.div `
   font-family: sans-serif;
@@ -41,7 +41,7 @@ const Texto = styled.div`
     const eliminarUsuarioDeProyecto = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.delete(`http://localhost:8080/proyecto/eliminarUsuarioDeProyecto/${props.id}/${props.proyectoId}`);
+        const response = await api.delete(`/proyecto/eliminarUsuarioDeProyecto/${props.id}/${props.proyectoId}`);
         props.recargarUserList(props.proyectoId);
         props.recargarTareas();
         setIsLoading(false);

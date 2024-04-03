@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import Loading from "../loading/Loading";
+import api from '../api/apiToken';
 
 const Container = styled.div`
   position: relative;
@@ -92,7 +92,7 @@ const AddUserToTask = (props) => {
 
   const fetchApiUsersTerm = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/usuario/traerUsuariosDeProyectoSinTarea/${searchTerm}/${props.idProyecto}/${props.idTarea}`);
+      const response = await api.get(`/usuario/traerUsuariosDeProyectoSinTarea/${searchTerm}/${props.idProyecto}/${props.idTarea}`);
       setUserList(response.data);
     } catch (error) {
       console.error("Error al obtener listado de usuarios por terminacion:", error);
@@ -102,7 +102,7 @@ const AddUserToTask = (props) => {
   const addUserToTask = async (user) => {
     setIsLoading(true);
     try {
-      const response = await axios.put(`http://localhost:8080/usuario/asignarUsuarioATarea/${props.idTarea}/${user.id}`);
+      const response = await api.put(`/usuario/asignarUsuarioATarea/${props.idTarea}/${user.id}`);
       console.log(response.data);
       props.toggleAssign();
       props.cargarListadoTareas();

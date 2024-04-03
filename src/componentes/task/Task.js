@@ -5,7 +5,6 @@ import { SlOptions } from "react-icons/sl";
 import MenuOption from "./MenuOption";
 import AddUserToTask from "../user/AddUserToTask";
 import BubbleAlert from "../utils/BubbleAlert";
-import axios from "axios";
 
 const Contenedor = styled.div`
   position: relative;

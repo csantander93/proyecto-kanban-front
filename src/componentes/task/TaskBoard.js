@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { useState, useEffect, useRef } from "react";
 import Task from './Task';
-import axios from 'axios';
 import { RiAddCircleFill } from "react-icons/ri";
 import { IoMdSend } from "react-icons/io";
 import SearchTask from './SearchTask';
 import Loading from "../loading/Loading";
+import api from "../api/apiToken";
 
 const DrawerContainer = styled.div`
   font-family: sans-serif;
@@ -152,7 +152,7 @@ function TaskBoard(props) {
   //consumir la api que obtiene las tareas del proyecto props.idProyecto
   const fetchData = () => {
     setIsLoading(true);
-    return axios.get(`http://localhost:8080/tarea/traerTareas/${props.proyectoId}`)
+    return api.get(`/tarea/traerTareas/${props.proyectoId}`)
     .then((response) => {
       console.log("response data:\n", response.data)
       separarTareasEstados(response.data);
@@ -169,7 +169,7 @@ function TaskBoard(props) {
   const handleSearchTask = (searchTerm) => {
     if (searchTerm.trim() !== '') {
       // Realizar búsqueda por nombre
-      axios.get(`http://localhost:8080/tarea/buscarTareasIdNombre/${props.proyectoId}/${searchTerm}`)
+      api.get(`/tarea/buscarTareasIdNombre/${props.proyectoId}/${searchTerm}`)
       .then((response) => {
         separarTareasEstados(response.data);
       })
@@ -280,7 +280,7 @@ function TaskBoard(props) {
   //API PARA CREAR NUEVA TAREA
   const fetchApiNewTask = () => {
     setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
-    return axios.post(`http://localhost:8080/tarea/crearTarea`, nuevaTarea)
+    return api.post(`/tarea/crearTarea`, nuevaTarea)
     .then((response) => {
       setIsLoading(false);
       setCrearTarea(false);

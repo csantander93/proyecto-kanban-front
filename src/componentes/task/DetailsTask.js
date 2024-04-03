@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Draggable from "react-draggable";
 import { TiDelete } from "react-icons/ti";
 import Loading from "../loading/Loading";
-import axios from "axios";
+import api from "../api/apiToken"
 
 const FormContainer = styled.div`
   font-family: sans-serif;
@@ -99,7 +99,7 @@ function DetailsTask({ isOpen, taskDetails, defaultPosition, recargarListadoTare
   const eliminarUsuarioDeTarea = async (idUser, idTarea) => {
     setIsLoading(true);
     try {
-      const response = await axios.delete(`http://localhost:8080/usuario/eliminarUsuarioDeTarea/${idTarea}/${idUser}`);
+      const response = await api.delete(`/usuario/eliminarUsuarioDeTarea/${idTarea}/${idUser}`);
       recargarListadoTareas();
       handleViewDetails();
       setIsLoading(false);

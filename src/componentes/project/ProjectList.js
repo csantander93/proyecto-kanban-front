@@ -6,6 +6,7 @@ import { FiInfo } from "react-icons/fi";
 import axios from "axios";
 import CustomModal from "./CustomModal";
 import Loading from "../loading/Loading";
+import api from "../api/apiToken";
 
 const Li = styled.li`
   position: relative;
@@ -129,7 +130,7 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
   const handleInfoClick = async (projectId) => {
     setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
     try {
-      const response = await axios.get(`http://localhost:8080/proyecto/traerProyectoId/${projectId}`);
+      const response = await api.get(`/proyecto/traerProyectoId/${projectId}`);
       const projectDetails = response.data;
       setSelectedProject(projectDetails);
       setIsLoading(false);
@@ -150,8 +151,8 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
     );
     if (confirmDelete) {
       try {
-        const response = await axios.put(
-          `http://localhost:8080/proyecto/bajaProyecto/${projectId}`
+        const response = await api.put(
+          `/proyecto/bajaProyecto/${projectId}`
         );
         actualizarProyectos();
         console.log("Proyecto eliminado exitosamente");
@@ -172,8 +173,8 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
 
   const handleEditClick = async (projectId) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/proyecto/traerProyectoId/${projectId}`
+      const response = await api.get(
+        `/proyecto/traerProyectoId/${projectId}`
       );
       setFormEdit(response.data);
       setEditFormOpen(true);
@@ -186,7 +187,7 @@ function ProjectList({ listaProyectos, actualizarProyectos, clickProyecto }) {
     e.preventDefault();
     setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
     try {
-      const response = await axios.put(`http://localhost:8080/proyecto/editarProyecto/${formProjectEdit.id}/${formProjectEdit.nombre}/${formProjectEdit.descripcion}`);
+      const response = await api.put(`/proyecto/editarProyecto/${formProjectEdit.id}/${formProjectEdit.nombre}/${formProjectEdit.descripcion}`);
       actualizarProyectos();
       setIsLoading(false);
       console.log("Proyecto editado exitosamente");

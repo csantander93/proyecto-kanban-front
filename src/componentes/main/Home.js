@@ -1,5 +1,5 @@
 import { UserContext } from "../contexts/UserContext";
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import ProjectList from "../project/ProjectList";
 import styled from "styled-components";
@@ -10,6 +10,7 @@ import SearchProject from "../project/SearchProject";
 import { IoIosNotifications } from "react-icons/io";
 import AddUserToProject from "../user/AddUserToProject";
 import { Link } from "react-router-dom";
+import api from "../api/apiToken";
 
 const Header = styled.header `
   position: fixed;
@@ -124,7 +125,7 @@ function Home () {
   const fetchUsersInProject = async (idProyecto) => {
     // Función para obtener la lista de usuarios del proyecto seleccionado
     try {
-      const response = await axios.get(`http://localhost:8080/usuario/traerUsuariosPorIdProyecto/${idProyecto}`);
+      const response = await api.get(`usuario/traerUsuariosPorIdProyecto/${idProyecto}`);
       setUsersInProject(response.data);
     } catch (error) {
       console.error("Error al obtener listado de usuarios por proyecto:",error);
@@ -132,7 +133,7 @@ function Home () {
   };
 
   const fetchData = () => {
-    return axios.get(`http://localhost:8080/proyecto/traerProyectos/${user.id}`)
+    return api.get(`/proyecto/traerProyectos/${user.id}`)
     .then((response) => {
       setProyectos(response.data);
     })
@@ -145,7 +146,7 @@ function Home () {
   const handleSearchProject = (searchTerm) => {
     if (searchTerm.trim() !== '') {
       // Realizar búsqueda por nombre
-      axios.get(`http://localhost:8080/proyecto/buscarProyectos/${user.id}/${searchTerm}`)
+      api.get(`proyecto/buscarProyectos/${user.id}/${searchTerm}`)
       .then((response) => {
         setProyectos(response.data);
       })

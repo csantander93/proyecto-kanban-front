@@ -124,6 +124,7 @@ function Login() {
         .then(response => {
             console.log('¡Datos enviados con éxito!', response.data);
             setUser(response.data)
+            localStorage.setItem('token', response.data.token);
             navigate('/home');
         })
         .catch(error => {

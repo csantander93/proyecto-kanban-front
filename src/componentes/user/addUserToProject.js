@@ -1,8 +1,8 @@
 //EN ESTE ARCHIVO SE CONSUMIRAN LAS APIS NECESARIOS Y SE IMPLEMENTARA LO NECESARIO PARA AGREGAR A UN USUARIO AL PROYECTO
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import Loading from "../loading/Loading";
+import api from '../api/apiToken';
 
 const Overlay = styled.div`
   font-family: sans-serif;
@@ -172,8 +172,8 @@ function AddUserToProject(props){
   //se consume la api que busca usuarios por terminación
   const fetchApiUsersTerm = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/usuario/traerUsuariosPorNombreUsuario/${searchTerm}/${props.idProyecto}`
+        const response = await api.get(
+          `/usuario/traerUsuariosPorNombreUsuario/${searchTerm}/${props.idProyecto}`
         );
         setUserList(response.data);
         console.log(response.data);
@@ -229,7 +229,7 @@ function AddUserToProject(props){
         idProyecto: props.idProyecto,
         idRolUsuario: selectedRole
       }
-      axios.post("http://localhost:8080/proyecto/agregarUsuarioAProyecto", json)
+      api.post("/proyecto/agregarUsuarioAProyecto", json)
       .then(response => {
           console.log('¡Datos enviados con éxito!', response.data);
           window.alert("Se ingreso el usuario al proyecto");

@@ -4,6 +4,7 @@ import axios from "axios";
 import DetailsTask from "./DetailsTask";
 import EditTask from "./EditTask";
 import Loading from "../loading/Loading";
+import api from "../api/apiToken";
 
 const MenuContainer = styled.div`
   position: absolute;
@@ -40,7 +41,7 @@ function MenuOption(props) {
     if (confirmDelete) {
       setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
       try {
-        const response = await axios.put(`http://localhost:8080/tarea/bajaTarea/${props.idTarea}`);
+        const response = await api.put(`/tarea/bajaTarea/${props.idTarea}`);
         console.log("Tarea eliminada exitosamente");
         props.toggleMenu();
         props.fetchData();
@@ -55,7 +56,7 @@ function MenuOption(props) {
     setMenuAbierto(false);
     setIsLoading(true); // Activamos el cartel de carga al iniciar la petición
     try {
-      const response = await axios.get(`http://localhost:8080/tarea/traerTareaPorId/${props.idTarea}`);
+      const response = await api.get(`/tarea/traerTareaPorId/${props.idTarea}`);
       setTaskDetails(response.data);
       setShowDetails(true);
       setIsLoading(false);
@@ -69,7 +70,7 @@ function MenuOption(props) {
     setMenuAbierto(false);
     setIsLoading(true);
     try{
-      const response = await axios.get(`http://localhost:8080/tarea/traerTareaPorId/${props.idTarea}`);
+      const response = await api.get(`/tarea/traerTareaPorId/${props.idTarea}`);
       setTaskEdit(response.data)
       setShowEditForm(true)
       setIsLoading(false);
