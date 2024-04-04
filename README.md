@@ -23,7 +23,7 @@ Este proyecto es la interfaz de usuario para el Tablero Kanban destinado a la ge
 
 ## Pasos para levantar la aplicación localmente:
 
-1. Asegúrate de tener Node.js y npm instalados en tu sistema.
+1. Asegúrate de tener instalado VS CODE o algun IDE para abrir el proyecto y npm instalados en tu sistema.
 2. Clona el repositorio:
 
 ```bash
