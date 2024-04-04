@@ -13,6 +13,13 @@ Este proyecto es la interfaz de usuario para el Tablero Kanban destinado a la ge
 - Creación de nuevos proyectos con la posibilidad de agregar contribuyentes.
 - Creación de tareas, asignando un usuario responsable para ejecutarlas.
 - Cambio de estado de la tarea según el proceso en el que se encuentre (Por hacer, en proceso, terminado, en revisión, aprobado).
+- Utilización de React Hooks para el manejo de estado y efectos.
+- Implementación de React Router para la navegación entre páginas.
+- Uso de localStorage para almacenar datos localmente en el navegador.
+- Edición y eliminación de tareas.
+- Establecimiento de fecha de finalización para las tareas.
+- Visualización de un contador de tiempo para la finalización de la tarea.
+- Eliminación, búsqueda y edición de proyectos.
 
 ## Pasos para levantar la aplicación localmente:
 
