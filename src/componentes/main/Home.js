@@ -183,10 +183,12 @@
     };
 
     const handleLogout = () => {
+      if(window.confirm("¿Estás seguro/a de que deseas cerrar sesión?")){
       // Eliminar todos los datos almacenados en localStorage
       localStorage.clear();
       // Redirigir al usuario a la página de inicio de sesión
       window.location.href = "/login";
+      }
   };
 
     return (
