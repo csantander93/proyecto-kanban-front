@@ -125,7 +125,11 @@
     });
     const [proyectos, setProyectos] = useState([]);
     const [error, setError] = useState(null);
-    const [selectedIdProject, setSelectedIdProject] = useState(null);
+    //obtenemos el idProject del local storage
+    const [selectedIdProject, setSelectedIdProject] = useState(() => {
+      const storedProject = window.localStorage.getItem("idProject");
+      return storedProject ? JSON.parse(storedProject) : null;
+    });
     const [usersInProject, setUsersInProject] = useState([]); // Nuevo estado para almacenar los usuarios del proyecto seleccionado
 
     const fetchUsersInProject = async (idProyecto) => {
@@ -182,6 +186,7 @@
 
     const handleProjectClick = (idProyecto) => {
       setSelectedIdProject(idProyecto);
+      window.localStorage.setItem("idProject", JSON.stringify(idProyecto));
       fetchUsersInProject(idProyecto);
     }
     //controla si se abre o no el formulario para agregar usuario al proyecto

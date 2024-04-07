@@ -80,7 +80,13 @@ export const Input = styled.input`
 
 
 function EditProfile() {
-  const {user, setUser} = useContext(UserContext);
+  const [user, setUser] = useState(() => {
+    // Intenta recuperar el usuario del localStorage
+    const storedUser = window.localStorage.getItem("user");
+    // Si hay un usuario almacenado, conviértelo de nuevo en un objeto JavaScript
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+  
   const [usuarioAEditar, setUsuarioAEditar] = useState({ // Limpiar el formulario
     id: user.id,
     usuario: user.usuario,
@@ -112,7 +118,17 @@ function EditProfile() {
         .then(response => {
             console.log('¡Datos enviados con éxito!', response.data);
             //se supone que debe devolver el usuario editado
-            setUser(response.data);
+            setUser( {
+              id: response.data.id,
+              usuario: response.data.usuario,
+              nombre: response.data.nombre,
+              apellido: response.data.apellido,
+              email:response.data.email,
+              //por mas que se actualice el usuario, mantiene el mismo token
+              token: user.token
+            });
+            //actulizamos el local storage con los datos del usuario actualizado
+            window.localStorage.setItem("user", JSON.stringify(user));
             setUsuarioAEditar(
                 {
                     id: user.id,
