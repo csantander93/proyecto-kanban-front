@@ -108,7 +108,7 @@ function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const [ user, setUser ] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

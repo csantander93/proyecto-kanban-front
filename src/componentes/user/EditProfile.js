@@ -3,8 +3,7 @@ import GlobalStyles from "../main/GlobalStyles";
 import styled from "styled-components"
 
 import { Link } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Loading from "../loading/Loading";
 import api from "../api/apiToken";
 
@@ -128,15 +127,15 @@ function EditProfile() {
               token: user.token
             });
             //actulizamos el local storage con los datos del usuario actualizado
-            window.localStorage.setItem("user", JSON.stringify(user));
+            window.localStorage.setItem("user", JSON.stringify(response.data));
             setUsuarioAEditar(
                 {
-                    id: user.id,
-                    usuario: user.usuario,
+                    id: response.data.id,
+                    usuario: response.data.usuario,
                     password: '',
-                    nombre: user.nombre,
-                    apellido: user.apellido,
-                    email: user.email,
+                    nombre: response.data.nombre,
+                    apellido: response.data.apellido,
+                    email: response.data.email,
                 }
             );
             setRegistroExitoso(true); // Mostrar mensaje de éxito
@@ -175,6 +174,7 @@ function EditProfile() {
                 placeholder="usuario"
                 value={usuarioAEditar.usuario}
                 onChange={handleChange}
+                required
               />
 
               <Label>Contraseña</Label>
@@ -193,6 +193,7 @@ function EditProfile() {
                 placeholder="nombre"
                 value={usuarioAEditar.nombre}
                 onChange={handleChange}
+                required
               />
 
               <Label>Apellido</Label>
@@ -202,6 +203,7 @@ function EditProfile() {
                 placeholder="apellido"
                 value={usuarioAEditar.apellido}
                 onChange={handleChange}
+                required
               />
 
               <Label>Email</Label>
@@ -211,6 +213,7 @@ function EditProfile() {
                 placeholder="email"
                 value={usuarioAEditar.email}
                 onChange={handleChange}
+                required
               />
 
               <Button type="submit">Enviar</Button>
