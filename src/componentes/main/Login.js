@@ -124,9 +124,9 @@ function Login() {
         .then(response => {
             console.log('¡Datos enviados con éxito!', response.data);
             setUser(response.data)
-            localStorage.setItem('token', response.data.token);
+            window.localStorage.setItem('token', response.data.token);
             // Guarda los datos del usuario en localStorage
-            localStorage.setItem("user", JSON.stringify(response.data));
+            window.localStorage.setItem("user", JSON.stringify(response.data));
             navigate('/home');
         })
         .catch(error => {

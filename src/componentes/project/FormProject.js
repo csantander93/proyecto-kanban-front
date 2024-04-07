@@ -101,7 +101,7 @@ const ButtonAddProject = styled(MdOutlineLibraryAdd)`
 
  //para obtener el usuario en contexto, osea el usuario logueado
  //para que se renderice la lista de proyectos
-    const { user } = useContext(UserContext);
+ const user = JSON.parse(window.localStorage.getItem("user"));
     const dataInicial = {
       idUsuario: user.id,
       nombre: '',

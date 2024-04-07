@@ -116,7 +116,13 @@
   `;
 
   function Home () {
-    const user = JSON.parse(localStorage.getItem("user"));
+    //const user = JSON.parse(localStorage.getItem("user"));
+    const [user, setUser] = useState(() => {
+      // Intenta recuperar el usuario del localStorage
+      const storedUser = window.localStorage.getItem("user");
+      // Si hay un usuario almacenado, conviértelo de nuevo en un objeto JavaScript
+      return storedUser ? JSON.parse(storedUser) : null;
+    });
     const [proyectos, setProyectos] = useState([]);
     const [error, setError] = useState(null);
     const [selectedIdProject, setSelectedIdProject] = useState(null);
@@ -160,8 +166,11 @@
     };
 
     useEffect(() => {
+      if(user){
       fetchData();
-    }, [])
+      window.localStorage.setItem("user", JSON.stringify(user));
+      }
+    }, [user])
 
     const actualizarProyectos = () => {
       fetchData();
@@ -193,7 +202,9 @@
 
     return (
       <>
-      <GlobalStyles/>
+      {user && (
+        <>
+        <GlobalStyles/>
         <Header>
           <FormProject actualizarProyectos={actualizarProyectos} />
           <SearchProject onSearch={handleSearchProject}></SearchProject>
@@ -209,6 +220,7 @@
               fetchUsersInProject={handleProjectClick}
               />
             )}
+          
         </Header>
         <Container>
           <div>
@@ -238,6 +250,11 @@
           )
           }
         </Container>
+        </>
+      )}
+        
+     
+      
       </>
     )
   }
