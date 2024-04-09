@@ -3,7 +3,6 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 import PrincipalBox from "./PrincipalBox";
-import { UserContext } from '../contexts/UserContext';
 import { FaRegUser, FaLock, FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import GlobalStyles from "./GlobalStyles";
 

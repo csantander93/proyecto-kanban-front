@@ -18,11 +18,11 @@ function App () {
          
           <Route
             path="/register"
-            element={isAuthenticated ? <Body><Register /> </Body> : <Navigate to="/login" />}
+            element={<Body><Register /> </Body>}
           />
            <Route
             path="/home"
-            element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
+            element={ <Home /> }
           />
           <Route
             path="/editProfile"
